@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">NotionBoost</string>
+
+    <string name="monthly_widget_preview_title">Habit Tracker(Monthly)</string>
+    <string name="monthly_widget_description">Display Notion Habit tracker status</string>
 </resources>

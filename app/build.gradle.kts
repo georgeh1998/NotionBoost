@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.github.goutarouh.notionboost"
-        minSdk = 30
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -66,4 +66,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+
+    // Glance
+    implementation("androidx.glance:glance:1.0.0")
+    implementation("androidx.glance:glance-appwidget:1.0.0")
 }
