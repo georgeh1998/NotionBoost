@@ -1,39 +1,30 @@
 package com.github.goutarouh.notionboost.widget
 
 import android.content.Context
-import android.content.Intent
-import androidx.compose.ui.graphics.Color
-import androidx.core.net.toUri
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.glance.GlanceId
-import androidx.glance.GlanceModifier
-import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.provideContent
-import androidx.glance.background
-import androidx.glance.layout.Alignment
-import androidx.glance.layout.Box
-import androidx.glance.layout.fillMaxSize
-import androidx.glance.text.Text
+import androidx.glance.currentState
+import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
+import com.google.gson.Gson
 
 class MonthlyWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
-            Box(
-                modifier = GlanceModifier
-                    .fillMaxSize()
-                    .background(Color.White)
-                    .clickable(actionStartActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            "https://www.notion.so/2024-Habit-Tracker-b3ca62aaf06443aa92758511490cf6ce".toUri()
-                        )
-                    ))
-                ,
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "MonthlyWidget")
+            val preferences = currentState<Preferences>()
+            val monthlyInfoJson = preferences[monthlyInfo]
+            val monthlyInfo = if (monthlyInfoJson == null) {
+                QueryDatabaseModel(listOf())
+            } else {
+                Gson().fromJson(monthlyInfoJson, QueryDatabaseModel::class.java)
             }
+            MonthlyWidgetContent(monthlyInfo)
         }
+    }
+
+    companion object {
+        val monthlyInfo = stringPreferencesKey("monthlyInfo")
     }
 }
