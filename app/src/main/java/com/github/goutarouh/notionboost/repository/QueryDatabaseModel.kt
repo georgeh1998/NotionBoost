@@ -2,12 +2,40 @@ package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 data class QueryDatabaseModel(
     val now: LocalDateTime,
     val dailyInfoList: List<DailyInfo>
-)
+) {
+
+    fun convertToUserZone(
+        userZoneId: ZoneId = ZoneId.systemDefault()
+    ) : QueryDatabaseModel {
+        val utcZoneId = ZoneId.of("UTC")
+
+        return this.copy(
+            dailyInfoList = this.dailyInfoList.map {
+                it.copy(
+                    createdTime = it.createdTime.atZone(utcZoneId).withZoneSameInstant(userZoneId).toLocalDateTime()
+                )
+            }
+        )
+    }
+
+    /**
+     * (ex) JANUARY -> 1
+     * (ex) DECEMBER -> 12
+     */
+    fun filterByMonth(monthValue: Int) : QueryDatabaseModel {
+        return this.copy(
+            dailyInfoList = this.dailyInfoList.filter {
+                it.createdTime.monthValue == monthValue
+            }
+        )
+    }
+}
 
 data class DailyInfo(
     val createdTime: LocalDateTime,

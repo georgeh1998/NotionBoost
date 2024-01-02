@@ -1,8 +1,9 @@
 package com.github.goutarouh.notionboost.widget
 
 import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
+import com.github.goutarouh.notionboost.util.getFirstDayOfThisMonth
+import com.github.goutarouh.notionboost.util.getLastDayOfThisMonth
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.Locale
 
 data class MonthlyReportModel(
@@ -30,17 +31,8 @@ private val dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
 
 fun QueryDatabaseModel.toMonthlyReportModel(): MonthlyReportModel {
 
-    val dailyInfoList = dailyInfoList
-
-    val startDate = now
-        .withDayOfMonth(1)
-        .truncatedTo(ChronoUnit.DAYS)
-
-    val endDate = now
-        .withDayOfMonth(1)
-        .plusMonths(1)
-        .minusDays(1)
-        .truncatedTo(ChronoUnit.DAYS)
+    val startDate = now.getFirstDayOfThisMonth()
+    val endDate = now.getLastDayOfThisMonth()
 
     return if (dailyInfoList.isEmpty()) {
         val monthlyReport = MonthlyReport(

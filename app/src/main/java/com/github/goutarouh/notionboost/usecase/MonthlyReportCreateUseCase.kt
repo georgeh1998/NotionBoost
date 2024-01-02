@@ -1,33 +1,24 @@
 package com.github.goutarouh.notionboost.usecase
 
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.util.getFirstDayOfNextMonth
+import com.github.goutarouh.notionboost.util.getLastDayOfPreviousMonth
 import com.github.goutarouh.notionboost.widget.toMonthlyReportModel
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 class MonthlyReportCreateUseCase @Inject constructor(
     private val notionDatabaseRepository: NotionDatabaseRepository,
 ) {
 
-    private val utcZoneId = ZoneId.of("UTC")
-    private val userZoneId = ZoneId.systemDefault()
-
     suspend operator fun invoke(
         databaseId: String,
         now: LocalDateTime = LocalDateTime.now(ZoneId.systemDefault()),
     ) {
 
-        val lastDayOfPreviousMonth = now
-            .withDayOfMonth(1)
-            .minusDays(1)
-            .truncatedTo(ChronoUnit.DAYS)
-
-        val firstDayOfNextMonth = now
-            .withDayOfMonth(1)
-            .plusMonths(1)
-            .truncatedTo(ChronoUnit.DAYS)
+        val lastDayOfPreviousMonth = now.getLastDayOfPreviousMonth()
+        val firstDayOfNextMonth = now.getFirstDayOfNextMonth()
 
         val queryDatabaseModel = notionDatabaseRepository.queryDatabase(
             databaseId = databaseId,
@@ -36,17 +27,11 @@ class MonthlyReportCreateUseCase @Inject constructor(
             inclusiveEndDate = firstDayOfNextMonth
         )
 
-        val userZoneFilteredModel = queryDatabaseModel.copy(
-            dailyInfoList = queryDatabaseModel.dailyInfoList.map {
-                it.copy(
-                    createdTime = it.createdTime.atZone(utcZoneId).withZoneSameInstant(userZoneId).toLocalDateTime()
-                )
-            }.filter {
-                it.createdTime.monthValue == now.monthValue
-            }
-        )
+        val userZonFilteredModel = queryDatabaseModel
+            .convertToUserZone()
+            .filterByMonth(now.monthValue)
 
-        val monthlyReportModel = userZoneFilteredModel.toMonthlyReportModel()
+        val monthlyReportModel = userZonFilteredModel.toMonthlyReportModel()
         notionDatabaseRepository.updateWidget(monthlyReportModel)
     }
 
