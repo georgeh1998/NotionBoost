@@ -11,18 +11,20 @@ class MonthlyReportCreateUseCase @Inject constructor(
     private val notionDatabaseRepository: NotionDatabaseRepository,
 ) {
 
-    private val utcDateTime = ZoneId.of("UTC")
+    private val utcZoneId = ZoneId.of("UTC")
+    private val userZoneId = ZoneId.systemDefault()
 
     suspend operator fun invoke(
         databaseId: String,
-        now: LocalDateTime = LocalDateTime.now(utcDateTime),
+        now: LocalDateTime = LocalDateTime.now(ZoneId.systemDefault()),
     ) {
 
-        val inclusiveStartDate = now
+        val lastDayOfPreviousMonth = now
             .withDayOfMonth(1)
+            .minusDays(1)
             .truncatedTo(ChronoUnit.DAYS)
 
-        val exclusiveEndDate = now
+        val firstDayOfNextMonth = now
             .withDayOfMonth(1)
             .plusMonths(1)
             .truncatedTo(ChronoUnit.DAYS)
@@ -30,11 +32,21 @@ class MonthlyReportCreateUseCase @Inject constructor(
         val queryDatabaseModel = notionDatabaseRepository.queryDatabase(
             databaseId = databaseId,
             now = now,
-            inclusiveStartDate = inclusiveStartDate,
-            exclusiveEndDate = exclusiveEndDate
+            inclusiveStartDate = lastDayOfPreviousMonth,
+            inclusiveEndDate = firstDayOfNextMonth
         )
 
-        val monthlyReportModel = queryDatabaseModel.toMonthlyReportModel()
+        val userZoneFilteredModel = queryDatabaseModel.copy(
+            dailyInfoList = queryDatabaseModel.dailyInfoList.map {
+                it.copy(
+                    createdTime = it.createdTime.atZone(utcZoneId).withZoneSameInstant(userZoneId).toLocalDateTime()
+                )
+            }.filter {
+                it.createdTime.monthValue == now.monthValue
+            }
+        )
+
+        val monthlyReportModel = userZoneFilteredModel.toMonthlyReportModel()
         notionDatabaseRepository.updateWidget(monthlyReportModel)
     }
 

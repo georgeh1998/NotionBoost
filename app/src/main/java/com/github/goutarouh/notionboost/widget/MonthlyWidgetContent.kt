@@ -110,26 +110,26 @@ private fun Success(
         ) {
             AccomplishmentTrackRow(
                 title = "Reading",
-                allDayCount = 15,
-                doneCount = 1,
+                progress = monthlyReport.readingProgress,
+                progressPercent = monthlyReport.calculateProgress(monthlyReport.readingProgress),
                 modifier = GlanceModifier.padding(vertical = 3.dp),
             )
             AccomplishmentTrackRow(
                 title = "English",
-                allDayCount = 15,
-                doneCount = 13,
+                progress = monthlyReport.englishLearningProgress,
+                progressPercent = monthlyReport.calculateProgress(monthlyReport.englishLearningProgress),
                 modifier = GlanceModifier.padding(vertical = 3.dp),
             )
             AccomplishmentTrackRow(
                 title = "Workout",
-                allDayCount = 15,
-                doneCount = 10,
+                progress = monthlyReport.workOutProgress,
+                progressPercent = monthlyReport.calculateProgress(monthlyReport.workOutProgress),
                 modifier = GlanceModifier.padding(vertical = 3.dp),
             )
             AccomplishmentTrackRow(
                 title = "Bed 24",
-                allDayCount = 15,
-                doneCount = 2,
+                progress = monthlyReport.sleepUntil24Progress,
+                progressPercent = monthlyReport.calculateProgress(monthlyReport.sleepUntil24Progress),
                 modifier = GlanceModifier.padding(vertical = 3.dp),
             )
         }
@@ -139,8 +139,8 @@ private fun Success(
 @Composable
 private fun AccomplishmentTrackRow(
     title: String,
-    allDayCount: Int,
-    doneCount: Int,
+    progress: Float,
+    progressPercent: Int,
     modifier: GlanceModifier = GlanceModifier
 ) {
     Row(
@@ -159,8 +159,6 @@ private fun AccomplishmentTrackRow(
         Spacer(
             modifier = GlanceModifier.width(12.dp),
         )
-
-        val progress = doneCount.toFloat() / allDayCount.toFloat()
         Box(
             modifier = GlanceModifier.defaultWeight(),
             contentAlignment = Alignment.Center
@@ -170,9 +168,8 @@ private fun AccomplishmentTrackRow(
                 modifier = GlanceModifier.fillMaxWidth(),
             )
 
-            val rate = (progress * 100).toInt()
             Text(
-                text = "${rate}%",
+                text = "$progressPercent%",
                 modifier = GlanceModifier.fillMaxWidth().padding(end = 8.dp),
                 style = TextStyle(
                     textAlign = TextAlign.End,

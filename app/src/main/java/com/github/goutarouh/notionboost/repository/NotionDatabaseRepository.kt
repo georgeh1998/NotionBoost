@@ -18,7 +18,7 @@ interface NotionDatabaseRepository {
         databaseId: String,
         now: LocalDateTime,
         inclusiveStartDate: LocalDateTime,
-        exclusiveEndDate: LocalDateTime
+        inclusiveEndDate: LocalDateTime
     ) : QueryDatabaseModel
 
     suspend fun updateWidget(monthlyReportModel: MonthlyReportModel)
@@ -36,21 +36,21 @@ class NotionDatabaseRepositoryImpl(
         databaseId: String,
         now : LocalDateTime,
         inclusiveStartDate: LocalDateTime,
-        exclusiveEndDate: LocalDateTime
+        inclusiveEndDate: LocalDateTime
     ) : QueryDatabaseModel {
 
         val queryDatabaseApiAndRequestModel = QueryDatabaseApiAndRequestModel(
             filter = QueryDatabaseApiAndRequestModel.Filter(
                 and = listOf(
-                    QueryDatabaseApiAndRequestModel.Filter.And(
-                        date = QueryDatabaseApiAndRequestModel.Filter.And.Date.OnOrAfter(
+                    QueryDatabaseApiAndRequestModel.And(
+                        date = QueryDatabaseApiAndRequestModel.Date.OnOrAfter(
                             onOrAfter = inclusiveStartDate.toString()
                         ),
                         property = "Created time"
                     ),
-                    QueryDatabaseApiAndRequestModel.Filter.And(
-                        date = QueryDatabaseApiAndRequestModel.Filter.And.Date.Before(
-                            before = exclusiveEndDate.toString()
+                    QueryDatabaseApiAndRequestModel.And(
+                        date = QueryDatabaseApiAndRequestModel.Date.OnOrBefore(
+                            onOrBefore = inclusiveEndDate.toString()
                         ),
                         property = "Created time"
                     )
