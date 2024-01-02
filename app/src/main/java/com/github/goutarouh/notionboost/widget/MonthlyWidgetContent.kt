@@ -20,10 +20,11 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.width
+import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextAlign
 import androidx.glance.text.TextStyle
-import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
+import androidx.glance.unit.ColorProvider
 
 @Composable
 fun MonthlyWidgetContent(
@@ -33,7 +34,7 @@ fun MonthlyWidgetContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(WidgetColor.widgetBackground)
             .clickable(
                 actionStartActivity(
                     Intent(
@@ -75,46 +76,63 @@ private fun NoData() {
 @Composable
 private fun Success(
     monthlyReport: MonthlyReport,
-    modifier: GlanceModifier = GlanceModifier
+    modifier: GlanceModifier = GlanceModifier,
 ) {
 
     Column(
         modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Spacer(
+            modifier = GlanceModifier.height(8.dp),
+        )
         Text(
-            text = "${monthlyReport.monthName} Habit Tracker"
+            text = "${monthlyReport.monthName} Habit Tracker",
+            style = TextStyle(
+                fontSize = WidgetText.LargeTextSize,
+                fontWeight = FontWeight.Bold,
+            ),
         )
         Text(
             text = "${monthlyReport.startDate} - ${monthlyReport.endDate}",
+            style = TextStyle(
+                fontSize = WidgetText.MediumTextSize,
+            ),
         )
         Spacer(
-            modifier = GlanceModifier.height(12.dp)
+            modifier = GlanceModifier.height(12.dp),
         )
-        AccomplishmentTrackRow(
-            title = "Reading",
-            allDayCount = 15,
-            doneCount = 1,
-            modifier = GlanceModifier.padding(vertical = 2.dp)
-        )
-        AccomplishmentTrackRow(
-            title = "English",
-            allDayCount = 15,
-            doneCount = 13,
-            modifier = GlanceModifier.padding(vertical = 2.dp)
-        )
-        AccomplishmentTrackRow(
-            title = "Workout",
-            allDayCount = 15,
-            doneCount = 10,
-            modifier = GlanceModifier.padding(vertical = 2.dp)
-        )
-        AccomplishmentTrackRow(
-            title = "Bed 24",
-            allDayCount = 15,
-            doneCount = 2,
-            modifier = GlanceModifier.padding(vertical = 2.dp)
-        )
+        Column(
+            modifier = GlanceModifier
+                .fillMaxWidth()
+                .defaultWeight(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AccomplishmentTrackRow(
+                title = "Reading",
+                allDayCount = 15,
+                doneCount = 1,
+                modifier = GlanceModifier.padding(vertical = 3.dp),
+            )
+            AccomplishmentTrackRow(
+                title = "English",
+                allDayCount = 15,
+                doneCount = 13,
+                modifier = GlanceModifier.padding(vertical = 3.dp),
+            )
+            AccomplishmentTrackRow(
+                title = "Workout",
+                allDayCount = 15,
+                doneCount = 10,
+                modifier = GlanceModifier.padding(vertical = 3.dp),
+            )
+            AccomplishmentTrackRow(
+                title = "Bed 24",
+                allDayCount = 15,
+                doneCount = 2,
+                modifier = GlanceModifier.padding(vertical = 3.dp),
+            )
+        }
     }
 }
 
@@ -133,33 +151,55 @@ private fun AccomplishmentTrackRow(
             text = title,
             modifier = GlanceModifier.width(80.dp),
             style = TextStyle(
-                textAlign = TextAlign.End
+                textAlign = TextAlign.End,
+                fontSize = WidgetText.MediumTextSize,
             ),
-            maxLines = 1
+            maxLines = 1,
         )
         Spacer(
-            modifier = GlanceModifier.width(8.dp)
+            modifier = GlanceModifier.width(12.dp),
         )
-        AccomplishmentTrackBar(
-            allDayCount = allDayCount,
-            doneCount = doneCount,
-            modifier = GlanceModifier.defaultWeight()
-        )
+
+        val progress = doneCount.toFloat() / allDayCount.toFloat()
+        Box(
+            modifier = GlanceModifier.defaultWeight(),
+            contentAlignment = Alignment.Center
+        ) {
+            AccomplishmentTrackBar(
+                progress = progress,
+                modifier = GlanceModifier.fillMaxWidth(),
+            )
+
+            val rate = (progress * 100).toInt()
+            Text(
+                text = "${rate}%",
+                modifier = GlanceModifier.fillMaxWidth().padding(end = 8.dp),
+                style = TextStyle(
+                    textAlign = TextAlign.End,
+                    fontSize = WidgetText.SmallTextSize,
+                ),
+            )
+        }
     }
 }
 
 
 @Composable
 private fun AccomplishmentTrackBar(
-    allDayCount: Int,
-    doneCount: Int,
-    modifier: GlanceModifier
+    progress: Float,
+    modifier: GlanceModifier,
 ) {
 
-   val progress = doneCount.toFloat() / allDayCount.toFloat()
+    val color = when {
+        (progress < 0.4) -> WidgetColor.progressLow
+        (progress < 0.8) -> WidgetColor.progressMedium
+        else -> WidgetColor.progressHigh
+    }
     LinearProgressIndicator(
         progress = progress,
         modifier = modifier,
+        color = ColorProvider(color),
+        backgroundColor = ColorProvider(WidgetColor.progressBackground)
     )
 
 }
