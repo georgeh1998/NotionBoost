@@ -1,15 +1,9 @@
 package com.github.goutarouh.notionboost.repository
 
-import android.content.Context
-import androidx.glance.appwidget.GlanceAppWidgetManager
-import androidx.glance.appwidget.state.updateAppWidgetState
-import androidx.glance.state.PreferencesGlanceStateDefinition
 import com.github.goutarouh.notionboost.data.NotionRemoteApi
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel
+import com.github.goutarouh.notionboost.widget.GlanceApi
 import com.github.goutarouh.notionboost.widget.MonthlyReportModel
-import com.github.goutarouh.notionboost.widget.MonthlyWidget
-import com.google.gson.Gson
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDateTime
 
 interface NotionDatabaseRepository {
@@ -27,9 +21,8 @@ interface NotionDatabaseRepository {
 
 
 class NotionDatabaseRepositoryImpl(
-    @ApplicationContext private val applicationContext: Context,
-    private val gson: Gson,
     private val notionRemoteApi: NotionRemoteApi,
+    private val glanceApi: GlanceApi,
 ) : NotionDatabaseRepository {
 
     override suspend fun queryDatabase(
@@ -62,21 +55,7 @@ class NotionDatabaseRepositoryImpl(
     }
 
     override suspend fun updateWidget(monthlyReportModel: MonthlyReportModel) {
-        GlanceAppWidgetManager(applicationContext)
-            .getGlanceIds(MonthlyWidget::class.java)
-            .forEach { glanceId ->
-                updateAppWidgetState(
-                    context = applicationContext,
-                    definition = PreferencesGlanceStateDefinition,
-                    glanceId = glanceId
-                ) { preferences ->
-                    preferences.toMutablePreferences().apply {
-                        val monthlyReportModelJson = gson.toJson(monthlyReportModel)
-                        this[MonthlyWidget.monthlyReportModel] = monthlyReportModelJson
-                    }
-                }
-                MonthlyWidget().update(applicationContext, glanceId)
-            }
+        glanceApi.updateMonthlyReportWidget(monthlyReportModel)
     }
 }
 
