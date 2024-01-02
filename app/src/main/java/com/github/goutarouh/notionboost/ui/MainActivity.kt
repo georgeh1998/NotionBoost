@@ -21,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
+import com.github.goutarouh.notionboost.usecase.MonthlyReportCreateUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
@@ -31,7 +31,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject lateinit var queryDatabaseRepository: NotionDatabaseRepository
+    @Inject lateinit var monthlyReportCreateUseCase: MonthlyReportCreateUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +50,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         lifecycleScope.launch {
                             try {
-                                val result = queryDatabaseRepository.queryDatabase("f59002096e874781aa3a659e78aa46d6")
-                                queryDatabaseRepository.updateWidget(result)
+                                monthlyReportCreateUseCase(
+                                    databaseId = "f59002096e874781aa3a659e78aa46d6"
+                                )
                                 isUpdated = true
                             } catch (e: CancellationException) {
                                 isUpdated = false

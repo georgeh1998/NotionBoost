@@ -2,10 +2,12 @@ package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 data class QueryDatabaseModel(
-    val dailyInfo: List<DailyInfo>
+    val now: LocalDateTime,
+    val dailyInfoList: List<DailyInfo>
 )
 
 data class DailyInfo(
@@ -18,9 +20,10 @@ data class DailyInfo(
 
 private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 
-fun QueryDatabaseApiModel.toModel(): QueryDatabaseModel {
+fun QueryDatabaseApiModel.toModel(now: LocalDateTime): QueryDatabaseModel {
     return QueryDatabaseModel(
-        dailyInfo = this.results.map { result ->
+        now = now,
+        dailyInfoList = this.results.map { result ->
             DailyInfo(
                 createdTime = LocalDate.parse(result.properties.createdTime.createdTime, formatter),
                 doneEnglishLearning = result.properties.englishLearning.checkbox,
