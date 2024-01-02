@@ -14,7 +14,8 @@ class MonthlyReportCreateUseCase @Inject constructor(
 
     suspend operator fun invoke(
         databaseId: String,
-        now: LocalDateTime = LocalDateTime.now(ZoneId.systemDefault()),
+        zoneId: ZoneId = ZoneId.systemDefault(),
+        now: LocalDateTime = LocalDateTime.now(zoneId),
     ) {
 
         val lastDayOfPreviousMonth = now.getLastDayOfPreviousMonth()
@@ -28,7 +29,7 @@ class MonthlyReportCreateUseCase @Inject constructor(
         )
 
         val userZonFilteredModel = queryDatabaseModel
-            .convertToUserZone()
+            .convertToUserZone(zoneId)
             .filterByMonth(now.monthValue)
 
         val monthlyReportModel = userZonFilteredModel.toMonthlyReportModel()

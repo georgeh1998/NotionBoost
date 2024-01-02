@@ -36,7 +36,7 @@ class QueryDatabaseModelTest {
 
 }
 
-private fun createQueryDatabaseModel(
+fun createQueryDatabaseModel(
     now: LocalDateTime = LocalDateTime.now(),
     dailyInfoList: List<DailyInfo> = listOf(),
 ) : QueryDatabaseModel {
@@ -46,7 +46,7 @@ private fun createQueryDatabaseModel(
     )
 }
 
-private fun createDailyInfo(
+fun createDailyInfo(
     createdTime: LocalDateTime = LocalDateTime.now(),
     doneEnglishLearning: Boolean = false,
     doneMuscleTraining: Boolean = false,

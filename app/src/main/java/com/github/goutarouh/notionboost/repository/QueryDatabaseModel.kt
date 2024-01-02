@@ -1,9 +1,9 @@
 package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel
+import com.github.goutarouh.notionboost.util.DateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 data class QueryDatabaseModel(
     val now: LocalDateTime,
@@ -45,14 +45,14 @@ data class DailyInfo(
     val doneSleepUntil24: Boolean,
 )
 
-private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-
 fun QueryDatabaseApiModel.toModel(now: LocalDateTime): QueryDatabaseModel {
     return QueryDatabaseModel(
         now = now,
         dailyInfoList = this.results.map { result ->
             DailyInfo(
-                createdTime = LocalDateTime.parse(result.properties.createdTime.createdTime, formatter),
+                createdTime = LocalDateTime.parse(
+                    result.properties.createdTime.createdTime, DateFormat.ISO_8601
+                ),
                 doneEnglishLearning = result.properties.englishLearning.checkbox,
                 doneMuscleTraining = result.properties.muscleTraining.checkbox,
                 doneReading = result.properties.reading.checkbox,

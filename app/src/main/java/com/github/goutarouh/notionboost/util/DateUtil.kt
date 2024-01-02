@@ -1,7 +1,13 @@
 package com.github.goutarouh.notionboost.util
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+
+object DateFormat {
+    val ISO_8601: DateTimeFormatter = DateTimeFormatter
+        .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+}
 
 fun LocalDateTime.getFirstDayOfThisMonth() : LocalDateTime {
     return this
