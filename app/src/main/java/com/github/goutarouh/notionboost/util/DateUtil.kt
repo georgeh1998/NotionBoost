@@ -3,10 +3,20 @@ package com.github.goutarouh.notionboost.util
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Locale
 
 object DateFormat {
     val ISO_8601: DateTimeFormatter = DateTimeFormatter
         .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+
+    val MONTH_NAME: DateTimeFormatter = DateTimeFormatter
+        .ofPattern("MMMM", Locale.ENGLISH)
+
+    val YYYY_MM_DD: DateTimeFormatter = DateTimeFormatter
+        .ofPattern("yyyy/MM/dd")
+
+    val MM_DD_HH_MM: DateTimeFormatter = DateTimeFormatter
+        .ofPattern("MM/dd HH:mm")
 }
 
 fun LocalDateTime.getFirstDayOfThisMonth() : LocalDateTime {

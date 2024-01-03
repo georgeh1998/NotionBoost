@@ -93,14 +93,17 @@ private fun Success(
                 fontWeight = FontWeight.Bold,
             ),
         )
+        Spacer(
+            modifier = GlanceModifier.height(2.dp),
+        )
         Text(
             text = "${monthlyReport.startDate} - ${monthlyReport.endDate}",
             style = TextStyle(
-                fontSize = WidgetText.MediumTextSize,
+                fontSize = WidgetText.SmallTextSize,
             ),
         )
         Spacer(
-            modifier = GlanceModifier.height(12.dp),
+            modifier = GlanceModifier.height(8.dp),
         )
         Column(
             modifier = GlanceModifier
@@ -132,6 +135,22 @@ private fun Success(
                 progressPercent = monthlyReport.calculateProgress(monthlyReport.sleepUntil24Progress),
                 modifier = GlanceModifier.padding(vertical = 3.dp),
             )
+        }
+        Spacer(
+            modifier = GlanceModifier.height(8.dp),
+        )
+        Row(
+            modifier = GlanceModifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = GlanceModifier.defaultWeight())
+            Text(
+                text = "Last Updated at ${monthlyReport.lastUpdatedTime}",
+                style = TextStyle(
+                    fontSize = WidgetText.SmallTextSize,
+                ),
+            )
+            Spacer(modifier = GlanceModifier.width(8.dp))
         }
     }
 }

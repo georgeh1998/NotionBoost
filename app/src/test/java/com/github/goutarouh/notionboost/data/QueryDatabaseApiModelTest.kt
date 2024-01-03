@@ -4,7 +4,8 @@ import java.time.LocalDateTime
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel.Result
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel.Result.Properties
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel.Result.Properties.*
-import com.github.goutarouh.notionboost.util.DateFormat
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 
 fun createQueryDatabaseApiModel(
@@ -14,7 +15,7 @@ fun createQueryDatabaseApiModel(
 }
 
 fun createResult(
-    createdTime: LocalDateTime = LocalDateTime.now(),
+    createdTime: ZonedDateTime = ZonedDateTime.now(),
     englishLearning: Boolean = false,
     muscleTraining: Boolean = false,
     reading: Boolean = false,
@@ -23,7 +24,7 @@ fun createResult(
     return Result(
         Properties(
             createdTime = CreatedTime(
-                createdTime = createdTime.format(DateFormat.ISO_8601)
+                createdTime = createdTime
             ),
             englishLearning = EnglishLearning(
                 checkbox = englishLearning
@@ -42,27 +43,43 @@ fun createResult(
 }
 
 object QueryDatabaseApiModelTest {
+    private val utcZoneId = ZoneId.of("UTC")
 
     val EnglishLearning_0 = createQueryDatabaseApiModel(
         results = listOf(
             createResult(
-                createdTime = LocalDateTime.of(2023, 12, 31, 20, 0, 0, 0),
+                createdTime = ZonedDateTime.of(
+                    LocalDateTime.of(2023, 12, 31, 20, 0, 0, 0),
+                    utcZoneId
+                ),
                 englishLearning = false,
             ),
             createResult(
-                createdTime = LocalDateTime.of(2024, 1, 1, 20, 0, 0),
+                createdTime = ZonedDateTime.of(
+                    LocalDateTime.of(2024, 1, 1, 20, 0, 0),
+                    utcZoneId
+                ),
                 englishLearning = false,
             ),
             createResult(
-                createdTime = LocalDateTime.of(2024, 1, 2, 20, 0, 0),
+                createdTime = ZonedDateTime.of(
+                    LocalDateTime.of(2024, 1, 2, 20, 0, 0),
+                    utcZoneId
+                ),
                 englishLearning = false,
             ),
             createResult(
-                createdTime = LocalDateTime.of(2024, 1, 31, 20, 0, 0),
+                createdTime = ZonedDateTime.of(
+                    LocalDateTime.of(2024, 1, 31, 20, 0, 0),
+                    utcZoneId,
+                ),
                 englishLearning = true,
             ),
             createResult(
-                createdTime = LocalDateTime.of(2024, 2, 1, 20, 0, 0),
+                createdTime = ZonedDateTime.of(
+                    LocalDateTime.of(2024, 2, 1, 20, 0, 0),
+                    utcZoneId,
+                ),
                 englishLearning = true,
             ),
         )
