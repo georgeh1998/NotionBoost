@@ -1,6 +1,5 @@
 package com.github.goutarouh.notionboost.usecase
 
-import com.github.goutarouh.notionboost.data.QueryDatabaseApiModelTest
 import com.github.goutarouh.notionboost.data.createNotionRemoteApi
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepositoryImpl
 import com.github.goutarouh.notionboost.widget.FakeGlanceApiImpl
@@ -23,13 +22,14 @@ class MonthlyReportCreateUseCaseTest {
     }
 
     @Test
-    fun countEnglishLearning0() = runTest {
+    fun `Test if count is correct`() = runTest {
 
         // Arrange
         monthlyReportCreateUseCase = MonthlyReportCreateUseCase(
             notionDatabaseRepository = NotionDatabaseRepositoryImpl(
                 notionRemoteApi = createNotionRemoteApi(
-                    queryDatabaseApiModel = QueryDatabaseApiModelTest.EnglishLearning_0
+                    queryDatabaseApiModel = MonthlyReportCreateUseCaseTestData
+                        .createDateBordered("a")
                 ),
                 glanceApi = fakeGlanceApi,
             )
@@ -45,8 +45,7 @@ class MonthlyReportCreateUseCaseTest {
         // Assert
         val updatedMonthlyReportModel = fakeGlanceApi.updatedMonthlyReportModel
         val monthlyReport = updatedMonthlyReportModel.monthlyReport
-        Assert.assertEquals(false, updatedMonthlyReportModel.isEmpty)
-        Assert.assertEquals(0f, monthlyReport.englishLearningProgress)
+        Assert.assertEquals(0f, monthlyReport.mapProgress["a"])
     }
 
 }
