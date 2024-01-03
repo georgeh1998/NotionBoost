@@ -53,16 +53,10 @@ fun createQueryDatabaseModel(
 
 fun createDailyInfo(
     createdTime: ZonedDateTime = ZonedDateTime.now(),
-    doneEnglishLearning: Boolean = false,
-    doneMuscleTraining: Boolean = false,
-    doneReading: Boolean = false,
-    doneSleepUntil24: Boolean = false,
+    isDoneMap: Map<String, Boolean> = mapOf(),
 ) : DailyInfo {
     return DailyInfo(
         createdTime = createdTime,
-        doneEnglishLearning = doneEnglishLearning,
-        doneMuscleTraining = doneMuscleTraining,
-        doneReading = doneReading,
-        doneSleepUntil24 = doneSleepUntil24,
+        isDoneMap = isDoneMap
     )
 }
