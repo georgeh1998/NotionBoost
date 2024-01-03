@@ -93,8 +93,14 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
+    implementation("androidx.hilt:hilt-work:1.1.0")
     ksp("com.google.dagger:hilt-compiler:2.49")
+    ksp("androidx.hilt:hilt-compiler:1.1.0")
+
 
     // Coroutine
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // WorkManger
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 }
