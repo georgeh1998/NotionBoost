@@ -14,7 +14,9 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MonthlyWidgetSettingFragment : Fragment() {
 
     private val viewModel by viewModels<MonthlyWidgetSettingViewModel>()
@@ -23,7 +25,7 @@ class MonthlyWidgetSettingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return ComposeView(requireContext()).apply {
+        return ComposeView(requireActivity()).apply {
             setContent {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 NotionBoostTheme {
