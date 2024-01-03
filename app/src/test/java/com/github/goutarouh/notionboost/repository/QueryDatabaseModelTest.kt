@@ -4,29 +4,34 @@ import org.junit.Assert
 import org.junit.Test
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 
 
 class QueryDatabaseModelTest {
 
-    private val baseLocalDateTime = LocalDateTime.of(2023, 12, 31, 20, 0, 0)
+    private val baseZonedDateTime = ZonedDateTime.of(
+        LocalDateTime.of(2023, 12, 31, 20, 0, 0),
+        ZoneId.of("UTC")
+    )
 
     @Test
     fun convertToUserZone() {
         // Arrange
         val utcBasedModel = createQueryDatabaseModel(
             dailyInfoList = listOf(
-                createDailyInfo(baseLocalDateTime)
+                createDailyInfo(baseZonedDateTime)
             )
         )
 
+        val userZoneId = ZoneId.of("Asia/Tokyo")
         val expectedList = createQueryDatabaseModel(
             dailyInfoList = listOf(
-                createDailyInfo(baseLocalDateTime.plusHours(9))
+                createDailyInfo(baseZonedDateTime.withZoneSameInstant(userZoneId))
             )
         ).dailyInfoList
 
         // Act
-        val results = utcBasedModel.convertToUserZone(ZoneId.of("Asia/Tokyo"))
+        val results = utcBasedModel.convertToUserZone(userZoneId)
 
         // Assert
         expectedList.zip(results.dailyInfoList).forEach { (expected, result) ->
@@ -47,7 +52,7 @@ fun createQueryDatabaseModel(
 }
 
 fun createDailyInfo(
-    createdTime: LocalDateTime = LocalDateTime.now(),
+    createdTime: ZonedDateTime = ZonedDateTime.now(),
     doneEnglishLearning: Boolean = false,
     doneMuscleTraining: Boolean = false,
     doneReading: Boolean = false,
