@@ -6,7 +6,6 @@ import com.github.goutarouh.notionboost.util.getFirstDayOfThisMonth
 import com.github.goutarouh.notionboost.util.getLastDayOfThisMonth
 
 data class MonthlyReportModel(
-    val isEmpty: Boolean = false,
     val monthlyReport: MonthlyReport
 )
 
@@ -15,10 +14,7 @@ data class MonthlyReport (
     val startDate: String,
     val endDate: String,
     val lastUpdatedTime: String,
-    val englishLearningProgress: Float = 0f,
-    val sleepUntil24Progress: Float = 0f,
-    val readingProgress: Float = 0f,
-    val workOutProgress: Float = 0f,
+    val mapProgress: Map<String, Float> = mapOf(),
 ) {
     fun calculateProgress(progress: Float): Int {
         return (progress * 100).toInt()
@@ -37,23 +33,35 @@ fun QueryDatabaseModel.toMonthlyReportModel(): MonthlyReportModel {
             endDate = endDate.format(DateFormat.YYYY_MM_DD),
             lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
         )
-        MonthlyReportModel(true, monthlyReport)
+        MonthlyReportModel(monthlyReport)
     } else {
-        val countAllDay = dailyInfoList.size.toFloat()
-        val englishLearningProgress = dailyInfoList.filter { it.doneEnglishLearning }.size
-        val workOutProgress = dailyInfoList.filter { it.doneMuscleTraining }.size
-        val sleepUntil24Progress = dailyInfoList.filter { it.doneSleepUntil24 }.size
-        val readingProgress = dailyInfoList.filter { it.doneReading }.size
+        val mapProgress = calculateItemProgressMap(
+            dailyInfoList.map { it.isDoneMap }
+        )
         val monthlyReport = MonthlyReport(
             monthName = now.format(DateFormat.MONTH_NAME),
             startDate = startDate.format(DateFormat.YYYY_MM_DD),
             endDate = endDate.format(DateFormat.YYYY_MM_DD),
-            englishLearningProgress = englishLearningProgress / countAllDay,
-            workOutProgress = workOutProgress / countAllDay,
-            sleepUntil24Progress = sleepUntil24Progress / countAllDay,
-            readingProgress = readingProgress / countAllDay,
             lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
+            mapProgress = mapProgress
         )
-        MonthlyReportModel(false, monthlyReport)
+        MonthlyReportModel(monthlyReport)
     }
+}
+
+private fun calculateItemProgressMap(isDoneMapList: List<Map<String, Boolean>>) : Map<String, Float> {
+    val resultMap = mutableMapOf<String, Int>()
+    val totalProperties = isDoneMapList.size.toFloat()
+
+    for (propertyMap in isDoneMapList) {
+        for ((property, value) in propertyMap) {
+            val currentCount = resultMap.getOrPut(property) { 0 }
+            if (value) {
+                resultMap[property] = currentCount + 1
+            }
+        }
+    }
+
+
+    return resultMap.mapValues { (_, count) -> count / totalProperties }
 }

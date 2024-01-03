@@ -37,10 +37,7 @@ data class QueryDatabaseModel(
 
 data class DailyInfo(
     val createdTime: ZonedDateTime,
-    val doneEnglishLearning: Boolean,
-    val doneMuscleTraining: Boolean,
-    val doneReading: Boolean,
-    val doneSleepUntil24: Boolean,
+    val isDoneMap: Map<String, Boolean>,
 )
 
 fun QueryDatabaseApiModel.toModel(now: LocalDateTime): QueryDatabaseModel {
@@ -49,10 +46,7 @@ fun QueryDatabaseApiModel.toModel(now: LocalDateTime): QueryDatabaseModel {
         dailyInfoList = this.results.map { result ->
             DailyInfo(
                 createdTime = result.properties.createdTime.createdTime,
-                doneEnglishLearning = result.properties.englishLearning.checkbox,
-                doneMuscleTraining = result.properties.muscleTraining.checkbox,
-                doneReading = result.properties.reading.checkbox,
-                doneSleepUntil24 = result.properties.sleepUntil24.checkbox,
+                isDoneMap = result.properties.checkBoxProperties.mapValues { it.value.checkbox }
             )
         }
     )

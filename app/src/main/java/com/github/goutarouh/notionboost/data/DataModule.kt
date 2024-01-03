@@ -11,7 +11,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.ZonedDateTime
 import javax.inject.Singleton
 
 @Module
@@ -23,9 +22,9 @@ object DataModule {
     fun provideGson(): Gson {
         return GsonBuilder().apply {
             registerTypeAdapter(
-                ZonedDateTime::class.java,
+                QueryDatabaseApiModel.Result.Properties::class.java,
                 JsonDeserializer { json, _, _ ->
-                    ZonedDateTime.parse(json.asJsonPrimitive.asString);
+                    QueryDatabaseApiModel.Result.Properties.createFromJson(json)
                 }
             )
         }.create()

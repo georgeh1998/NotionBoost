@@ -109,32 +109,16 @@ private fun Success(
             modifier = GlanceModifier
                 .fillMaxWidth()
                 .defaultWeight(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            AccomplishmentTrackRow(
-                title = "Reading",
-                progress = monthlyReport.readingProgress,
-                progressPercent = monthlyReport.calculateProgress(monthlyReport.readingProgress),
-                modifier = GlanceModifier.padding(vertical = 3.dp),
-            )
-            AccomplishmentTrackRow(
-                title = "English",
-                progress = monthlyReport.englishLearningProgress,
-                progressPercent = monthlyReport.calculateProgress(monthlyReport.englishLearningProgress),
-                modifier = GlanceModifier.padding(vertical = 3.dp),
-            )
-            AccomplishmentTrackRow(
-                title = "Workout",
-                progress = monthlyReport.workOutProgress,
-                progressPercent = monthlyReport.calculateProgress(monthlyReport.workOutProgress),
-                modifier = GlanceModifier.padding(vertical = 3.dp),
-            )
-            AccomplishmentTrackRow(
-                title = "Bed 24",
-                progress = monthlyReport.sleepUntil24Progress,
-                progressPercent = monthlyReport.calculateProgress(monthlyReport.sleepUntil24Progress),
-                modifier = GlanceModifier.padding(vertical = 3.dp),
-            )
+            monthlyReport.mapProgress.forEach { mapProgress ->
+                AccomplishmentTrackRow(
+                    title = mapProgress.key,
+                    progress = mapProgress.value,
+                    progressPercent = monthlyReport.calculateProgress(mapProgress.value),
+                    modifier = GlanceModifier.padding(vertical = 3.dp),
+                )
+            }
         }
         Spacer(
             modifier = GlanceModifier.height(8.dp),
