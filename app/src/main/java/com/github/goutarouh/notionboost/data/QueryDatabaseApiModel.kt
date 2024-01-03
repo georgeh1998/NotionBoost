@@ -1,6 +1,7 @@
 package com.github.goutarouh.notionboost.data
 
 import com.google.gson.annotations.SerializedName
+import java.time.ZonedDateTime
 
 data class QueryDatabaseApiModel(
     val results: List<Result> = listOf(),
@@ -24,7 +25,7 @@ data class QueryDatabaseApiModel(
         ) {
             data class CreatedTime(
                 @SerializedName("created_time")
-                val createdTime: String = "",
+                val createdTime: ZonedDateTime = ZonedDateTime.now(),
             )
 
             data class EnglishLearning(

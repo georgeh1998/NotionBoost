@@ -2,7 +2,6 @@ package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.NotionRemoteApi
 import com.github.goutarouh.notionboost.widget.GlanceApi
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,12 +11,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
-
-    @Provides
-    @Singleton
-    fun provideGson(): Gson {
-        return Gson()
-    }
 
     @Provides
     @Singleton

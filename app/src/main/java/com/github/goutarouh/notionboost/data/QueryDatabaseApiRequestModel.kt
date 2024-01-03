@@ -11,7 +11,7 @@ data class QueryDatabaseApiAndRequestModel(
 
     data class And(
         val date: Date,
-        val `property`: String
+        val `property`: String = "Created time"
     )
 
     sealed class Date {

@@ -48,7 +48,7 @@ fun QueryDatabaseApiModel.toModel(now: LocalDateTime): QueryDatabaseModel {
         now = now,
         dailyInfoList = this.results.map { result ->
             DailyInfo(
-                createdTime = ZonedDateTime.parse(result.properties.createdTime.createdTime),
+                createdTime = result.properties.createdTime.createdTime,
                 doneEnglishLearning = result.properties.englishLearning.checkbox,
                 doneMuscleTraining = result.properties.muscleTraining.checkbox,
                 doneReading = result.properties.reading.checkbox,

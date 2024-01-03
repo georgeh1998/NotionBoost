@@ -2,6 +2,9 @@ package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.NotionRemoteApi
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel
+import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Filter
+import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.And
+import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Date
 import com.github.goutarouh.notionboost.widget.GlanceApi
 import com.github.goutarouh.notionboost.widget.MonthlyReportModel
 import java.time.LocalDateTime
@@ -33,25 +36,17 @@ class NotionDatabaseRepositoryImpl(
     ) : QueryDatabaseModel {
 
         val queryDatabaseApiAndRequestModel = QueryDatabaseApiAndRequestModel(
-            filter = QueryDatabaseApiAndRequestModel.Filter(
+            filter = Filter(
                 and = listOf(
-                    QueryDatabaseApiAndRequestModel.And(
-                        date = QueryDatabaseApiAndRequestModel.Date.OnOrAfter(
-                            onOrAfter = inclusiveStartDate.toString()
-                        ),
-                        property = "Created time"
-                    ),
-                    QueryDatabaseApiAndRequestModel.And(
-                        date = QueryDatabaseApiAndRequestModel.Date.OnOrBefore(
-                            onOrBefore = inclusiveEndDate.toString()
-                        ),
-                        property = "Created time"
-                    )
+                    And(date = Date.OnOrAfter(onOrAfter = inclusiveStartDate.toString())),
+                    And(date = Date.OnOrBefore(onOrBefore = inclusiveEndDate.toString())),
                 )
             )
         )
 
-        return notionRemoteApi.queryDatabase(databaseId, queryDatabaseApiAndRequestModel).toModel(now)
+        return safeApiCall {
+            notionRemoteApi.queryDatabase(databaseId, queryDatabaseApiAndRequestModel)
+        }.toModel(now)
     }
 
     override suspend fun updateWidget(monthlyReportModel: MonthlyReportModel) {
