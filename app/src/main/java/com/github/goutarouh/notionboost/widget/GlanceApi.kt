@@ -13,11 +13,6 @@ interface GlanceApi {
         appWidgetIds: List<Int>,
         monthlyWidgetModel: MonthlyWidgetModel,
     )
-
-    suspend fun updateMonthlyWidgetsByDatabaseId(
-        monthlyWidgetModel: MonthlyWidgetModel
-    )
-
 }
 
 class GlanceApiImpl(
@@ -44,33 +39,5 @@ class GlanceApiImpl(
             }
             MonthlyWidget().update(applicationContext, glanceId)
         }
-    }
-
-    override suspend fun updateMonthlyWidgetsByDatabaseId(
-        monthlyWidgetModel: MonthlyWidgetModel
-    ) {
-        GlanceAppWidgetManager(applicationContext)
-            .getGlanceIds(MonthlyWidget::class.java)
-            .forEach { glanceId ->
-                updateAppWidgetState(
-                    context = applicationContext,
-                    definition = PreferencesGlanceStateDefinition,
-                    glanceId = glanceId
-                ) { preferences ->
-                    val pref = preferences.toMutablePreferences()
-                    val prevModelJson = pref[MonthlyWidget.monthlyWidgetModel]
-                    val prevModel = gson.fromJson(prevModelJson, MonthlyWidgetModel::class.java)
-                    if (prevModel == null) {
-                        pref
-                    } else {
-                        if (prevModel.databaseId == monthlyWidgetModel.databaseId) {
-                            val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
-                            pref[MonthlyWidget.monthlyWidgetModel] = monthlyWidgetModelJson
-                        }
-                        pref
-                    }
-                }
-                MonthlyWidget().update(applicationContext, glanceId)
-            }
     }
 }

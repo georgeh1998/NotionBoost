@@ -1,7 +1,6 @@
 package com.github.goutarouh.notionboost.data
 
 import android.content.Context
-import com.github.goutarouh.notionboost.BuildConfig
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApiImpl
 import com.github.goutarouh.notionboost.data.datastore.settingDataStore
@@ -70,10 +69,12 @@ object DataModule {
     @Provides
     @Singleton
     fun provideDataStoreApi(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        gson: Gson,
     ) : DataStoreApi {
         return DataStoreApiImpl(
-            dataStore = context.settingDataStore
+            dataStore = context.settingDataStore,
+            gson = gson,
         )
     }
 }

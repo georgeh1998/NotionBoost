@@ -14,9 +14,9 @@ interface NotionDatabaseRepository {
 
     suspend fun getNotionApiKey(): String
 
-    suspend fun addDatabaseId(databaseId: String)
+    suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>)
 
-    suspend fun getDatabaseIds(): Set<String>
+    suspend fun getMonthlyWidgetConfiguration() : Map<Int, String>
 
     suspend fun queryDatabase(
         databaseId: String,
@@ -43,12 +43,12 @@ class NotionDatabaseRepositoryImpl(
         return dataStoreApi.getNotionApiKey()
     }
 
-    override suspend fun addDatabaseId(databaseId: String) {
-        dataStoreApi.addDatabaseId(databaseId)
+    override suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>) {
+        dataStoreApi.saveMonthlyWidgetConfiguration(config)
     }
 
-    override suspend fun getDatabaseIds(): Set<String> {
-        return dataStoreApi.getDatabaseIds()
+    override suspend fun getMonthlyWidgetConfiguration(): Map<Int, String> {
+        return dataStoreApi.getMonthlyWidgetConfiguration()
     }
 
     override suspend fun queryDatabase(

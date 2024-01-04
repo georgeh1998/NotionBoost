@@ -40,7 +40,7 @@ fun MonthlyWidgetConfigurationScreen(
             OutlinedTextField(value = uiModel.inputDatabaseId , onValueChange = uiModel.updateInputDatabaseId)
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedButton(
-                onClick = { uiModel.createMonthlyWidget(uiModel.inputDatabaseId) },
+                onClick = { uiModel.createMonthlyWidget(uiModel.appWidgetId, uiModel.inputDatabaseId) },
                 enabled = uiModel.saveButtonEnabled
             ) {
                 Text(text = "Create Monthly Widget")

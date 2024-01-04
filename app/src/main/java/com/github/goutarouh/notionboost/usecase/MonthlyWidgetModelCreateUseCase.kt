@@ -22,7 +22,9 @@ class MonthlyWidgetModelCreateUseCase @Inject constructor(
         val lastDayOfPreviousMonth = now.getLastDayOfPreviousMonth()
         val firstDayOfNextMonth = now.getFirstDayOfNextMonth()
 
-        val databaseIds = notionDatabaseRepository.getDatabaseIds()
+        val map = notionDatabaseRepository.getMonthlyWidgetConfiguration()
+
+        val databaseIds = map.values.toSet()
 
         databaseIds.forEach { databaseId ->
             val queryDatabaseModel = notionDatabaseRepository.queryDatabase(
@@ -37,7 +39,14 @@ class MonthlyWidgetModelCreateUseCase @Inject constructor(
                 .filterByMonth(now.monthValue)
 
             val monthlyWidgetModel = userZonFilteredModel.toMonthlyWidgetModel()
-            glanceRepository.updateMonthlyWidgetByDatabaseId(monthlyWidgetModel)
+            val appWidgetIds = map.filter {
+                it.value == databaseId
+            }.keys.toSet()
+
+            glanceRepository.updateMonthlyWidgetByWidgetIds(
+                appWidgetIds = appWidgetIds.toList(),
+                monthlyWidgetModel = monthlyWidgetModel
+            )
         }
     }
 

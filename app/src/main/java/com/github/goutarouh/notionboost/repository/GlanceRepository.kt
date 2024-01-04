@@ -16,10 +16,4 @@ class GlanceRepository @Inject constructor(
         glanceApi.updateMonthlyWidgetsByWidgetIds(appWidgetIds, monthlyWidgetModel)
     }
 
-    suspend fun updateMonthlyWidgetByDatabaseId(
-        monthlyWidgetModel: MonthlyWidgetModel
-    ) {
-        glanceApi.updateMonthlyWidgetsByDatabaseId(monthlyWidgetModel)
-    }
-
 }
