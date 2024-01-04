@@ -6,7 +6,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.github.goutarouh.notionboost.workmanager.MonthlyReportCreateWorker
+import com.github.goutarouh.notionboost.workmanager.MonthlyWidgetUpdateWorker
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
@@ -20,7 +20,7 @@ class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
     override fun onEnabled(context: Context) {
         super.onEnabled(context)
 
-        val updateRequest = PeriodicWorkRequestBuilder<MonthlyReportCreateWorker>(
+        val updateRequest = PeriodicWorkRequestBuilder<MonthlyWidgetUpdateWorker>(
             24, TimeUnit.HOURS
         )
             .build()
@@ -28,7 +28,7 @@ class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
         WorkManager
             .getInstance(context)
             .enqueueUniquePeriodicWork(
-                MonthlyReportCreateWorker.EXECUTION_UNIQUE_ID,
+                MonthlyWidgetUpdateWorker.EXECUTION_UNIQUE_ID,
                 ExistingPeriodicWorkPolicy.UPDATE,
                 updateRequest
             )
@@ -39,7 +39,7 @@ class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
         super.onDisabled(context)
         WorkManager
             .getInstance(context)
-            .cancelUniqueWork(MonthlyReportCreateWorker.EXECUTION_UNIQUE_ID)
+            .cancelUniqueWork(MonthlyWidgetUpdateWorker.EXECUTION_UNIQUE_ID)
     }
 
 }

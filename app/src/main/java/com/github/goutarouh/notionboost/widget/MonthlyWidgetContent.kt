@@ -54,7 +54,7 @@ fun MonthlyWidgetContent(
             }
             is MonthlyWidgetUiState.Success -> {
                 Success(
-                    monthlyReport = monthlyWidgetUiState.monthlyReport,
+                    monthlyWidgetModel = monthlyWidgetUiState.monthlyWidgetModel,
                     modifier = GlanceModifier
                 )
             }
@@ -75,7 +75,7 @@ private fun NoData() {
 
 @Composable
 private fun Success(
-    monthlyReport: MonthlyReport,
+    monthlyWidgetModel: MonthlyWidgetModel,
     modifier: GlanceModifier = GlanceModifier,
 ) {
 
@@ -87,7 +87,7 @@ private fun Success(
             modifier = GlanceModifier.height(8.dp),
         )
         Text(
-            text = "${monthlyReport.monthName} Habit Tracker",
+            text = "${monthlyWidgetModel.monthName} Habit Tracker",
             style = TextStyle(
                 fontSize = WidgetText.LargeTextSize,
                 fontWeight = FontWeight.Bold,
@@ -97,7 +97,7 @@ private fun Success(
             modifier = GlanceModifier.height(2.dp),
         )
         Text(
-            text = "${monthlyReport.startDate} - ${monthlyReport.endDate}",
+            text = "${monthlyWidgetModel.startDate} - ${monthlyWidgetModel.endDate}",
             style = TextStyle(
                 fontSize = WidgetText.SmallTextSize,
             ),
@@ -111,11 +111,11 @@ private fun Success(
                 .defaultWeight(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            monthlyReport.mapProgress.forEach { mapProgress ->
+            monthlyWidgetModel.mapProgress.forEach { mapProgress ->
                 AccomplishmentTrackRow(
                     title = mapProgress.key,
                     progress = mapProgress.value,
-                    progressPercent = monthlyReport.calculateProgress(mapProgress.value),
+                    progressPercent = monthlyWidgetModel.calculateProgress(mapProgress.value),
                     modifier = GlanceModifier.padding(vertical = 3.dp),
                 )
             }
@@ -129,7 +129,7 @@ private fun Success(
         ) {
             Spacer(modifier = GlanceModifier.defaultWeight())
             Text(
-                text = "Last Updated at ${monthlyReport.lastUpdatedTime}",
+                text = "Last Updated at ${monthlyWidgetModel.lastUpdatedTime}",
                 style = TextStyle(
                     fontSize = WidgetText.SmallTextSize,
                 ),

@@ -7,7 +7,7 @@ import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.And
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Date
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import com.github.goutarouh.notionboost.widget.GlanceApi
-import com.github.goutarouh.notionboost.widget.MonthlyReportModel
+import com.github.goutarouh.notionboost.widget.MonthlyWidgetModel
 import java.time.LocalDateTime
 
 interface NotionDatabaseRepository {
@@ -27,7 +27,7 @@ interface NotionDatabaseRepository {
         inclusiveEndDate: LocalDateTime
     ) : QueryDatabaseModel
 
-    suspend fun updateWidget(monthlyReportModel: MonthlyReportModel)
+    suspend fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel)
 
 }
 
@@ -80,8 +80,8 @@ class NotionDatabaseRepositoryImpl(
         }.toModel(now)
     }
 
-    override suspend fun updateWidget(monthlyReportModel: MonthlyReportModel) {
-        glanceApi.updateMonthlyReportWidget(monthlyReportModel)
+    override suspend fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel) {
+        glanceApi.updateMonthlyWidget(monthlyWidgetModel)
     }
 }
 

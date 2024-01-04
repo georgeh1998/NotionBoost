@@ -18,10 +18,10 @@ class MonthlyWidgetModelKtTest {
         ))
 
         // Act
-        val result = sut.toMonthlyReportModel()
+        val result = sut.toMonthlyWidgetModel()
 
         // Assert
-        val mapProgress = result.monthlyReport.mapProgress
+        val mapProgress = result.mapProgress
         Assert.assertEquals(3 / 3f, mapProgress["a"])
         Assert.assertEquals(2f / 3f, mapProgress["b"])
         Assert.assertEquals(1f / 3f, mapProgress["c"])
@@ -35,10 +35,10 @@ class MonthlyWidgetModelKtTest {
         val sut = createQueryDatabaseModel()
 
         // Act
-        val result = sut.toMonthlyReportModel()
+        val result = sut.toMonthlyWidgetModel()
 
         // Assert
-        val mapProgress = result.monthlyReport.mapProgress
+        val mapProgress = result.mapProgress
         Assert.assertEquals(0, mapProgress.size)
     }
 

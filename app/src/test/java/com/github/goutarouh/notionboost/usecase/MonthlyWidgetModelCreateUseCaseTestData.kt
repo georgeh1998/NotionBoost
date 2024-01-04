@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel.Result.Properties.CheckBoxProperty
 
 
-object MonthlyReportCreateUseCaseTestData {
+object MonthlyWidgetModelCreateUseCaseTestData {
 
     private val utcZoneId = ZoneId.of("UTC")
 

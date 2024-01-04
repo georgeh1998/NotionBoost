@@ -11,10 +11,10 @@ import org.junit.Test
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-class MonthlyReportCreateUseCaseTest {
+class MonthlyWidgetModelCreateUseCaseTest {
 
 
-    private lateinit var monthlyReportCreateUseCase: MonthlyReportCreateUseCase
+    private lateinit var monthlyWidgetModelCreateUseCase: MonthlyWidgetModelCreateUseCase
     private lateinit var fakeGlanceApi: FakeGlanceApiImpl
 
     @Before
@@ -26,10 +26,10 @@ class MonthlyReportCreateUseCaseTest {
     fun `Test if count is correct`() = runTest {
 
         // Arrange
-        monthlyReportCreateUseCase = MonthlyReportCreateUseCase(
+        monthlyWidgetModelCreateUseCase = MonthlyWidgetModelCreateUseCase(
             notionDatabaseRepository = NotionDatabaseRepositoryImpl(
                 notionRemoteApi = createNotionRemoteApi(
-                    queryDatabaseApiModel = MonthlyReportCreateUseCaseTestData
+                    queryDatabaseApiModel = MonthlyWidgetModelCreateUseCaseTestData
                         .createDateBordered("a")
                 ),
                 dataStoreApi = FakeDataStoreApi(),
@@ -38,16 +38,15 @@ class MonthlyReportCreateUseCaseTest {
         )
 
         // Act
-        monthlyReportCreateUseCase.invoke(
+        monthlyWidgetModelCreateUseCase.invoke(
             databaseId = "databaseId",
             zoneId = ZoneId.of("Asia/Tokyo"),
             now = LocalDateTime.of(2024, 1, 1, 0, 0, 0),
         )
 
         // Assert
-        val updatedMonthlyReportModel = fakeGlanceApi.updatedMonthlyReportModel
-        val monthlyReport = updatedMonthlyReportModel.monthlyReport
-        Assert.assertEquals(0f, monthlyReport.mapProgress["a"])
+        val updatedMonthlyWidgetModel = fakeGlanceApi.updatedMonthlyWidgetModel
+        Assert.assertEquals(0f, updatedMonthlyWidgetModel.mapProgress["a"])
     }
 
 }

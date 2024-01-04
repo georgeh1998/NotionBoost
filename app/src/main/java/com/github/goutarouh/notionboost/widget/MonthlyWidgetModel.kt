@@ -5,11 +5,7 @@ import com.github.goutarouh.notionboost.util.DateFormat
 import com.github.goutarouh.notionboost.util.getFirstDayOfThisMonth
 import com.github.goutarouh.notionboost.util.getLastDayOfThisMonth
 
-data class MonthlyReportModel(
-    val monthlyReport: MonthlyReport
-)
-
-data class MonthlyReport (
+data class MonthlyWidgetModel (
     val monthName: String,
     val startDate: String,
     val endDate: String,
@@ -21,31 +17,29 @@ data class MonthlyReport (
     }
 }
 
-fun QueryDatabaseModel.toMonthlyReportModel(): MonthlyReportModel {
+fun QueryDatabaseModel.toMonthlyWidgetModel(): MonthlyWidgetModel {
 
     val startDate = now.getFirstDayOfThisMonth()
     val endDate = now.getLastDayOfThisMonth()
 
     return if (dailyInfoList.isEmpty()) {
-        val monthlyReport = MonthlyReport(
+        MonthlyWidgetModel(
             monthName = now.format(DateFormat.MONTH_NAME),
             startDate = startDate.format(DateFormat.YYYY_MM_DD),
             endDate = endDate.format(DateFormat.YYYY_MM_DD),
             lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
         )
-        MonthlyReportModel(monthlyReport)
     } else {
         val mapProgress = calculateItemProgressMap(
             dailyInfoList.map { it.isDoneMap }
         )
-        val monthlyReport = MonthlyReport(
+        MonthlyWidgetModel(
             monthName = now.format(DateFormat.MONTH_NAME),
             startDate = startDate.format(DateFormat.YYYY_MM_DD),
             endDate = endDate.format(DateFormat.YYYY_MM_DD),
             lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
             mapProgress = mapProgress
         )
-        MonthlyReportModel(monthlyReport)
     }
 }
 

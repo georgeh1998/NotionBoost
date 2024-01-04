@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 interface GlanceApi {
 
-    suspend fun updateMonthlyReportWidget(monthlyReportModel: MonthlyReportModel)
+    suspend fun updateMonthlyWidget(monthlyWidgetModel: MonthlyWidgetModel)
 
 }
 
@@ -18,7 +18,7 @@ class GlanceApiImpl(
     private val gson: Gson,
 ) : GlanceApi {
 
-    override suspend fun updateMonthlyReportWidget(monthlyReportModel: MonthlyReportModel) {
+    override suspend fun updateMonthlyWidget(monthlyWidgetModel: MonthlyWidgetModel) {
         GlanceAppWidgetManager(applicationContext)
             .getGlanceIds(MonthlyWidget::class.java)
             .forEach { glanceId ->
@@ -28,8 +28,8 @@ class GlanceApiImpl(
                     glanceId = glanceId
                 ) { preferences ->
                     preferences.toMutablePreferences().apply {
-                        val monthlyReportModelJson = gson.toJson(monthlyReportModel)
-                        this[MonthlyWidget.monthlyReportModel] = monthlyReportModelJson
+                        val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
+                        this[MonthlyWidget.monthlyWidgetModel] = monthlyWidgetModelJson
                     }
                 }
                 MonthlyWidget().update(applicationContext, glanceId)

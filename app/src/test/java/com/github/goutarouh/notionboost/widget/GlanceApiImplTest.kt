@@ -2,10 +2,10 @@ package com.github.goutarouh.notionboost.widget
 
 class FakeGlanceApiImpl : GlanceApi {
 
-    lateinit var updatedMonthlyReportModel: MonthlyReportModel
+    lateinit var updatedMonthlyWidgetModel: MonthlyWidgetModel
 
-    override suspend fun updateMonthlyReportWidget(monthlyReportModel: MonthlyReportModel) {
-        updatedMonthlyReportModel = monthlyReportModel
+    override suspend fun updateMonthlyWidget(monthlyWidgetModel: MonthlyWidgetModel) {
+        updatedMonthlyWidgetModel = monthlyWidgetModel
     }
 
 }

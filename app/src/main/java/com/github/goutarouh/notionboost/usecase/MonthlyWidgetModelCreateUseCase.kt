@@ -3,12 +3,12 @@ package com.github.goutarouh.notionboost.usecase
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.util.getFirstDayOfNextMonth
 import com.github.goutarouh.notionboost.util.getLastDayOfPreviousMonth
-import com.github.goutarouh.notionboost.widget.toMonthlyReportModel
+import com.github.goutarouh.notionboost.widget.toMonthlyWidgetModel
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 
-class MonthlyReportCreateUseCase @Inject constructor(
+class MonthlyWidgetModelCreateUseCase @Inject constructor(
     private val notionDatabaseRepository: NotionDatabaseRepository,
 ) {
 
@@ -32,8 +32,8 @@ class MonthlyReportCreateUseCase @Inject constructor(
             .convertToUserZone(zoneId)
             .filterByMonth(now.monthValue)
 
-        val monthlyReportModel = userZonFilteredModel.toMonthlyReportModel()
-        notionDatabaseRepository.updateWidget(monthlyReportModel)
+        val monthlyWidgetModel = userZonFilteredModel.toMonthlyWidgetModel()
+        notionDatabaseRepository.updateWidget(monthlyWidgetModel)
     }
 
 }

@@ -16,15 +16,15 @@ class MonthlyWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val preferences = currentState<Preferences>()
-            val monthlyReportModelJson = preferences[monthlyReportModel]
-            val monthlyWidgetUiState = if (monthlyReportModelJson == null) {
+            val monthlyWidgetModelJson = preferences[monthlyWidgetModel]
+            val monthlyWidgetUiState = if (monthlyWidgetModelJson == null) {
                 MonthlyWidgetUiState.Loading
             } else {
-                val monthlyReportModel = Gson().fromJson(monthlyReportModelJson, MonthlyReportModel::class.java)
-                if (monthlyReportModel.monthlyReport.mapProgress.isEmpty()) {
+                val monthlyWidgetModel = Gson().fromJson(monthlyWidgetModelJson, MonthlyWidgetModel::class.java)
+                if (monthlyWidgetModel.mapProgress.isEmpty()) {
                     MonthlyWidgetUiState.NoData
                 } else {
-                    MonthlyWidgetUiState.Success(monthlyReportModel.monthlyReport)
+                    MonthlyWidgetUiState.Success(monthlyWidgetModel)
                 }
             }
             MonthlyWidgetContent(
@@ -35,6 +35,6 @@ class MonthlyWidget : GlanceAppWidget() {
     }
 
     companion object {
-        val monthlyReportModel = stringPreferencesKey("monthlyReportModel")
+        val monthlyWidgetModel = stringPreferencesKey("monthlyWidgetModel")
     }
 }
