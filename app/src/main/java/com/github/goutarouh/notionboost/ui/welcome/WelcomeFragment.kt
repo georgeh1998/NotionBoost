@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,10 @@ class WelcomeFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        val uiModel = viewModel.uiModel.collectAsStateWithLifecycle().value
+                        val uiModel = viewModel.uiModel.collectAsStateWithLifecycle(
+                            lifecycle = viewLifecycleOwner.lifecycle,
+                            minActiveState = Lifecycle.State.STARTED
+                        ).value
                         WelcomeScreen(uiModel)
                     }
                 }

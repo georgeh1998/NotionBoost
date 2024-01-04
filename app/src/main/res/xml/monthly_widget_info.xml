@@ -3,6 +3,8 @@
     android:initialLayout="@layout/glance_default_loading_layout"
     android:resizeMode="horizontal|vertical"
     android:description="@string/monthly_widget_description"
+    android:configure="com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationActivity"
+    android:widgetFeatures="reconfigurable"
     android:targetCellWidth="5"
     android:targetCellHeight="2"
     >
