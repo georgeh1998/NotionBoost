@@ -18,11 +18,19 @@ object RepositoryModule {
     fun provideNotionDatabaseRepository(
         notionRemoteApi: NotionRemoteApi,
         dataStoreApi: DataStoreApi,
-        glanceApi: GlanceApi,
     ): NotionDatabaseRepository {
         return NotionDatabaseRepositoryImpl(
             notionRemoteApi = notionRemoteApi,
             dataStoreApi = dataStoreApi,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGlanceRepository(
+        glanceApi: GlanceApi,
+    ): GlanceRepository {
+        return GlanceRepository(
             glanceApi = glanceApi
         )
     }

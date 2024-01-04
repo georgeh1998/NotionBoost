@@ -9,16 +9,18 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 
-class MonthlyWidgetModelCreateUseCase @Inject constructor(
+class MonthlyWidgetInitialUseCase @Inject constructor(
     private val notionDatabaseRepository: NotionDatabaseRepository,
     private val glanceRepository: GlanceRepository,
 ) {
 
     suspend operator fun invoke(
-        databaseId: String,
+        appWidgetIds: List<Int>,
         zoneId: ZoneId = ZoneId.systemDefault(),
         now: LocalDateTime = LocalDateTime.now(zoneId),
     ) {
+
+        val databaseId = notionDatabaseRepository.getDatabaseId()
 
         val lastDayOfPreviousMonth = now.getLastDayOfPreviousMonth()
         val firstDayOfNextMonth = now.getFirstDayOfNextMonth()
@@ -35,7 +37,10 @@ class MonthlyWidgetModelCreateUseCase @Inject constructor(
             .filterByMonth(now.monthValue)
 
         val monthlyWidgetModel = userZonFilteredModel.toMonthlyWidgetModel()
-        glanceRepository.updateMonthlyWidgetByDatabaseId(monthlyWidgetModel)
+        glanceRepository.updateMonthlyWidgetByWidgetIds(appWidgetIds, monthlyWidgetModel)
+
+        notionDatabaseRepository.removeDatabaseId()
+
     }
 
 }

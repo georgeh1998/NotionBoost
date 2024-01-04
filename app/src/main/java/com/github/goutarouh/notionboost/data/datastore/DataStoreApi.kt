@@ -14,6 +14,8 @@ interface DataStoreApi {
 
     suspend fun getDatabaseId() : String
 
+    suspend fun removeDatabaseId()
+
 }
 
 
@@ -41,6 +43,12 @@ class DataStoreApiImpl(
 
     override suspend fun getDatabaseId(): String {
         return prefFlow.getDataStoreValue(DataStoreKey.DATABASE_ID)
+    }
+
+    override suspend fun removeDatabaseId() {
+        dataStore.edit { settings ->
+            settings.remove(DataStoreKey.DATABASE_ID)
+        }
     }
 
 

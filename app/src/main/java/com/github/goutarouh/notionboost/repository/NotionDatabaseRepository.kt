@@ -20,6 +20,8 @@ interface NotionDatabaseRepository {
 
     suspend fun getDatabaseId(): String
 
+    suspend fun removeDatabaseId()
+
     suspend fun queryDatabase(
         databaseId: String,
         now: LocalDateTime,
@@ -27,7 +29,6 @@ interface NotionDatabaseRepository {
         inclusiveEndDate: LocalDateTime
     ) : QueryDatabaseModel
 
-    suspend fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel)
 
 }
 
@@ -35,7 +36,6 @@ interface NotionDatabaseRepository {
 class NotionDatabaseRepositoryImpl(
     private val notionRemoteApi: NotionRemoteApi,
     private val dataStoreApi: DataStoreApi,
-    private val glanceApi: GlanceApi,
 ) : NotionDatabaseRepository {
 
     override suspend fun saveNotionApiKey(apiKey: String) {
@@ -53,6 +53,10 @@ class NotionDatabaseRepositoryImpl(
 
     override suspend fun getDatabaseId(): String {
         return dataStoreApi.getDatabaseId()
+    }
+
+    override suspend fun removeDatabaseId() {
+        dataStoreApi.removeDatabaseId()
     }
 
     override suspend fun queryDatabase(
@@ -81,10 +85,6 @@ class NotionDatabaseRepositoryImpl(
             now = now,
             databaseId = databaseId
         )
-    }
-
-    override suspend fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel) {
-        glanceApi.updateMonthlyWidget(monthlyWidgetModel)
     }
 }
 
