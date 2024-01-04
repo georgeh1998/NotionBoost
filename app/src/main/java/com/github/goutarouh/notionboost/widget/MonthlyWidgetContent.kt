@@ -2,7 +2,6 @@ package com.github.goutarouh.notionboost.widget
 
 import android.content.Intent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.glance.GlanceModifier
@@ -34,23 +33,12 @@ fun MonthlyWidgetContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(WidgetColor.widgetBackground)
-            .clickable(
-                actionStartActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        "https://www.notion.so/2024-Habit-Tracker-b3ca62aaf06443aa92758511490cf6ce".toUri()
-                    )
-                )
-            ),
+            .background(WidgetColor.widgetBackground),
     ) {
 
         when (monthlyWidgetUiState) {
             is MonthlyWidgetUiState.Preparing -> {
                 Preparing()
-            }
-            is MonthlyWidgetUiState.NoData -> {
-                NoData()
             }
             is MonthlyWidgetUiState.Success -> {
                 Success(
@@ -74,10 +62,11 @@ private fun Preparing() {
 }
 
 @Composable
-private fun NoData() {
+private fun NoData(
+    modifier: GlanceModifier = GlanceModifier,
+) {
     Box(
-        modifier = GlanceModifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         Text(text = "No Data")
@@ -89,7 +78,6 @@ private fun Success(
     monthlyWidgetModel: MonthlyWidgetModel,
     modifier: GlanceModifier = GlanceModifier,
 ) {
-
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,6 +87,15 @@ private fun Success(
         )
         Text(
             text = "${monthlyWidgetModel.monthName} Habit Tracker",
+            modifier = GlanceModifier
+                .clickable(
+                    actionStartActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            "https://www.notion.so/${monthlyWidgetModel.databaseId}".toUri()
+                        )
+                    )
+                ),
             style = TextStyle(
                 fontSize = WidgetText.LargeTextSize,
                 fontWeight = FontWeight.Bold,
@@ -116,20 +113,15 @@ private fun Success(
         Spacer(
             modifier = GlanceModifier.height(8.dp),
         )
-        Column(
-            modifier = GlanceModifier
-                .fillMaxWidth()
-                .defaultWeight(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            monthlyWidgetModel.mapProgress.forEach { mapProgress ->
-                AccomplishmentTrackRow(
-                    title = mapProgress.key,
-                    progress = mapProgress.value,
-                    progressPercent = monthlyWidgetModel.calculateProgress(mapProgress.value),
-                    modifier = GlanceModifier.padding(vertical = 3.dp),
-                )
-            }
+        if (monthlyWidgetModel.mapProgress.isEmpty()) {
+            NoData(
+                modifier = GlanceModifier.defaultWeight(),
+            )
+        } else {
+            AccomplishmentColumn(
+                monthlyWidgetModel = monthlyWidgetModel,
+                modifier = GlanceModifier.defaultWeight(),
+            )
         }
         Spacer(
             modifier = GlanceModifier.height(8.dp),
@@ -146,6 +138,26 @@ private fun Success(
                 ),
             )
             Spacer(modifier = GlanceModifier.width(8.dp))
+        }
+    }
+}
+
+@Composable
+private fun AccomplishmentColumn(
+    monthlyWidgetModel: MonthlyWidgetModel,
+    modifier: GlanceModifier = GlanceModifier,
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        monthlyWidgetModel.mapProgress.forEach { mapProgress ->
+            AccomplishmentTrackRow(
+                title = mapProgress.key,
+                progress = mapProgress.value,
+                progressPercent = monthlyWidgetModel.calculateProgress(mapProgress.value),
+                modifier = GlanceModifier.padding(vertical = 3.dp),
+            )
         }
     }
 }
