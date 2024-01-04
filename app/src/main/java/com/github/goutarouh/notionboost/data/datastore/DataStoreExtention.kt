@@ -8,7 +8,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withTimeout
 import java.io.IOException
 
@@ -17,26 +16,27 @@ val Context.settingDataStore: DataStore<Preferences> by preferencesDataStore(
     name = "setting"
 )
 
-suspend fun <T> Flow<Preferences>.getDataStoreValue(
+suspend fun <T> Flow<Preferences>.getValue(
     key: Preferences.Key<T>,
-    timeoutMill: Long = 1000L
+    timeoutMill: Long = 100L
 ) : T {
 
     val flow = this
 
     try {
         return withTimeout(timeoutMill) {
-            val preferencesFlow = flow.map { preferences ->
-                preferences[key]
-            }
-            preferencesFlow.first() ?: throw NoSuchElementException()
+            val pref = flow.first()
+            pref[key]
+                ?: throw DataStoreException.NotSetException(
+                    message = "DataStore Preferences Not Set. key: ${key.name}"
+                )
         }
-    } catch (e: NoSuchElementException) {
-        throw DataStoreException.NotSetException(key.name)
     } catch (e: IOException) {
         throw DataStoreException.UnExpectedException(e.cause)
     } catch (e: TimeoutCancellationException) {
-        throw DataStoreException.TimeOutException()
+        throw DataStoreException.TimeOutException(
+            "DataStore Preferences Timeout (${timeoutMill}ms). key: ${key.name}"
+        )
     }
 }
 
