@@ -47,7 +47,8 @@ fun createQueryDatabaseModel(
 ) : QueryDatabaseModel {
     return QueryDatabaseModel(
         now = now,
-        dailyInfoList = dailyInfoList
+        dailyInfoList = dailyInfoList,
+        databaseId = ""
     )
 }
 

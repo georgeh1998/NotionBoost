@@ -7,6 +7,7 @@ import java.time.ZonedDateTime
 
 data class QueryDatabaseModel(
     val now: LocalDateTime,
+    val databaseId: String,
     val dailyInfoList: List<DailyInfo>
 ) {
 
@@ -40,9 +41,13 @@ data class DailyInfo(
     val isDoneMap: Map<String, Boolean>,
 )
 
-fun QueryDatabaseApiModel.toModel(now: LocalDateTime): QueryDatabaseModel {
+fun QueryDatabaseApiModel.toModel(
+    now: LocalDateTime,
+    databaseId: String,
+): QueryDatabaseModel {
     return QueryDatabaseModel(
         now = now,
+        databaseId = databaseId,
         dailyInfoList = this.results.map { result ->
             DailyInfo(
                 createdTime = result.properties.createdTime.createdTime,

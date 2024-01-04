@@ -77,7 +77,10 @@ class NotionDatabaseRepositoryImpl(
                 databaseId = databaseId,
                 queryDatabaseApiAndRequestModel = queryDatabaseApiAndRequestModel,
             )
-        }.toModel(now)
+        }.toModel(
+            now = now,
+            databaseId = databaseId
+        )
     }
 
     override suspend fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel) {

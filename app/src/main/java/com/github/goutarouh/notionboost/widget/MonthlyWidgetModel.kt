@@ -10,6 +10,7 @@ data class MonthlyWidgetModel (
     val startDate: String,
     val endDate: String,
     val lastUpdatedTime: String,
+    val databaseId: String,
     val mapProgress: Map<String, Float> = mapOf(),
 ) {
     fun calculateProgress(progress: Float): Int {
@@ -28,6 +29,7 @@ fun QueryDatabaseModel.toMonthlyWidgetModel(): MonthlyWidgetModel {
             startDate = startDate.format(DateFormat.YYYY_MM_DD),
             endDate = endDate.format(DateFormat.YYYY_MM_DD),
             lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
+            databaseId = databaseId,
         )
     } else {
         val mapProgress = calculateItemProgressMap(
@@ -38,7 +40,8 @@ fun QueryDatabaseModel.toMonthlyWidgetModel(): MonthlyWidgetModel {
             startDate = startDate.format(DateFormat.YYYY_MM_DD),
             endDate = endDate.format(DateFormat.YYYY_MM_DD),
             lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
-            mapProgress = mapProgress
+            databaseId = databaseId,
+            mapProgress = mapProgress,
         )
     }
 }
