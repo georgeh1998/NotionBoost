@@ -9,7 +9,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 interface GlanceApi {
 
-    suspend fun updateMonthlyWidget(monthlyWidgetModel: MonthlyWidgetModel)
+    suspend fun updateMonthlyWidgetsByWidgetIds(
+        appWidgetIds: List<Int>,
+        monthlyWidgetModel: MonthlyWidgetModel,
+    )
+
+    suspend fun updateMonthlyWidgetsByDatabaseId(
+        monthlyWidgetModel: MonthlyWidgetModel
+    )
 
 }
 
@@ -18,7 +25,30 @@ class GlanceApiImpl(
     private val gson: Gson,
 ) : GlanceApi {
 
-    override suspend fun updateMonthlyWidget(monthlyWidgetModel: MonthlyWidgetModel) {
+    override suspend fun updateMonthlyWidgetsByWidgetIds(
+        appWidgetIds: List<Int>,
+        monthlyWidgetModel: MonthlyWidgetModel
+    ) {
+        val manager = GlanceAppWidgetManager(applicationContext)
+        appWidgetIds.forEach { appWidgetId ->
+            val glanceId = manager.getGlanceIdBy(appWidgetId)
+            updateAppWidgetState(
+                context = applicationContext,
+                definition = PreferencesGlanceStateDefinition,
+                glanceId = glanceId
+            ) { preferences ->
+                preferences.toMutablePreferences().apply {
+                    val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
+                    this[MonthlyWidget.monthlyWidgetModel] = monthlyWidgetModelJson
+                }
+            }
+            MonthlyWidget().update(applicationContext, glanceId)
+        }
+    }
+
+    override suspend fun updateMonthlyWidgetsByDatabaseId(
+        monthlyWidgetModel: MonthlyWidgetModel
+    ) {
         GlanceAppWidgetManager(applicationContext)
             .getGlanceIds(MonthlyWidget::class.java)
             .forEach { glanceId ->
@@ -27,9 +57,17 @@ class GlanceApiImpl(
                     definition = PreferencesGlanceStateDefinition,
                     glanceId = glanceId
                 ) { preferences ->
-                    preferences.toMutablePreferences().apply {
-                        val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
-                        this[MonthlyWidget.monthlyWidgetModel] = monthlyWidgetModelJson
+                    val pref = preferences.toMutablePreferences()
+                    val prevModelJson = pref[MonthlyWidget.monthlyWidgetModel]
+                    val prevModel = gson.fromJson(prevModelJson, MonthlyWidgetModel::class.java)
+                    if (prevModel == null) {
+                        pref
+                    } else {
+                        if (prevModel.databaseId == monthlyWidgetModel.databaseId) {
+                            val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
+                            pref[MonthlyWidget.monthlyWidgetModel] = monthlyWidgetModelJson
+                        }
+                        pref
                     }
                 }
                 MonthlyWidget().update(applicationContext, glanceId)
