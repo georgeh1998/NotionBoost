@@ -10,11 +10,9 @@ interface DataStoreApi {
 
     suspend fun getNotionApiKey() : String
 
-    suspend fun setDatabaseId(databaseId: String)
+    suspend fun addDatabaseId(databaseId: String)
 
-    suspend fun getDatabaseId() : String
-
-    suspend fun removeDatabaseId()
+    suspend fun getDatabaseIds() : Set<String>
 
 }
 
@@ -35,20 +33,17 @@ class DataStoreApiImpl(
         return prefFlow.getDataStoreValue(DataStoreKey.NOTION_API_KEY)
     }
 
-    override suspend fun setDatabaseId(databaseId: String) {
+    override suspend fun addDatabaseId(databaseId: String) {
         dataStore.edit { settings ->
-            settings[DataStoreKey.DATABASE_ID] = databaseId
+            val databaseIds = getDatabaseIds().toMutableSet().apply {
+                add(databaseId)
+            }
+            settings[DataStoreKey.DATABASE_IDS] = databaseIds
         }
     }
 
-    override suspend fun getDatabaseId(): String {
-        return prefFlow.getDataStoreValue(DataStoreKey.DATABASE_ID)
-    }
-
-    override suspend fun removeDatabaseId() {
-        dataStore.edit { settings ->
-            settings.remove(DataStoreKey.DATABASE_ID)
-        }
+    override suspend fun getDatabaseIds(): Set<String> {
+        return prefFlow.getDataStoreValue(DataStoreKey.DATABASE_IDS)
     }
 
 

@@ -16,9 +16,7 @@ class MonthlyWidgetUpdateWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
-        monthlyWidgetModelCreateWorkerUseCase.invoke(
-            databaseId = "f59002096e874781aa3a659e78aa46d6"
-        )
+        monthlyWidgetModelCreateWorkerUseCase.invoke()
         return Result.success()
     }
 

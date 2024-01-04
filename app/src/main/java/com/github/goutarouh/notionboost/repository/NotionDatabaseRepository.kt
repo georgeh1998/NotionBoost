@@ -6,8 +6,6 @@ import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Fil
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.And
 import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Date
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
-import com.github.goutarouh.notionboost.widget.GlanceApi
-import com.github.goutarouh.notionboost.widget.MonthlyWidgetModel
 import java.time.LocalDateTime
 
 interface NotionDatabaseRepository {
@@ -16,11 +14,9 @@ interface NotionDatabaseRepository {
 
     suspend fun getNotionApiKey(): String
 
-    suspend fun saveDatabaseId(databaseId: String)
+    suspend fun addDatabaseId(databaseId: String)
 
-    suspend fun getDatabaseId(): String
-
-    suspend fun removeDatabaseId()
+    suspend fun getDatabaseIds(): Set<String>
 
     suspend fun queryDatabase(
         databaseId: String,
@@ -47,16 +43,12 @@ class NotionDatabaseRepositoryImpl(
         return dataStoreApi.getNotionApiKey()
     }
 
-    override suspend fun saveDatabaseId(databaseId: String) {
-        dataStoreApi.setDatabaseId(databaseId)
+    override suspend fun addDatabaseId(databaseId: String) {
+        dataStoreApi.addDatabaseId(databaseId)
     }
 
-    override suspend fun getDatabaseId(): String {
-        return dataStoreApi.getDatabaseId()
-    }
-
-    override suspend fun removeDatabaseId() {
-        dataStoreApi.removeDatabaseId()
+    override suspend fun getDatabaseIds(): Set<String> {
+        return dataStoreApi.getDatabaseIds()
     }
 
     override suspend fun queryDatabase(

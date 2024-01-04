@@ -29,7 +29,7 @@ class MonthlyWidgetConfigurationViewModel @Inject constructor(
 
     private fun createMonthlyWidget(databaseId: String) {
         viewModelScope.launch {
-            notionDatabaseRepository.saveDatabaseId(databaseId)
+            notionDatabaseRepository.addDatabaseId(databaseId)
             _uiModel.update { it.copy(finishConfiguration = true) }
         }
     }

@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withTimeout
 import java.io.IOException
@@ -44,5 +44,5 @@ suspend fun <T> Flow<Preferences>.getDataStoreValue(
 object DataStoreKey {
     val NOTION_API_KEY = stringPreferencesKey("NOTION_API_KEY")
 
-    val DATABASE_ID = stringPreferencesKey("DATABASE_ID")
+    val DATABASE_IDS = stringSetPreferencesKey("DATABASE_IDS")
 }
