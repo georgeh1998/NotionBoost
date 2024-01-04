@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.github.goutarouh.notionboost.ui.inital.model.InitialUiState
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -50,9 +51,15 @@ class InitialFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.initialNavAction.collectLatest {
-                    if (it == null) return@collectLatest
-                    findNavController().navigate(it.actionId)
+                viewModel.initialUiState.collectLatest { initialUiState ->
+
+                    when (initialUiState) {
+                        is InitialUiState.Initial -> {}
+                        is InitialUiState.NavAction -> {
+                            findNavController().navigate(initialUiState.initialNavAction.actionId)
+                        }
+                        is InitialUiState.Unexpected -> {}
+                    }
                 }
             }
         }

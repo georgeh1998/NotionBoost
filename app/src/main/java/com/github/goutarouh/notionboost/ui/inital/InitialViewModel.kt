@@ -2,11 +2,14 @@ package com.github.goutarouh.notionboost.ui.inital
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.goutarouh.notionboost.data.datastore.DataStoreException
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.ui.inital.model.InitialNavAction
+import com.github.goutarouh.notionboost.ui.inital.model.InitialUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,24 +18,38 @@ class InitialViewModel @Inject constructor(
     private val notionDatabaseRepository: NotionDatabaseRepository,
 ) : ViewModel() {
 
-    private val _initialNavAction = MutableStateFlow<InitialNavAction?>(null)
-    val initialNavAction = _initialNavAction.asStateFlow()
+    private val _initialUiState = MutableStateFlow<InitialUiState>(InitialUiState.Initial)
+    val initialUiState = _initialUiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             try {
                 val apiKey = notionDatabaseRepository.getNotionApiKey()
                 if (apiKey.isEmpty()) {
-                    _initialNavAction.value = InitialNavAction.WelcomeScreen
-                    return@launch
+                    updateUiState(InitialUiState.NavAction(InitialNavAction.WelcomeScreen))
                 } else {
-                    _initialNavAction.value = InitialNavAction.MonthlyWidgetSettingFragment
-                    return@launch
+                    updateUiState(InitialUiState.NavAction(InitialNavAction.MonthlyWidgetSettingFragment))
+                }
+            } catch (e: DataStoreException) {
+                when (e) {
+                    is DataStoreException.NotSetException -> {
+                        updateUiState(InitialUiState.NavAction(InitialNavAction.WelcomeScreen))
+                    }
+                    is DataStoreException.TimeOutException -> {
+                        updateUiState(InitialUiState.Unexpected(e))
+                    }
+                    is DataStoreException.UnExpectedException -> {
+                        updateUiState(InitialUiState.Unexpected(e))
+                    }
                 }
             } catch (e: Exception) {
-                _initialNavAction.value = InitialNavAction.WelcomeScreen
+                updateUiState(InitialUiState.Unexpected(e))
                 return@launch
             }
         }
+    }
+
+    private suspend fun updateUiState(initialUiState: InitialUiState) {
+        _initialUiState.update { initialUiState }
     }
 }
