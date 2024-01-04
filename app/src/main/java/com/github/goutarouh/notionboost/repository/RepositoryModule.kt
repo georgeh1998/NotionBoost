@@ -1,6 +1,7 @@
 package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.NotionRemoteApi
+import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import com.github.goutarouh.notionboost.widget.GlanceApi
 import dagger.Module
 import dagger.Provides
@@ -16,10 +17,12 @@ object RepositoryModule {
     @Singleton
     fun provideNotionDatabaseRepository(
         notionRemoteApi: NotionRemoteApi,
+        dataStoreApi: DataStoreApi,
         glanceApi: GlanceApi,
     ): NotionDatabaseRepository {
         return NotionDatabaseRepositoryImpl(
             notionRemoteApi = notionRemoteApi,
+            dataStoreApi = dataStoreApi,
             glanceApi = glanceApi
         )
     }

@@ -11,11 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WelcomeFragment : Fragment() {
+
+    private val viewModel by viewModels<WelcomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +34,8 @@ class WelcomeFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        WelcomeScreen()
+                        val uiModel = viewModel.uiModel.collectAsStateWithLifecycle().value
+                        WelcomeScreen(uiModel)
                     }
                 }
             }
