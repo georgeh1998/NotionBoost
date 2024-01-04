@@ -10,4 +10,7 @@ data class WelcomeUiModel(
 
     val saveButtonEnabled = inputApiKey.isNotEmpty()
 
+    val finishWelcomeScreen: Boolean
+        get() = apiKeySaved == true
+
 }

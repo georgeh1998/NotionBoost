@@ -16,6 +16,10 @@ interface NotionDatabaseRepository {
 
     suspend fun getNotionApiKey(): String
 
+    suspend fun saveDatabaseId(databaseId: String)
+
+    suspend fun getDatabaseId(): String
+
     suspend fun queryDatabase(
         databaseId: String,
         now: LocalDateTime,
@@ -41,6 +45,14 @@ class NotionDatabaseRepositoryImpl(
 
     override suspend fun getNotionApiKey(): String {
         return dataStoreApi.getNotionApiKey()
+    }
+
+    override suspend fun saveDatabaseId(databaseId: String) {
+        dataStoreApi.setDatabaseId(databaseId)
+    }
+
+    override suspend fun getDatabaseId(): String {
+        return dataStoreApi.getDatabaseId()
     }
 
     override suspend fun queryDatabase(

@@ -43,4 +43,6 @@ suspend fun <T> Flow<Preferences>.getDataStoreValue(
 
 object DataStoreKey {
     val NOTION_API_KEY = stringPreferencesKey("NOTION_API_KEY")
+
+    val DATABASE_ID = stringPreferencesKey("DATABASE_ID")
 }

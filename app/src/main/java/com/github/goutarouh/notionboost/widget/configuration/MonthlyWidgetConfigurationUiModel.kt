@@ -5,7 +5,7 @@ data class MonthlyWidgetConfigurationUiModel(
     val finishConfiguration: Boolean? = null,
 
     val updateInputDatabaseId: (String) -> Unit,
-    val createMonthlyWidget: () -> Unit,
+    val createMonthlyWidget: (String) -> Unit,
 ) {
 
     val saveButtonEnabled: Boolean

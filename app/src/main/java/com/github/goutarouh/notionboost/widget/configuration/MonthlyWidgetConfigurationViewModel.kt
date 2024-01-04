@@ -2,6 +2,7 @@ package com.github.goutarouh.notionboost.widget.configuration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,7 +11,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MonthlyWidgetConfigurationViewModel @Inject constructor() : ViewModel() {
+class MonthlyWidgetConfigurationViewModel @Inject constructor(
+    private val notionDatabaseRepository: NotionDatabaseRepository,
+) : ViewModel() {
 
     private val _uiModel = MutableStateFlow<MonthlyWidgetConfigurationUiModel>(MonthlyWidgetConfigurationUiModel(
         updateInputDatabaseId = ::updateInputDatabaseId,
@@ -24,8 +27,9 @@ class MonthlyWidgetConfigurationViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun createMonthlyWidget() {
+    private fun createMonthlyWidget(databaseId: String) {
         viewModelScope.launch {
+            notionDatabaseRepository.saveDatabaseId(databaseId)
             _uiModel.update { it.copy(finishConfiguration = true) }
         }
     }
