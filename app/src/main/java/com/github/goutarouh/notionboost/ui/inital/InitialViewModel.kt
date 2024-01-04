@@ -3,7 +3,7 @@ package com.github.goutarouh.notionboost.ui.inital
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
-import com.github.goutarouh.notionboost.ui.inital.model.InitialDestination
+import com.github.goutarouh.notionboost.ui.inital.model.InitialNavAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,22 +15,22 @@ class InitialViewModel @Inject constructor(
     private val notionDatabaseRepository: NotionDatabaseRepository,
 ) : ViewModel() {
 
-    private val _initialDestination = MutableStateFlow<InitialDestination?>(null)
-    val initialDestination = _initialDestination.asStateFlow()
+    private val _initialNavAction = MutableStateFlow<InitialNavAction?>(null)
+    val initialNavAction = _initialNavAction.asStateFlow()
 
     init {
         viewModelScope.launch {
             try {
                 val apiKey = notionDatabaseRepository.getNotionApiKey()
                 if (apiKey.isEmpty()) {
-                    _initialDestination.value = InitialDestination.WelcomeScreen
+                    _initialNavAction.value = InitialNavAction.WelcomeScreen
                     return@launch
                 } else {
-                    _initialDestination.value = InitialDestination.MonthlyWidgetSettingFragment
+                    _initialNavAction.value = InitialNavAction.MonthlyWidgetSettingFragment
                     return@launch
                 }
             } catch (e: Exception) {
-                _initialDestination.value = InitialDestination.WelcomeScreen
+                _initialNavAction.value = InitialNavAction.WelcomeScreen
                 return@launch
             }
         }

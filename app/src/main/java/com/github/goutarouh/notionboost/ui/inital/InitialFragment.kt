@@ -50,9 +50,9 @@ class InitialFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.initialDestination.collectLatest {
+                viewModel.initialNavAction.collectLatest {
                     if (it == null) return@collectLatest
-                    findNavController().navigate(it.destinationId)
+                    findNavController().navigate(it.actionId)
                 }
             }
         }

@@ -6,11 +6,33 @@
 
     <fragment
         android:id="@+id/initialFragment"
-        android:name="com.github.goutarouh.notionboost.ui.inital.InitialFragment" />
+        android:name="com.github.goutarouh.notionboost.ui.inital.InitialFragment">
+
+        <action
+            android:id="@+id/actionInitialFragmentToWelcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/initialFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/actionInitialFragmentToMonthlyWidgetSettingFragment"
+            app:destination="@id/monthlyWidgetSettingFragment"
+            app:popUpTo="@id/initialFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.github.goutarouh.notionboost.ui.welcome.WelcomeFragment" />
+        android:name="com.github.goutarouh.notionboost.ui.welcome.WelcomeFragment">
+
+        <action
+            android:id="@+id/actionWelcomeFragmentToMonthlyWidgetSettingFragment"
+            app:destination="@id/monthlyWidgetSettingFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/monthlyWidgetSettingFragment"
