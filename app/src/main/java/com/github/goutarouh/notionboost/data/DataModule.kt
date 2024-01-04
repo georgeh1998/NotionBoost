@@ -40,7 +40,6 @@ object DataModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(ApiHeaderInterceptor(
-                authorization = BuildConfig.API_KEY,
                 notionVersion = "2022-06-28"
             ))
         }.build()

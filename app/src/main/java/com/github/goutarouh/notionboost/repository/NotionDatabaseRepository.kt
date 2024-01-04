@@ -45,7 +45,7 @@ class NotionDatabaseRepositoryImpl(
 
     override suspend fun queryDatabase(
         databaseId: String,
-        now : LocalDateTime,
+        now: LocalDateTime,
         inclusiveStartDate: LocalDateTime,
         inclusiveEndDate: LocalDateTime
     ) : QueryDatabaseModel {
@@ -60,7 +60,11 @@ class NotionDatabaseRepositoryImpl(
         )
 
         return safeApiCall {
-            notionRemoteApi.queryDatabase(databaseId, queryDatabaseApiAndRequestModel)
+            notionRemoteApi.queryDatabase(
+                authorization = "Bearer ${getNotionApiKey()}",
+                databaseId = databaseId,
+                queryDatabaseApiAndRequestModel = queryDatabaseApiAndRequestModel,
+            )
         }.toModel(now)
     }
 

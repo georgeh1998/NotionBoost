@@ -1,6 +1,3 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -23,12 +20,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        val prop = Properties().apply {
-            load(FileInputStream(File(rootProject.rootDir, "local.properties")))
-        }
-
-        buildConfigField("String", "API_KEY", "\"${prop.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
