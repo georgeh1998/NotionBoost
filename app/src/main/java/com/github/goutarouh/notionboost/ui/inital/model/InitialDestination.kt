@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.ui.main.model
+package com.github.goutarouh.notionboost.ui.inital.model
 
 import com.github.goutarouh.notionboost.R
 
