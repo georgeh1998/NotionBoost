@@ -47,9 +47,13 @@ class DataStoreApiImpl(
     }
 
     override suspend fun getMonthlyWidgetConfiguration(): Map<Int, String> {
-        val mapJson = prefFlow.getDataStoreValue(DataStoreKey.APP_WIDGET_ID_TO_DATABASE_ID)
-        val mapType = object : TypeToken<Map<Int, String>>() {}.type
-        return gson.fromJson(mapJson, mapType)
+        return try {
+            val mapJson = prefFlow.getDataStoreValue(DataStoreKey.APP_WIDGET_ID_TO_DATABASE_ID)
+            val mapType = object : TypeToken<Map<Int, String>>() {}.type
+            gson.fromJson(mapJson, mapType)
+        } catch (e: DataStoreException.NotSetException) {
+            mapOf()
+        }
     }
 
 }

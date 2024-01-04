@@ -42,8 +42,10 @@ class MonthlyWidgetConfigurationActivity : ComponentActivity() {
                     ).value
 
                     LaunchedEffect(key1 = uiModel) {
-                        if (uiModel.isFinished) {
+                        if (uiModel.isSuccess) {
                             finishWithSuccess(appWidgetId)
+                        } else if (uiModel.isFailure) {
+                            finishWithFailure(appWidgetId)
                         }
                     }
 
@@ -59,6 +61,12 @@ class MonthlyWidgetConfigurationActivity : ComponentActivity() {
     private fun finishWithSuccess(appWidgetId: Int) {
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         setResult(Activity.RESULT_OK, resultValue)
+        finish()
+    }
+
+    private fun finishWithFailure(appWidgetId: Int) {
+        val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        setResult(Activity.RESULT_CANCELED, resultValue)
         finish()
     }
 }

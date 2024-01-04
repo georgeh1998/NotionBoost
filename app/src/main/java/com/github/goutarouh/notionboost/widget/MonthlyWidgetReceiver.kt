@@ -24,7 +24,7 @@ class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
         val updateRequest = PeriodicWorkRequestBuilder<MonthlyWidgetUpdateWorker>(
             24, TimeUnit.HOURS
         )
-            .setInitialDelay(1, TimeUnit.MINUTES)
+            .setInitialDelay(24, TimeUnit.MINUTES)
             .build()
 
         WorkManager

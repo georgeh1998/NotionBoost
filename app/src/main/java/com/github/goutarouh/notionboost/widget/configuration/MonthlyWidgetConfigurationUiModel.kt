@@ -15,6 +15,10 @@ data class MonthlyWidgetConfigurationUiModel(
     val saveButtonEnabled: Boolean
         get() = inputDatabaseId.isNotEmpty()
 
-    val isFinished: Boolean
+    val isSuccess: Boolean
         get() = finishConfiguration == true
+
+    val isFailure: Boolean
+        get() = finishConfiguration == false
+
 }
