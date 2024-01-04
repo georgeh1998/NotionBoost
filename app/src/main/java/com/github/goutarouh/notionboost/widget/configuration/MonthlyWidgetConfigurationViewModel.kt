@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
 
 @HiltViewModel
 class MonthlyWidgetConfigurationViewModel @Inject constructor(
@@ -37,13 +38,14 @@ class MonthlyWidgetConfigurationViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
+                _uiModel.update { it.copy(configurationResult = ConfigurationResult.Loading) }
                 monthlyWidgetInitialUseCase.invoke(
                     databaseId = databaseId,
                     appWidgetId = appWidgetId,
                 )
-                _uiModel.update { it.copy(finishConfiguration = true) }
+                _uiModel.update { it.copy(configurationResult = ConfigurationResult.Success) }
             } catch (e: Exception) {
-                _uiModel.update { it.copy(finishConfiguration = false) }
+                _uiModel.update { it.copy(configurationResult = ConfigurationResult.Failure(e)) }
             }
         }
     }

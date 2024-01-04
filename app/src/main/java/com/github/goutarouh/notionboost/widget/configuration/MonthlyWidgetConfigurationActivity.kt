@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
+import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
 
 @AndroidEntryPoint
 class MonthlyWidgetConfigurationActivity : ComponentActivity() {
@@ -42,10 +43,8 @@ class MonthlyWidgetConfigurationActivity : ComponentActivity() {
                     ).value
 
                     LaunchedEffect(key1 = uiModel) {
-                        if (uiModel.isSuccess) {
+                        if (uiModel.configurationResult is ConfigurationResult.Success) {
                             finishWithSuccess(appWidgetId)
-                        } else if (uiModel.isFailure) {
-                            finishWithFailure(appWidgetId)
                         }
                     }
 
@@ -61,12 +60,6 @@ class MonthlyWidgetConfigurationActivity : ComponentActivity() {
     private fun finishWithSuccess(appWidgetId: Int) {
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         setResult(Activity.RESULT_OK, resultValue)
-        finish()
-    }
-
-    private fun finishWithFailure(appWidgetId: Int) {
-        val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-        setResult(Activity.RESULT_CANCELED, resultValue)
         finish()
     }
 }

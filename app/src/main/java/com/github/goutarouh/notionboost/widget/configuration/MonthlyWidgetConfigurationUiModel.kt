@@ -1,9 +1,11 @@
 package com.github.goutarouh.notionboost.widget.configuration
 
+import java.lang.Exception
+
 data class MonthlyWidgetConfigurationUiModel(
     val appWidgetId: Int,
     val inputDatabaseId: String = "",
-    val finishConfiguration: Boolean? = null,
+    val configurationResult: ConfigurationResult = ConfigurationResult.Initial,
 
     val updateInputDatabaseId: (String) -> Unit,
     val createMonthlyWidget: (
@@ -13,12 +15,17 @@ data class MonthlyWidgetConfigurationUiModel(
 ) {
 
     val saveButtonEnabled: Boolean
-        get() = inputDatabaseId.isNotEmpty()
+        get() = inputDatabaseId.length == 32
 
-    val isSuccess: Boolean
-        get() = finishConfiguration == true
 
-    val isFailure: Boolean
-        get() = finishConfiguration == false
+    sealed interface ConfigurationResult {
+        data object Initial : ConfigurationResult
+
+        data object Loading : ConfigurationResult
+
+        data object Success : ConfigurationResult
+
+        data class Failure(val exception: Exception) : ConfigurationResult
+    }
 
 }
