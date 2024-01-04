@@ -5,6 +5,7 @@ fun createNotionRemoteApi(
 ) : NotionRemoteApi {
     return object : NotionRemoteApi {
         override suspend fun queryDatabase(
+            authorization: String,
             databaseId: String,
             queryDatabaseApiAndRequestModel: QueryDatabaseApiAndRequestModel
         ): QueryDatabaseApiModel {
