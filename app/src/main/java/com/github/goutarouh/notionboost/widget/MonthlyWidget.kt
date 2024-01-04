@@ -18,7 +18,7 @@ class MonthlyWidget : GlanceAppWidget() {
             val preferences = currentState<Preferences>()
             val monthlyWidgetModelJson = preferences[monthlyWidgetModel]
             val monthlyWidgetUiState = if (monthlyWidgetModelJson == null) {
-                MonthlyWidgetUiState.Loading
+                MonthlyWidgetUiState.Preparing
             } else {
                 val monthlyWidgetModel = Gson().fromJson(monthlyWidgetModelJson, MonthlyWidgetModel::class.java)
                 if (monthlyWidgetModel.mapProgress.isEmpty()) {

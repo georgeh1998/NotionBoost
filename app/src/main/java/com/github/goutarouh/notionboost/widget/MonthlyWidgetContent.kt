@@ -46,8 +46,8 @@ fun MonthlyWidgetContent(
     ) {
 
         when (monthlyWidgetUiState) {
-            is MonthlyWidgetUiState.Loading -> {
-                NoData()
+            is MonthlyWidgetUiState.Preparing -> {
+                Preparing()
             }
             is MonthlyWidgetUiState.NoData -> {
                 NoData()
@@ -59,6 +59,17 @@ fun MonthlyWidgetContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun Preparing() {
+    Box(
+        modifier = GlanceModifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "Under preparation...")
     }
 }
 
