@@ -1,12 +1,17 @@
 package com.github.goutarouh.notionboost.data
 
+import android.content.Context
 import com.github.goutarouh.notionboost.BuildConfig
+import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
+import com.github.goutarouh.notionboost.data.datastore.DataStoreApiImpl
+import com.github.goutarouh.notionboost.data.datastore.settingDataStore
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -62,4 +67,14 @@ object DataModule {
         return retrofit.create(NotionRemoteApi::class.java)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideDataStoreApi(
+        @ApplicationContext context: Context
+    ) : DataStoreApi {
+        return DataStoreApiImpl(
+            dataStore = context.settingDataStore
+        )
+    }
 }

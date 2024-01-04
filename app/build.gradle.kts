@@ -109,4 +109,7 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+
+    // DataStore
+    implementation("androidx.datastore:datastore:1.0.0")
 }
