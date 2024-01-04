@@ -4,8 +4,12 @@ class FakeGlanceApiImpl : GlanceApi {
 
     lateinit var updatedMonthlyWidgetModel: MonthlyWidgetModel
 
-    override suspend fun updateMonthlyWidget(monthlyWidgetModel: MonthlyWidgetModel) {
+    override suspend fun updateMonthlyWidgetsByWidgetIds(
+        appWidgetIds: List<Int>,
+        monthlyWidgetModel: MonthlyWidgetModel
+    ) {
         updatedMonthlyWidgetModel = monthlyWidgetModel
+
     }
 
 }
