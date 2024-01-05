@@ -5,4 +5,4 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MonthlyWidgetSettingViewModel @Inject constructor(): ViewModel() {}
+class MonthlyWidgetListViewModel @Inject constructor(): ViewModel() {}

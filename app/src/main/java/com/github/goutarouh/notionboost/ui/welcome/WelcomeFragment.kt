@@ -45,7 +45,7 @@ class WelcomeFragment : Fragment() {
 
                         LaunchedEffect(key1 = uiModel) {
                             if (uiModel.finishWelcomeScreen) {
-                                findNavController().navigate(R.id.actionWelcomeFragmentToMonthlyWidgetSettingFragment)
+                                findNavController().navigate(R.id.actionWelcomeFragmentToMonthlyWidgetListFragment)
                             }
                         }
 

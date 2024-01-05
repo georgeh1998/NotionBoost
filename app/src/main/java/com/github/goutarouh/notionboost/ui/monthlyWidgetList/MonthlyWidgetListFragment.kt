@@ -16,9 +16,9 @@ import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MonthlyWidgetSettingFragment : Fragment() {
+class MonthlyWidgetListFragment : Fragment() {
 
-    private val viewModel by viewModels<MonthlyWidgetSettingViewModel>()
+    private val viewModel by viewModels<MonthlyWidgetListViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +32,7 @@ class MonthlyWidgetSettingFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        MonthlyWidgetSettingScreen()
+                        MonthlyWidgetListScreen()
                     }
                 }
             }

@@ -28,7 +28,7 @@ class InitialViewModel @Inject constructor(
                 if (apiKey.isEmpty()) {
                     updateUiState(InitialUiState.NavAction(InitialNavAction.WelcomeScreen))
                 } else {
-                    updateUiState(InitialUiState.NavAction(InitialNavAction.MonthlyWidgetSettingFragment))
+                    updateUiState(InitialUiState.NavAction(InitialNavAction.MonthlyWidgetListFragment))
                 }
             } catch (e: DataStoreException) {
                 when (e) {

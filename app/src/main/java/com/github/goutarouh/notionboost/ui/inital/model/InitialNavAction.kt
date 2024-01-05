@@ -8,7 +8,7 @@ enum class InitialNavAction(
     WelcomeScreen(
         actionId = R.id.actionInitialFragmentToWelcomeFragment,
     ),
-    MonthlyWidgetSettingFragment(
-        actionId = R.id.actionInitialFragmentToMonthlyWidgetSettingFragment,
+    MonthlyWidgetListFragment(
+        actionId = R.id.actionInitialFragmentToMonthlyWidgetListFragment,
     ),
 }

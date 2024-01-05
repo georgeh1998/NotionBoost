@@ -15,8 +15,8 @@
             app:popUpToInclusive="true" />
 
         <action
-            android:id="@+id/actionInitialFragmentToMonthlyWidgetSettingFragment"
-            app:destination="@id/monthlyWidgetSettingFragment"
+            android:id="@+id/actionInitialFragmentToMonthlyWidgetListFragment"
+            app:destination="@id/monthlyWidgetListFragment"
             app:popUpTo="@id/initialFragment"
             app:popUpToInclusive="true" />
 
@@ -27,15 +27,15 @@
         android:name="com.github.goutarouh.notionboost.ui.welcome.WelcomeFragment">
 
         <action
-            android:id="@+id/actionWelcomeFragmentToMonthlyWidgetSettingFragment"
-            app:destination="@id/monthlyWidgetSettingFragment"
+            android:id="@+id/actionWelcomeFragmentToMonthlyWidgetListFragment"
+            app:destination="@id/monthlyWidgetListFragment"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/monthlyWidgetSettingFragment"
-        android:name="com.github.goutarouh.notionboost.ui.monthlyWidgetList.MonthlyWidgetSettingFragment" />
+        android:id="@+id/monthlyWidgetListFragment"
+        android:name="com.github.goutarouh.notionboost.ui.monthlyWidgetList.MonthlyWidgetListFragment" />
 
 </navigation>
