@@ -36,6 +36,6 @@
 
     <fragment
         android:id="@+id/monthlyWidgetSettingFragment"
-        android:name="com.github.goutarouh.notionboost.ui.monthly.MonthlyWidgetSettingFragment" />
+        android:name="com.github.goutarouh.notionboost.ui.monthlyWidgetList.MonthlyWidgetSettingFragment" />
 
 </navigation>

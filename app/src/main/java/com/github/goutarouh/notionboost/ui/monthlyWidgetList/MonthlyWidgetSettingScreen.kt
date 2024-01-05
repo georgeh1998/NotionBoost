@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.ui.monthly
+package com.github.goutarouh.notionboost.ui.monthlyWidgetList
 
 import androidx.compose.runtime.Composable
 

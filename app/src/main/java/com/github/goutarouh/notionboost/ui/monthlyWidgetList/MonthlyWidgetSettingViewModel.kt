@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.ui.monthly
+package com.github.goutarouh.notionboost.ui.monthlyWidgetList
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
