@@ -12,7 +12,7 @@ sealed class ApiException : Exception() {
 
     class UnExpectedException(override val cause: Throwable?) : ApiException()
 
-    class NotFound() : ApiException()
+    class NotFound : ApiException()
 
     class UnauthorizedException : ApiException()
 }
