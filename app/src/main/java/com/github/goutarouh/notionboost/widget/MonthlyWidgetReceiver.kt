@@ -1,17 +1,24 @@
 package com.github.goutarouh.notionboost.widget
 
 import android.content.Context
+import androidx.glance.ExperimentalGlanceApi
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.workmanager.MonthlyWidgetUpdateWorker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
+
+    @Inject lateinit var notionDatabaseRepository: NotionDatabaseRepository
 
     override val glanceAppWidget: GlanceAppWidget
         get() = MonthlyWidget()
@@ -42,6 +49,16 @@ class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
         WorkManager
             .getInstance(context)
             .cancelUniqueWork(MonthlyWidgetUpdateWorker.EXECUTION_UNIQUE_ID)
+    }
+
+    // Called when widget is removed every time
+    @OptIn(ExperimentalGlanceApi::class)
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        super.onDeleted(context, appWidgetIds)
+
+        CoroutineScope(coroutineContext).launch {
+            notionDatabaseRepository.removeMonthlyWidgetConfiguration(appWidgetIds.toList())
+        }
     }
 
 }

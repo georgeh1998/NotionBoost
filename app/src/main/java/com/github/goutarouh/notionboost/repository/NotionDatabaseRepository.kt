@@ -31,6 +31,10 @@ class NotionDatabaseRepository(
         return dataStoreApi.getMonthlyWidgetConfiguration()
     }
 
+    suspend fun removeMonthlyWidgetConfiguration(appWidgetIds: List<Int>) {
+        dataStoreApi.removeMonthlyWidgetConfiguration(appWidgetIds)
+    }
+
     fun monthlyWidgetConfigurationFlow() = dataStoreApi.monthlyWidgetConfigurationFlow()
 
     suspend fun queryDatabase(

@@ -5,9 +5,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.io.IOException
 
@@ -19,12 +21,12 @@ val Context.settingDataStore: DataStore<Preferences> by preferencesDataStore(
 suspend fun <T> Flow<Preferences>.getValue(
     key: Preferences.Key<T>,
     timeoutMill: Long = 100L
-) : T {
+) : T = withContext(Dispatchers.IO) {
 
-    val flow = this
+    val flow = this@getValue
 
     try {
-        return withTimeout(timeoutMill) {
+        withTimeout(timeoutMill) {
             val pref = flow.first()
             pref[key]
                 ?: throw DataStoreException.NotSetException(
