@@ -15,33 +15,45 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MonthlyWidgetConfigurationScreen(
     uiModel: MonthlyWidgetConfigurationUiModel,
+    hostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White),
-        contentAlignment = Alignment.Center
-    ) {
-        MonthlyWidgetConfigurationContent(
-            uiModel = uiModel,
-            modifier = Modifier,
-        )
-        when (uiModel.configurationResult) {
-            is ConfigurationResult.Loading -> Loading()
-            is ConfigurationResult.Failure -> {}
-            else -> {}
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState) }
+    ) { paddingValues ->
+        Box(
+            modifier = modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            MonthlyWidgetConfigurationContent(
+                uiModel = uiModel,
+                modifier = Modifier,
+            )
+            when (uiModel.configurationResult) {
+                is ConfigurationResult.Loading -> Loading()
+                is ConfigurationResult.Failure -> {}
+                else -> {}
+            }
         }
     }
 }
@@ -50,16 +62,15 @@ fun MonthlyWidgetConfigurationScreen(
 private fun Loading(
     modifier: Modifier = Modifier
 ) {
-    Column(
+    Box(
         modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        contentAlignment = Alignment.Center,
     ) {
-        Spacer(modifier = Modifier.height(64.dp))
         CircularProgressIndicator()
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 private fun MonthlyWidgetConfigurationContent(
     uiModel: MonthlyWidgetConfigurationUiModel,
@@ -91,8 +102,12 @@ private fun MonthlyWidgetConfigurationContent(
             singleLine = true,
             placeholder = { Text(text = "Database ID") },
         )
+        val keyboardController = LocalSoftwareKeyboardController.current
         OutlinedButton(
-            onClick = { uiModel.createMonthlyWidget(uiModel.appWidgetId, uiModel.inputDatabaseId) },
+            onClick = {
+                keyboardController?.hide()
+                uiModel.createMonthlyWidget(uiModel.appWidgetId, uiModel.inputDatabaseId)
+            },
             enabled = uiModel.saveButtonEnabled,
             modifier = Modifier.padding(vertical = 12.dp)
         ) {

@@ -12,6 +12,7 @@ data class MonthlyWidgetConfigurationUiModel(
         appWidgetId: Int,
         databaseId: String,
     ) -> Unit,
+    val clearConfigurationResult: () -> Unit,
 ) {
 
     val saveButtonEnabled: Boolean
@@ -25,7 +26,7 @@ data class MonthlyWidgetConfigurationUiModel(
 
         data object Success : ConfigurationResult
 
-        data class Failure(val exception: Exception) : ConfigurationResult
+        data class Failure(val e: Exception) : ConfigurationResult
     }
 
 }
