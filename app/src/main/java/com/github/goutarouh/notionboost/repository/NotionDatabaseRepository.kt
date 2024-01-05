@@ -47,6 +47,7 @@ class NotionDatabaseRepository(
             )
         )
 
+        // TODO NotionAPIキーを保存しないままWidgetを作成するとエラーになる
         return safeApiCall {
             notionRemoteApi.queryDatabase(
                 authorization = "Bearer ${getNotionApiKey()}",
