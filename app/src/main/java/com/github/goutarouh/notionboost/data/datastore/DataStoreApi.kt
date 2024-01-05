@@ -5,6 +5,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 interface DataStoreApi {
 
@@ -15,6 +17,8 @@ interface DataStoreApi {
     suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>)
 
     suspend fun getMonthlyWidgetConfiguration() : Map<Int, String>
+
+    fun monthlyWidgetConfigurationFlow() : Flow<Map<Int, String>>
 
 }
 
@@ -53,6 +57,14 @@ class DataStoreApiImpl(
             gson.fromJson(mapJson, mapType)
         } catch (e: DataStoreException.NotSetException) {
             mapOf()
+        }
+    }
+
+    override fun monthlyWidgetConfigurationFlow(): Flow<Map<Int, String>> {
+        return dataStore.data.map {
+            val mapJson = it[DataStoreKey.APP_WIDGET_ID_TO_DATABASE_ID]
+            val mapType = object : TypeToken<Map<Int, String>>() {}.type
+            gson.fromJson(mapJson, mapType)
         }
     }
 

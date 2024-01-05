@@ -31,6 +31,8 @@ class NotionDatabaseRepository(
         return dataStoreApi.getMonthlyWidgetConfiguration()
     }
 
+    fun monthlyWidgetConfigurationFlow() = dataStoreApi.monthlyWidgetConfigurationFlow()
+
     suspend fun queryDatabase(
         databaseId: String,
         now: LocalDateTime,

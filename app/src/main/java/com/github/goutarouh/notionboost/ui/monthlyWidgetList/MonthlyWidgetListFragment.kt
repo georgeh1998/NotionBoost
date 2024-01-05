@@ -12,6 +12,8 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +34,14 @@ class MonthlyWidgetListFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        MonthlyWidgetListScreen()
+                        val uiModel = viewModel.uiState.collectAsStateWithLifecycle(
+                            lifecycle = viewLifecycleOwner.lifecycle,
+                            minActiveState = Lifecycle.State.STARTED
+                        ).value
+                        MonthlyWidgetListScreen(
+                            uiModel = uiModel,
+                            modifier = Modifier,
+                        )
                     }
                 }
             }
