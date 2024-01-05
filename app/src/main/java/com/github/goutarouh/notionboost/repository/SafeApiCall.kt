@@ -11,6 +11,10 @@ sealed class ApiException : Exception() {
     class ResponseUnexpectedException(override val cause: Throwable?) : ApiException()
 
     class UnExpectedException(override val cause: Throwable?) : ApiException()
+
+    class NotFound() : ApiException()
+
+    class UnauthorizedException : ApiException()
 }
 
 suspend fun <T> safeApiCall(
@@ -19,7 +23,15 @@ suspend fun <T> safeApiCall(
     try {
         return call()
     } catch (e: HttpException) {
-        // TODO Handle based on status code
+        // https://developers.notion.com/reference/status-codes
+        when (e.code()) {
+            400, 404 -> {
+                throw ApiException.NotFound()
+            }
+            401 -> {
+                throw ApiException.UnauthorizedException()
+            }
+        }
         throw ApiException.UnExpectedException(e.cause)
     } catch (e: JsonSyntaxException) {
         throw ApiException.ResponseUnexpectedException(e.cause)
