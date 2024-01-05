@@ -11,7 +11,9 @@ import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.workmanager.MonthlyWidgetUpdateWorker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -57,7 +59,9 @@ class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
         super.onDeleted(context, appWidgetIds)
 
         CoroutineScope(coroutineContext).launch {
-            notionDatabaseRepository.removeMonthlyWidgetConfiguration(appWidgetIds.toList())
+            withContext(NonCancellable) {
+                notionDatabaseRepository.removeMonthlyWidgetConfiguration(appWidgetIds.toList())
+            }
         }
     }
 
