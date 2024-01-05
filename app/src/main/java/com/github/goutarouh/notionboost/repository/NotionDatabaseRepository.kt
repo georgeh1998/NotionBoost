@@ -59,6 +59,17 @@ class NotionDatabaseRepository(
             databaseId = databaseId
         )
     }
+
+    suspend fun retrieveDatabase(
+        databaseId: String,
+    ) : RetrieveDatabaseModel {
+        return safeApiCall {
+            notionRemoteApi.retrieveDatabase(
+                authorization = "Bearer ${getNotionApiKey()}",
+                databaseId = databaseId,
+            )
+        }.toModel()
+    }
 }
 
 

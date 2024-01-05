@@ -85,14 +85,15 @@ private fun Success(
         Spacer(
             modifier = GlanceModifier.height(8.dp),
         )
+        val title = monthlyWidgetModel.title.ifEmpty { "${monthlyWidgetModel.monthName}" }
         Text(
-            text = "${monthlyWidgetModel.monthName} Habit Tracker",
+            text = title,
             modifier = GlanceModifier
                 .clickable(
                     actionStartActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            "https://www.notion.so/${monthlyWidgetModel.databaseId}".toUri()
+                            monthlyWidgetModel.url.toUri()
                         )
                     )
                 ),

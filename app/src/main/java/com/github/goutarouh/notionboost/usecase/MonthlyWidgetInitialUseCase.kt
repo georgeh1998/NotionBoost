@@ -4,7 +4,7 @@ import com.github.goutarouh.notionboost.repository.GlanceRepository
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.util.getFirstDayOfNextMonth
 import com.github.goutarouh.notionboost.util.getLastDayOfPreviousMonth
-import com.github.goutarouh.notionboost.widget.toMonthlyWidgetModel
+import com.github.goutarouh.notionboost.widget.createMonthlyWidgetModel
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
@@ -34,11 +34,13 @@ class MonthlyWidgetInitialUseCase @Inject constructor(
             inclusiveEndDate = firstDayOfNextMonth
         )
 
+        val retrieveDatabaseModel = notionDatabaseRepository.retrieveDatabase(databaseId)
+
         val userZonFilteredModel = queryDatabaseModel
             .convertToUserZone(zoneId)
             .filterByMonth(now.monthValue)
 
-        val monthlyWidgetModel = userZonFilteredModel.toMonthlyWidgetModel()
+        val monthlyWidgetModel = createMonthlyWidgetModel(retrieveDatabaseModel, userZonFilteredModel)
 
         glanceRepository.updateMonthlyWidgetByWidgetIds(
             appWidgetIds = listOf(appWidgetId),

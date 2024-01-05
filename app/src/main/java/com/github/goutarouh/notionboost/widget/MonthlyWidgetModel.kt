@@ -1,16 +1,19 @@
 package com.github.goutarouh.notionboost.widget
 
 import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
+import com.github.goutarouh.notionboost.repository.RetrieveDatabaseModel
 import com.github.goutarouh.notionboost.util.DateFormat
 import com.github.goutarouh.notionboost.util.getFirstDayOfThisMonth
 import com.github.goutarouh.notionboost.util.getLastDayOfThisMonth
 
 data class MonthlyWidgetModel (
     val monthName: String,
+    val title: String,
     val startDate: String,
     val endDate: String,
     val lastUpdatedTime: String,
     val databaseId: String,
+    val url: String,
     val mapProgress: Map<String, Float> = mapOf(),
 ) {
     fun calculateProgress(progress: Float): Int {
@@ -18,35 +21,38 @@ data class MonthlyWidgetModel (
     }
 }
 
-fun QueryDatabaseModel.toMonthlyWidgetModel(): MonthlyWidgetModel {
+fun createMonthlyWidgetModel(
+    retrieveDatabaseModel: RetrieveDatabaseModel,
+    queryDatabaseModel: QueryDatabaseModel,
+) : MonthlyWidgetModel {
+
+    val now = queryDatabaseModel.now
 
     val startDate = now.getFirstDayOfThisMonth()
     val endDate = now.getLastDayOfThisMonth()
 
-    return if (dailyInfoList.isEmpty()) {
-        MonthlyWidgetModel(
-            monthName = now.format(DateFormat.MONTH_NAME),
-            startDate = startDate.format(DateFormat.YYYY_MM_DD),
-            endDate = endDate.format(DateFormat.YYYY_MM_DD),
-            lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
-            databaseId = databaseId,
-        )
-    } else {
-        val mapProgress = calculateItemProgressMap(
-            dailyInfoList.map { it.isDoneMap }
-        )
-        MonthlyWidgetModel(
-            monthName = now.format(DateFormat.MONTH_NAME),
-            startDate = startDate.format(DateFormat.YYYY_MM_DD),
-            endDate = endDate.format(DateFormat.YYYY_MM_DD),
-            lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
-            databaseId = databaseId,
-            mapProgress = mapProgress,
-        )
-    }
+    val mapProgress = calculateItemProgressMap(
+        queryDatabaseModel.dailyInfoList.map { it.isDoneMap }
+    )
+
+    return MonthlyWidgetModel(
+        monthName = now.format(DateFormat.MONTH_NAME),
+        title = retrieveDatabaseModel.title,
+        startDate = startDate.format(DateFormat.YYYY_MM_DD),
+        endDate = endDate.format(DateFormat.YYYY_MM_DD),
+        lastUpdatedTime = now.format(DateFormat.MM_DD_HH_MM),
+        databaseId = queryDatabaseModel.databaseId,
+        url = retrieveDatabaseModel.url,
+        mapProgress = mapProgress
+    )
 }
 
 private fun calculateItemProgressMap(isDoneMapList: List<Map<String, Boolean>>) : Map<String, Float> {
+
+    if (isDoneMapList.isEmpty()) {
+        return mapOf()
+    }
+
     val resultMap = mutableMapOf<String, Int>()
     val totalProperties = isDoneMapList.size.toFloat()
 
@@ -58,7 +64,6 @@ private fun calculateItemProgressMap(isDoneMapList: List<Map<String, Boolean>>) 
             }
         }
     }
-
 
     return resultMap.mapValues { (_, count) -> count / totalProperties }
 }
