@@ -46,4 +46,6 @@ object DataStoreKey {
     val NOTION_API_KEY = stringPreferencesKey("NOTION_API_KEY")
 
     val APP_WIDGET_ID_TO_DATABASE_ID = stringPreferencesKey("APP_WIDGET_ID_TO_DATABASE_ID")
+
+    val monthlyWidgetModel = stringPreferencesKey("monthlyWidgetModel")
 }

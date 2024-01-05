@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.state.updateAppWidgetState
 import androidx.glance.state.PreferencesGlanceStateDefinition
+import com.github.goutarouh.notionboost.data.datastore.DataStoreKey
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 
@@ -34,7 +35,7 @@ class GlanceApiImpl(
             ) { preferences ->
                 preferences.toMutablePreferences().apply {
                     val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
-                    this[MonthlyWidget.monthlyWidgetModel] = monthlyWidgetModelJson
+                    this[DataStoreKey.monthlyWidgetModel] = monthlyWidgetModelJson
                 }
             }
             MonthlyWidget().update(applicationContext, glanceId)
