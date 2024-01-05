@@ -19,7 +19,7 @@ object RepositoryModule {
         notionRemoteApi: NotionRemoteApi,
         dataStoreApi: DataStoreApi,
     ): NotionDatabaseRepository {
-        return NotionDatabaseRepositoryImpl(
+        return NotionDatabaseRepository(
             notionRemoteApi = notionRemoteApi,
             dataStoreApi = dataStoreApi,
         )

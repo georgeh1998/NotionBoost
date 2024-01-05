@@ -8,50 +8,30 @@ import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Dat
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import java.time.LocalDateTime
 
-interface NotionDatabaseRepository {
 
-    suspend fun saveNotionApiKey(apiKey: String)
-
-    suspend fun getNotionApiKey(): String
-
-    suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>)
-
-    suspend fun getMonthlyWidgetConfiguration() : Map<Int, String>
-
-    suspend fun queryDatabase(
-        databaseId: String,
-        now: LocalDateTime,
-        inclusiveStartDate: LocalDateTime,
-        inclusiveEndDate: LocalDateTime
-    ) : QueryDatabaseModel
-
-
-}
-
-
-class NotionDatabaseRepositoryImpl(
+class NotionDatabaseRepository(
     private val notionRemoteApi: NotionRemoteApi,
     private val dataStoreApi: DataStoreApi,
-) : NotionDatabaseRepository {
+) {
 
-    override suspend fun saveNotionApiKey(apiKey: String) {
+    suspend fun saveNotionApiKey(apiKey: String) {
 
         dataStoreApi.setNotionApiKey(apiKey)
     }
 
-    override suspend fun getNotionApiKey(): String {
+    suspend fun getNotionApiKey(): String {
         return dataStoreApi.getNotionApiKey()
     }
 
-    override suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>) {
+    suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>) {
         dataStoreApi.saveMonthlyWidgetConfiguration(config)
     }
 
-    override suspend fun getMonthlyWidgetConfiguration(): Map<Int, String> {
+    suspend fun getMonthlyWidgetConfiguration(): Map<Int, String> {
         return dataStoreApi.getMonthlyWidgetConfiguration()
     }
 
-    override suspend fun queryDatabase(
+    suspend fun queryDatabase(
         databaseId: String,
         now: LocalDateTime,
         inclusiveStartDate: LocalDateTime,
