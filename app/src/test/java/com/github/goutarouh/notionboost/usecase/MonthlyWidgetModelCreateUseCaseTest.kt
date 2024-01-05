@@ -1,10 +1,9 @@
 package com.github.goutarouh.notionboost.usecase
 
 import com.github.goutarouh.notionboost.data.createNotionRemoteApi
-import com.github.goutarouh.notionboost.data.datastore.FakeDataStoreApi
 import com.github.goutarouh.notionboost.data.datastore.createFakeDataStoreApi
 import com.github.goutarouh.notionboost.repository.GlanceRepository
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepositoryImpl
+import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.widget.FakeGlanceApiImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -29,7 +28,7 @@ class MonthlyWidgetModelCreateUseCaseTest {
 
         // Arrange
         monthlyWidgetModelCreateUseCase = MonthlyWidgetModelCreateUseCase(
-            notionDatabaseRepository = NotionDatabaseRepositoryImpl(
+            notionDatabaseRepository = NotionDatabaseRepository(
                 notionRemoteApi = createNotionRemoteApi(
                     queryDatabaseApiModel = MonthlyWidgetModelCreateUseCaseTestData
                         .createDateBordered("title")
