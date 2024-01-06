@@ -31,7 +31,7 @@ object RepositoryModule {
         glanceApi: GlanceApi,
     ): GlanceRepository {
         return GlanceRepository(
-            glanceApi = glanceApi
+            glanceApi = glanceApi,
         )
     }
 
