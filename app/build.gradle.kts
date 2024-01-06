@@ -58,6 +58,7 @@ android {
 dependencies {
 
     implementation(project(":repository"))
+    testImplementation(project(":test"))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -92,7 +93,10 @@ dependencies {
     implementation("androidx.hilt:hilt-work:1.1.0")
     ksp("com.google.dagger:hilt-compiler:2.49")
     ksp("androidx.hilt:hilt-compiler:1.1.0")
-
+    testImplementation("com.google.dagger:hilt-android-testing:2.49")
+    kspTest("com.google.dagger:hilt-compiler:2.49")
+    kspTest("androidx.hilt:hilt-compiler:1.1.0")
+    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.49")
 
     // Coroutine
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
@@ -106,4 +110,8 @@ dependencies {
 
     // DataStore
     implementation("androidx.datastore:datastore:1.0.0")
+
+    // Test
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("org.robolectric:robolectric:4.11.1")
 }
