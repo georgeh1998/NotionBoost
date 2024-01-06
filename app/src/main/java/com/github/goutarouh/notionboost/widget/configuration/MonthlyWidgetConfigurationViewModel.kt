@@ -1,22 +1,26 @@
 package com.github.goutarouh.notionboost.widget.configuration
 
+import android.app.Application
 import android.appwidget.AppWidgetManager
+import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.goutarouh.notionboost.repository.ApiException
-import com.github.goutarouh.notionboost.usecase.MonthlyWidgetInitialUseCase
+import com.github.goutarouh.notionboost.repository.usecase.MonthlyWidgetInitialUseCase
+import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
+import com.github.goutarouh.notionboost.widget.glanceMonthlyWidget
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
-import kotlinx.coroutines.CancellationException
 
 @HiltViewModel
 class MonthlyWidgetConfigurationViewModel @Inject constructor(
+    private val application: Application,
     private val monthlyWidgetInitialUseCase: MonthlyWidgetInitialUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -45,6 +49,10 @@ class MonthlyWidgetConfigurationViewModel @Inject constructor(
                 monthlyWidgetInitialUseCase.invoke(
                     databaseId = databaseId,
                     appWidgetId = appWidgetId,
+                    afterStateUpdate = {
+                        val glanceId = GlanceAppWidgetManager(application).getGlanceIdBy(appWidgetId)
+                        glanceMonthlyWidget.update(application, glanceId)
+                    }
                 )
                 _uiModel.update { it.copy(configurationResult = ConfigurationResult.Success) }
             } catch (e: ApiException) {

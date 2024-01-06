@@ -1,20 +1,15 @@
-package com.github.goutarouh.notionboost.usecase
+package com.github.goutarouh.notionboost.repository.usecase
 
-import android.content.Context
-import androidx.glance.appwidget.GlanceAppWidgetManager
-import com.github.goutarouh.notionboost.widget.glanceMonthlyWidget
 import com.github.goutarouh.notionboost.repository.GlanceRepository
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.repository.model.createMonthlyWidgetModel
 import com.github.goutarouh.notionboost.repository.util.getFirstDayOfNextMonth
 import com.github.goutarouh.notionboost.repository.util.getLastDayOfPreviousMonth
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
 
 class MonthlyWidgetInitialUseCase @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val notionDatabaseRepository: NotionDatabaseRepository,
     private val glanceRepository: GlanceRepository,
 ) {
@@ -22,6 +17,7 @@ class MonthlyWidgetInitialUseCase @Inject constructor(
     suspend operator fun invoke(
         databaseId: String,
         appWidgetId: Int,
+        afterStateUpdate: suspend (Int) -> Unit,
         zoneId: ZoneId = ZoneId.systemDefault(),
         now: LocalDateTime = LocalDateTime.now(zoneId),
     ) {
@@ -51,8 +47,7 @@ class MonthlyWidgetInitialUseCase @Inject constructor(
             appWidgetIds = listOf(appWidgetId),
             monthlyWidgetModel = monthlyWidgetModel,
             afterStateUpdate = { appWidgetId ->
-                val glanceId = GlanceAppWidgetManager(context).getGlanceIdBy(appWidgetId)
-                glanceMonthlyWidget.update(context, glanceId)
+                afterStateUpdate.invoke(appWidgetId)
             }
         )
     }
