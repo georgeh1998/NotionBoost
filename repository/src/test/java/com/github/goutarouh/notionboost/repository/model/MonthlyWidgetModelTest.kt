@@ -1,24 +1,29 @@
-package com.github.goutarouh.notionboost.widget
+package com.github.goutarouh.notionboost.repository.model
 
+import com.github.goutarouh.notionboost.repository.RetrieveDatabaseModel
 import com.github.goutarouh.notionboost.repository.createDailyInfo
 import com.github.goutarouh.notionboost.repository.createQueryDatabaseModel
 import org.junit.Assert
 import org.junit.Test
 
-class MonthlyWidgetModelKtTest {
+class MonthlyWidgetModelTest {
 
     @Test
     fun `Test if the summary is correct`() {
 
         // Arrange
-        val sut = createQueryDatabaseModel(dailyInfoList = listOf(
+        val queryDatabaseModel = createQueryDatabaseModel(dailyInfoList = listOf(
             createDailyInfo(isDoneMap = mapOf("a" to true, "b" to true, "c" to true, "d" to false)),
             createDailyInfo(isDoneMap = mapOf("a" to true, "b" to true, "c" to false, "d" to false)),
             createDailyInfo(isDoneMap = mapOf("a" to true, "b" to false, "c" to false, "d" to false)),
         ))
+        val retrieveDatabaseModel = RetrieveDatabaseModel("", "")
 
         // Act
-        val result = sut.toMonthlyWidgetModel()
+        val result = createMonthlyWidgetModel(
+            queryDatabaseModel = queryDatabaseModel,
+            retrieveDatabaseModel = retrieveDatabaseModel
+        )
 
         // Assert
         val mapProgress = result.mapProgress
@@ -32,10 +37,14 @@ class MonthlyWidgetModelKtTest {
     fun `Test if mapProgress is empty`() {
 
         // Arrange
-        val sut = createQueryDatabaseModel()
+        val queryDatabaseModel = createQueryDatabaseModel(dailyInfoList = listOf())
+        val retrieveDatabaseModel = RetrieveDatabaseModel("", "")
 
         // Act
-        val result = sut.toMonthlyWidgetModel()
+        val result = createMonthlyWidgetModel(
+            queryDatabaseModel = queryDatabaseModel,
+            retrieveDatabaseModel = retrieveDatabaseModel
+        )
 
         // Assert
         val mapProgress = result.mapProgress
