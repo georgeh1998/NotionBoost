@@ -2,8 +2,8 @@ package com.github.goutarouh.notionboost.ui.monthlyWidgetList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.goutarouh.notionboost.repository.GlanceRepository
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboostrepository.repository.GlanceRepository
+import com.github.goutarouh.notionboostrepository.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.usecase.MonthlyWidgetInitialUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +32,7 @@ class MonthlyWidgetListViewModel @Inject constructor(
                 val appWidgetId = config.key
                 val monthlyWidgetModel = glanceRepository.getMonthlyWidgetModel(appWidgetId)
                     ?: return@mapNotNull null
-                MonthlyWidgetModel(
+                MonthlyWidgetListItemModel(
                     appWidgetId = appWidgetId,
                     databaseId = monthlyWidgetModel.databaseId,
                     title = monthlyWidgetModel.title,
@@ -48,12 +48,12 @@ class MonthlyWidgetListViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
 
-    private fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel) {
+    private fun updateWidget(monthlyWidgetListItemModel: MonthlyWidgetListItemModel) {
         viewModelScope.launch {
-            _uiState.update { it.copy(isUpdating = monthlyWidgetModel) }
+            _uiState.update { it.copy(isUpdating = monthlyWidgetListItemModel) }
             monthlyWidgetInitialUseCase.invoke(
-                databaseId = monthlyWidgetModel.databaseId,
-                appWidgetId = monthlyWidgetModel.appWidgetId
+                databaseId = monthlyWidgetListItemModel.databaseId,
+                appWidgetId = monthlyWidgetListItemModel.appWidgetId
             )
             _uiState.update { it.copy(isUpdating = null) }
         }

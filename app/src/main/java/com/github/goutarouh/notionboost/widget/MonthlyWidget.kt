@@ -9,14 +9,16 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
 import androidx.glance.currentState
 import androidx.glance.layout.padding
-import com.github.goutarouh.notionboost.data.datastore.DataStoreKey
+import com.github.goutarouh.notionboostrepository.repository.GlanceKey
+import com.github.goutarouh.notionboostrepository.repository.model.MonthlyWidgetModel
+
 import com.google.gson.Gson
 
-class MonthlyWidget : GlanceAppWidget() {
+val glanceMonthlyWidget = object : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val preferences = currentState<Preferences>()
-            val monthlyWidgetModelJson = preferences[DataStoreKey.monthlyWidgetModel]
+            val monthlyWidgetModelJson = preferences[GlanceKey.monthlyWidgetKey]
             val monthlyWidgetUiState = if (monthlyWidgetModelJson == null) {
                 MonthlyWidgetUiState.Preparing
             } else {

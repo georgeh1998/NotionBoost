@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.repository
+package com.github.goutarouh.notionboostrepository.repository
 
 import com.github.goutarouh.notionboost.data.api.NotionRemoteApi
 import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel
@@ -15,12 +15,13 @@ class NotionDatabaseRepository(
 ) {
 
     suspend fun saveNotionApiKey(apiKey: String) {
-
         dataStoreApi.setNotionApiKey(apiKey)
     }
 
     suspend fun getNotionApiKey(): String {
-        return dataStoreApi.getNotionApiKey()
+        return getDataStoreCall {
+            dataStoreApi.getNotionApiKey()
+        }
     }
 
     suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>) {
@@ -28,7 +29,9 @@ class NotionDatabaseRepository(
     }
 
     suspend fun getMonthlyWidgetConfiguration(): Map<Int, String> {
-        return dataStoreApi.getMonthlyWidgetConfiguration()
+        return getDataStoreCall {
+            dataStoreApi.getMonthlyWidgetConfiguration()
+        }
     }
 
     suspend fun removeMonthlyWidgetConfiguration(appWidgetIds: List<Int>) {

@@ -1,21 +1,24 @@
-package com.github.goutarouh.notionboost.widget
+package com.github.goutarouh.notionboost.data.glance
 
 import android.content.Context
+import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.state.getAppWidgetState
 import androidx.glance.appwidget.state.updateAppWidgetState
 import androidx.glance.state.PreferencesGlanceStateDefinition
 import com.github.goutarouh.notionboost.data.datastore.DataStoreKey
+import com.github.goutarouh.notionboost.data.glance.monthly.MonthlyWidgetLocalModel
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 interface GlanceApi {
 
-    suspend fun getMonthlyWidgetModeByWidgetByGlanceId(appWidgetId: Int) : MonthlyWidgetModel?
+    suspend fun getMonthlyWidgetStateByAppWidgetId(appWidgetId: Int) : MonthlyWidgetLocalModel?
 
-    suspend fun updateMonthlyWidgetsByWidgetIds(
+    suspend fun updateMonthlyWidgetsStateByWidgetIds(
         appWidgetIds: List<Int>,
-        monthlyWidgetModel: MonthlyWidgetModel,
+        monthlyWidgetLocalModel: MonthlyWidgetLocalModel,
+        afterStateUpdate: suspend (appWidgetId: Int) -> Unit = {},
     )
 }
 
@@ -26,21 +29,22 @@ class GlanceApiImpl(
 
     private val manager = GlanceAppWidgetManager(applicationContext)
 
-    override suspend fun getMonthlyWidgetModeByWidgetByGlanceId(
+    override suspend fun getMonthlyWidgetStateByAppWidgetId(
         appWidgetId: Int
-    ) : MonthlyWidgetModel? {
+    ) : MonthlyWidgetLocalModel? {
         val glanceId = manager.getGlanceIdBy(appWidgetId)
-        val monthlyWidgetModelJson = getAppWidgetState(
+        val monthlyWidgetLocalModel = getAppWidgetState(
             context = applicationContext,
             definition = PreferencesGlanceStateDefinition,
             glanceId = glanceId
-        )[DataStoreKey.monthlyWidgetModel] ?: return null
-        return gson.fromJson(monthlyWidgetModelJson, MonthlyWidgetModel::class.java)
+        )[DataStoreKey.monthlyWidgetKey] ?: return null
+        return gson.fromJson(monthlyWidgetLocalModel, MonthlyWidgetLocalModel::class.java)
     }
 
-    override suspend fun updateMonthlyWidgetsByWidgetIds(
+    override suspend fun updateMonthlyWidgetsStateByWidgetIds(
         appWidgetIds: List<Int>,
-        monthlyWidgetModel: MonthlyWidgetModel
+        monthlyWidgetLocalModel: MonthlyWidgetLocalModel,
+        afterStateUpdate: suspend (appWidgetId: Int) -> Unit,
     ) {
         appWidgetIds.forEach { appWidgetId ->
             val glanceId = manager.getGlanceIdBy(appWidgetId)
@@ -50,11 +54,12 @@ class GlanceApiImpl(
                 glanceId = glanceId
             ) { preferences ->
                 preferences.toMutablePreferences().apply {
-                    val monthlyWidgetModelJson = gson.toJson(monthlyWidgetModel)
-                    this[DataStoreKey.monthlyWidgetModel] = monthlyWidgetModelJson
+                    val monthlyWidgetModelJson = gson.toJson(monthlyWidgetLocalModel)
+                    this[DataStoreKey.monthlyWidgetKey] = monthlyWidgetModelJson
                 }
             }
-            MonthlyWidget().update(applicationContext, glanceId)
+            val appWidgetId = manager.getAppWidgetId(glanceId)
+            afterStateUpdate(appWidgetId)
         }
     }
 }

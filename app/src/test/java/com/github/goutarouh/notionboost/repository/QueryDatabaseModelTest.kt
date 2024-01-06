@@ -43,9 +43,9 @@ class QueryDatabaseModelTest {
 
 fun createQueryDatabaseModel(
     now: LocalDateTime = LocalDateTime.now(),
-    dailyInfoList: List<DailyInfo> = listOf(),
-) : QueryDatabaseModel {
-    return QueryDatabaseModel(
+    dailyInfoList: List<com.github.goutarouh.notionboostrepository.repository.DailyInfo> = listOf(),
+) : com.github.goutarouh.notionboostrepository.repository.QueryDatabaseModel {
+    return com.github.goutarouh.notionboostrepository.repository.QueryDatabaseModel(
         now = now,
         dailyInfoList = dailyInfoList,
         databaseId = ""
@@ -55,8 +55,8 @@ fun createQueryDatabaseModel(
 fun createDailyInfo(
     createdTime: ZonedDateTime = ZonedDateTime.now(),
     isDoneMap: Map<String, Boolean> = mapOf(),
-) : DailyInfo {
-    return DailyInfo(
+) : com.github.goutarouh.notionboostrepository.repository.DailyInfo {
+    return com.github.goutarouh.notionboostrepository.repository.DailyInfo(
         createdTime = createdTime,
         isDoneMap = isDoneMap
     )

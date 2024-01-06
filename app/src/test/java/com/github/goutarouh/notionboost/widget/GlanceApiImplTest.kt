@@ -1,6 +1,6 @@
 package com.github.goutarouh.notionboost.widget
 
-class FakeGlanceApiImpl : GlanceApi {
+class FakeGlanceApiImpl : com.github.goutarouh.notionboost.data.glance.GlanceApi {
 
     lateinit var updatedMonthlyWidgetModel: MonthlyWidgetModel
 

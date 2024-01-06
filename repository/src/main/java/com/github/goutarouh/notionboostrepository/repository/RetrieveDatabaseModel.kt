@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.repository
+package com.github.goutarouh.notionboostrepository.repository
 
 import com.github.goutarouh.notionboost.data.api.retrieveDatabase.RetrieveDatabaseApiResponseModel
 

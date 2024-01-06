@@ -7,7 +7,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboostrepository.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.workmanager.MonthlyWidgetUpdateWorker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -20,10 +20,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MonthlyWidgetReceiver : GlanceAppWidgetReceiver() {
 
-    @Inject lateinit var notionDatabaseRepository: NotionDatabaseRepository
+    @Inject lateinit var notionDatabaseRepository: com.github.goutarouh.notionboostrepository.repository.NotionDatabaseRepository
 
     override val glanceAppWidget: GlanceAppWidget
-        get() = MonthlyWidget()
+        get() = glanceMonthlyWidget
 
 
     // Called when the widget is added for the first time

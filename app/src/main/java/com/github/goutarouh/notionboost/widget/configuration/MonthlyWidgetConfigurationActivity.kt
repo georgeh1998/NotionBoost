@@ -18,7 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.goutarouh.notionboost.repository.ApiException
+import com.github.goutarouh.notionboostrepository.repository.ApiException
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 import dagger.hilt.android.AndroidEntryPoint
 import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
@@ -80,8 +80,8 @@ class MonthlyWidgetConfigurationActivity : ComponentActivity() {
         uiModel: MonthlyWidgetConfigurationUiModel,
     ) {
         val message = when (e) {
-            is ApiException.NotFound -> "Database ID may be invalid."
-            is ApiException.UnauthorizedException -> "Integration Secret may be invalid."
+            is com.github.goutarouh.notionboostrepository.repository.ApiException.NotFound -> "Database ID may be invalid."
+            is com.github.goutarouh.notionboostrepository.repository.ApiException.UnauthorizedException -> "Integration Secret may be invalid."
             else -> "Unknown error"
         }
         hostState.showSnackbar(

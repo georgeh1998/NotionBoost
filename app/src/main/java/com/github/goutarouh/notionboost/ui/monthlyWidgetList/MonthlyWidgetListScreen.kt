@@ -61,8 +61,8 @@ fun MonthlyWidgetListScreen(
                             modifier = modifier.fillMaxSize(),
                         ) {
                             items(uiModel.widgets) {
-                                MonthlyWidgetItem(
-                                    monthlyWidgetModel = it,
+                                MonthlyWidgetListItem(
+                                    monthlyWidgetListItem = it,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                 )
                             }

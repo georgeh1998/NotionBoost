@@ -12,7 +12,7 @@ interface DataStoreApi {
 
     suspend fun setNotionApiKey(notionApiKey: String)
 
-    suspend fun getNotionApiKey() : String
+    suspend fun getNotionApiKey() : String?
 
     suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>)
 
@@ -38,8 +38,8 @@ class DataStoreApiImpl(
         }
     }
 
-    override suspend fun getNotionApiKey(): String {
-        return prefFlow.getValue(DataStoreKey.NOTION_API_KEY)
+    override suspend fun getNotionApiKey(): String? {
+        return prefFlow.getValueOrNull(DataStoreKey.NOTION_API_KEY)
     }
 
     override suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>) {
@@ -54,10 +54,10 @@ class DataStoreApiImpl(
 
     override suspend fun getMonthlyWidgetConfiguration(): Map<Int, String> {
         return try {
-            val mapJson = prefFlow.getValue(DataStoreKey.APP_WIDGET_ID_TO_DATABASE_ID)
+            val mapJson = prefFlow.getValueOrNull(DataStoreKey.APP_WIDGET_ID_TO_DATABASE_ID)
             val mapType = object : TypeToken<Map<Int, String>>() {}.type
             gson.fromJson(mapJson, mapType)
-        } catch (e: DataStoreException.NotSetException) {
+        } catch (e: NoSuchElementException) {
             mapOf()
         }
     }

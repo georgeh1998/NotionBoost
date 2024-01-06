@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.goutarouh.data"
+    namespace = "com.github.goutarouh.notionboostrepository"
     compileSdk = 34
 
     defaultConfig {
@@ -36,6 +36,8 @@ android {
 
 dependencies {
 
+    implementation(project(":data"))
+
     testImplementation("junit:junit:4.13.2")
 
     // Retrofit & Gson
@@ -45,10 +47,6 @@ dependencies {
     // DataStore
     implementation("androidx.datastore:datastore:1.0.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-
-    // Glance
-    implementation("androidx.glance:glance:1.0.0")
-    implementation("androidx.glance:glance-appwidget:1.0.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")

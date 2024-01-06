@@ -7,6 +7,8 @@ import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiR
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApiImpl
 import com.github.goutarouh.notionboost.data.datastore.settingDataStore
+import com.github.goutarouh.notionboost.data.glance.GlanceApi
+import com.github.goutarouh.notionboost.data.glance.GlanceApiImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
@@ -79,6 +81,18 @@ object DataModule {
     ) : DataStoreApi {
         return DataStoreApiImpl(
             dataStore = context.settingDataStore,
+            gson = gson,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGlanceApi(
+        @ApplicationContext context: Context,
+        gson: Gson,
+    ) : GlanceApi {
+        return GlanceApiImpl(
+            applicationContext = context,
             gson = gson,
         )
     }

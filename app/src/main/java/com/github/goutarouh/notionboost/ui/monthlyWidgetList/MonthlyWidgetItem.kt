@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.github.goutarouh.notionboost.ui.theme.NotionBoostTheme
 
 @Composable
-fun MonthlyWidgetItem(
-    monthlyWidgetModel: MonthlyWidgetModel,
+fun MonthlyWidgetListItem(
+    monthlyWidgetListItem: MonthlyWidgetListItemModel,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -37,14 +37,14 @@ fun MonthlyWidgetItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = monthlyWidgetModel.title,
+                text = monthlyWidgetListItem.title,
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.weight(1f)
             )
             IconButton(
                 onClick = {
-                    monthlyWidgetModel.updateWidget(monthlyWidgetModel)
+                    monthlyWidgetListItem.updateWidget(monthlyWidgetListItem)
                 }
             ) {
                 Icon(
@@ -67,8 +67,8 @@ private fun PreviewMonthlyWidgetItem() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            MonthlyWidgetItem(
-                monthlyWidgetModel = MonthlyWidgetModel(
+            MonthlyWidgetListItem(
+                monthlyWidgetListItem = MonthlyWidgetListItemModel(
                     title = "Title",
                 ),
             )
