@@ -1,9 +1,9 @@
-package com.github.goutarouh.notionboost.data.glance
+package com.github.goutarouh.notionboost.test.data
 
+import com.github.goutarouh.notionboost.data.glance.GlanceApi
 import com.github.goutarouh.notionboost.data.glance.monthly.MonthlyWidgetLocalModel
 
-
-class FakeGlanceApiImpl : GlanceApi {
+class FakeGlanceApi : GlanceApi {
 
     private var monthlyWidgetState: MonthlyWidgetLocalModel? = null
 
