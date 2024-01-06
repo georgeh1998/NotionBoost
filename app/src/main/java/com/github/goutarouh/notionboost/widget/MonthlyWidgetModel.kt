@@ -1,11 +1,5 @@
 package com.github.goutarouh.notionboost.widget
 
-import com.github.goutarouh.notionboostrepository.repository.QueryDatabaseModel
-import com.github.goutarouh.notionboostrepository.repository.RetrieveDatabaseModel
-import com.github.goutarouh.notionboostrepository.repository.util.DateFormat
-import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfThisMonth
-import com.github.goutarouh.notionboostrepository.repository.util.getLastDayOfThisMonth
-
 //data class MonthlyWidgetModel (
 //    val monthName: String,
 //    val title: String,

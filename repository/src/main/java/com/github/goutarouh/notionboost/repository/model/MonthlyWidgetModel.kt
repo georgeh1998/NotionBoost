@@ -1,11 +1,11 @@
-package com.github.goutarouh.notionboostrepository.repository.model
+package com.github.goutarouh.notionboost.repository.model
 
 import com.github.goutarouh.notionboost.data.glance.monthly.MonthlyWidgetLocalModel
-import com.github.goutarouh.notionboostrepository.repository.QueryDatabaseModel
-import com.github.goutarouh.notionboostrepository.repository.RetrieveDatabaseModel
-import com.github.goutarouh.notionboostrepository.repository.util.DateFormat
-import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfThisMonth
-import com.github.goutarouh.notionboostrepository.repository.util.getLastDayOfThisMonth
+import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
+import com.github.goutarouh.notionboost.repository.RetrieveDatabaseModel
+import com.github.goutarouh.notionboost.repository.util.DateFormat
+import com.github.goutarouh.notionboost.repository.util.getFirstDayOfThisMonth
+import com.github.goutarouh.notionboost.repository.util.getLastDayOfThisMonth
 
 class MonthlyWidgetModel(
     val monthName: String,

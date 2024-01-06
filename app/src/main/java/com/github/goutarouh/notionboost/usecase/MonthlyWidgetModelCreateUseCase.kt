@@ -3,11 +3,11 @@ package com.github.goutarouh.notionboost.usecase
 import android.content.Context
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import com.github.goutarouh.notionboost.widget.glanceMonthlyWidget
-import com.github.goutarouh.notionboostrepository.repository.GlanceRepository
-import com.github.goutarouh.notionboostrepository.repository.NotionDatabaseRepository
-import com.github.goutarouh.notionboostrepository.repository.model.createMonthlyWidgetModel
-import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfNextMonth
-import com.github.goutarouh.notionboostrepository.repository.util.getLastDayOfPreviousMonth
+import com.github.goutarouh.notionboost.repository.GlanceRepository
+import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.repository.model.createMonthlyWidgetModel
+import com.github.goutarouh.notionboost.repository.util.getFirstDayOfNextMonth
+import com.github.goutarouh.notionboost.repository.util.getLastDayOfPreviousMonth
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDateTime
 import java.time.ZoneId

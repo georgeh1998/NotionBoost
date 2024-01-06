@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.goutarouh.notionboostrepository"
+    namespace = "com.github.goutarouh.notionboost.repository"
     compileSdk = 34
 
     defaultConfig {

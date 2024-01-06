@@ -2,8 +2,8 @@ package com.github.goutarouh.notionboost.ui.monthlyWidgetList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.goutarouh.notionboostrepository.repository.GlanceRepository
-import com.github.goutarouh.notionboostrepository.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.repository.GlanceRepository
+import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.usecase.MonthlyWidgetInitialUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

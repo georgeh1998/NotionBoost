@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.goutarouh.notionboost.ui.inital.model.InitialNavAction
 import com.github.goutarouh.notionboost.ui.inital.model.InitialUiState
-import com.github.goutarouh.notionboostrepository.repository.DataStoreException
-import com.github.goutarouh.notionboostrepository.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.repository.DataStoreException
+import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

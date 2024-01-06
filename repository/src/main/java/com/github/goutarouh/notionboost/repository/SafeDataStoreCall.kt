@@ -1,6 +1,5 @@
-package com.github.goutarouh.notionboostrepository.repository
+package com.github.goutarouh.notionboost.repository
 
-import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext

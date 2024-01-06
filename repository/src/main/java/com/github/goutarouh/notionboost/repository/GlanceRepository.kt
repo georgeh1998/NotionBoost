@@ -1,10 +1,9 @@
-package com.github.goutarouh.notionboostrepository.repository
+package com.github.goutarouh.notionboost.repository
 
-import com.github.goutarouh.notionboost.data.datastore.DataStoreKey
 import com.github.goutarouh.notionboost.data.glance.GlanceApi
-import com.github.goutarouh.notionboostrepository.repository.model.MonthlyWidgetModel
-import com.github.goutarouh.notionboostrepository.repository.model.toLocalModel
-import com.github.goutarouh.notionboostrepository.repository.model.toModel
+import com.github.goutarouh.notionboost.repository.model.MonthlyWidgetModel
+import com.github.goutarouh.notionboost.repository.model.toLocalModel
+import com.github.goutarouh.notionboost.repository.model.toModel
 import javax.inject.Inject
 
 

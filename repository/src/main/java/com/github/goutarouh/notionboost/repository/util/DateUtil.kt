@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboostrepository.repository.util
+package com.github.goutarouh.notionboost.repository.util
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboostrepository.repository
+package com.github.goutarouh.notionboost.repository
 
 import com.github.goutarouh.notionboost.data.datastore.DataStoreKey
 

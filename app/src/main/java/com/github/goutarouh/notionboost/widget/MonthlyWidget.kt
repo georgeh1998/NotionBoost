@@ -9,8 +9,8 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
 import androidx.glance.currentState
 import androidx.glance.layout.padding
-import com.github.goutarouh.notionboostrepository.repository.GlanceKey
-import com.github.goutarouh.notionboostrepository.repository.model.MonthlyWidgetModel
+import com.github.goutarouh.notionboost.repository.GlanceKey
+import com.github.goutarouh.notionboost.repository.model.MonthlyWidgetModel
 
 import com.google.gson.Gson
 

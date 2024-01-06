@@ -24,7 +24,7 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextAlign
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import com.github.goutarouh.notionboostrepository.repository.model.MonthlyWidgetModel
+import com.github.goutarouh.notionboost.repository.model.MonthlyWidgetModel
 
 @Composable
 fun MonthlyWidgetContent(
