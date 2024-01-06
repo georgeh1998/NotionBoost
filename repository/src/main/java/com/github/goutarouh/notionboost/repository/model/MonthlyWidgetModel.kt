@@ -1,7 +1,6 @@
 package com.github.goutarouh.notionboost.repository.model
 
 import com.github.goutarouh.notionboost.data.glance.monthly.MonthlyWidgetLocalModel
-import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
 import com.github.goutarouh.notionboost.repository.util.DateFormat
 import com.github.goutarouh.notionboost.repository.util.getFirstDayOfThisMonth
 import com.github.goutarouh.notionboost.repository.util.getLastDayOfThisMonth

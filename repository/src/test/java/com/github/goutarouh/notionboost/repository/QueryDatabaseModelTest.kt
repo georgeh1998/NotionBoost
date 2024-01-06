@@ -1,5 +1,7 @@
 package com.github.goutarouh.notionboost.repository
 
+import com.github.goutarouh.notionboost.repository.model.DailyInfo
+import com.github.goutarouh.notionboost.repository.model.QueryDatabaseModel
 import org.junit.Assert
 import org.junit.Test
 import java.time.LocalDateTime
