@@ -1,9 +1,5 @@
 package com.github.goutarouh.notionboost.repository.util
 
-import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfNextMonth
-import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfThisMonth
-import com.github.goutarouh.notionboostrepository.repository.util.getLastDayOfPreviousMonth
-import com.github.goutarouh.notionboostrepository.repository.util.getLastDayOfThisMonth
 import org.junit.Assert
 import org.junit.Test
 import java.time.LocalDateTime

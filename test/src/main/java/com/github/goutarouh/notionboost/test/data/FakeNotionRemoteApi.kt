@@ -10,7 +10,8 @@ class FakeNotionRemoteApi : NotionRemoteApi {
     private var retrieveDatabaseModel: RetrieveDatabaseApiResponseModel? = null
     private var queryDatabaseModel: QueryDatabaseApiResponseModel? = null
 
-    fun setRetrieveDatabase(model: RetrieveDatabaseApiResponseModel) {
+
+    override suspend fun setRetrieveDatabase(model: RetrieveDatabaseApiResponseModel) {
         retrieveDatabaseModel = model
     }
 
@@ -21,7 +22,7 @@ class FakeNotionRemoteApi : NotionRemoteApi {
         return retrieveDatabaseModel!!
     }
 
-    fun setQueryDatabase(model: QueryDatabaseApiResponseModel) {
+    override suspend fun setQueryDatabase(model: QueryDatabaseApiResponseModel) {
         queryDatabaseModel = model
     }
 

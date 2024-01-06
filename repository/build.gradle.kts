@@ -37,6 +37,7 @@ android {
 dependencies {
 
     implementation(project(":data"))
+    testImplementation(project(":test"))
 
     testImplementation("junit:junit:4.13.2")
 
@@ -53,4 +54,15 @@ dependencies {
     implementation("androidx.hilt:hilt-work:1.1.0")
     ksp("com.google.dagger:hilt-compiler:2.49")
     ksp("androidx.hilt:hilt-compiler:1.1.0")
+    testImplementation("com.google.dagger:hilt-android-testing:2.49")
+    kspTest("com.google.dagger:hilt-compiler:2.49")
+    kspTest("androidx.hilt:hilt-compiler:1.1.0")
+    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.49")
+
+    // Test
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("org.robolectric:robolectric:4.11.1")
+
+    // Coroutine
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

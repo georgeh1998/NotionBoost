@@ -25,4 +25,10 @@ interface NotionRemoteApi {
         @Body queryDatabaseApiAndRequestModel: QueryDatabaseApiAndRequestModel
     ): QueryDatabaseApiResponseModel
 
+
+    // For Test
+    suspend fun setRetrieveDatabase(model: RetrieveDatabaseApiResponseModel)
+
+    suspend fun setQueryDatabase(model: QueryDatabaseApiResponseModel)
+
 }
