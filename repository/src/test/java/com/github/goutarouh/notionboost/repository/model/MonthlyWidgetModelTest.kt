@@ -1,6 +1,5 @@
 package com.github.goutarouh.notionboost.repository.model
 
-import com.github.goutarouh.notionboost.repository.RetrieveDatabaseModel
 import com.github.goutarouh.notionboost.repository.createDailyInfo
 import com.github.goutarouh.notionboost.repository.createQueryDatabaseModel
 import org.junit.Assert
