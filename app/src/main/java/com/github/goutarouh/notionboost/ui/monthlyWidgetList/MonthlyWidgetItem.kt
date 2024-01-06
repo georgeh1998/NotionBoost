@@ -37,7 +37,7 @@ fun MonthlyWidgetListItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = monthlyWidgetListItem.title,
+                text = monthlyWidgetListItem.title.ifEmpty { "Title not defined." },
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.weight(1f)

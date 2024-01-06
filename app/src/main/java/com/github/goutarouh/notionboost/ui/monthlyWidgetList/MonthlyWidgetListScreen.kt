@@ -32,7 +32,7 @@ fun MonthlyWidgetListScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Monthly widgets list",
+                        text = "Widgets list",
                         style = MaterialTheme.typography.titleLarge,
                     )
                 }
