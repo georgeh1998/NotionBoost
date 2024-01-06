@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboostrepository.util
+package com.github.goutarouh.notionboost.repository.util
 
 import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfNextMonth
 import com.github.goutarouh.notionboostrepository.repository.util.getFirstDayOfThisMonth
