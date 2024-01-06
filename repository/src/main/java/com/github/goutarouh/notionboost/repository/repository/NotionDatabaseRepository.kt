@@ -61,10 +61,11 @@ class NotionDatabaseRepository(
             )
         )
 
-        // TODO NotionAPIキーを保存しないままWidgetを作成するとエラーになる
+        val authorization = "Bearer ${getNotionApiKey()}"
+
         return safeApiCall {
             notionRemoteApi.queryDatabase(
-                authorization = "Bearer ${getNotionApiKey()}",
+                authorization = authorization,
                 databaseId = databaseId,
                 queryDatabaseApiAndRequestModel = queryDatabaseApiAndRequestModel,
             )
@@ -77,9 +78,10 @@ class NotionDatabaseRepository(
     suspend fun retrieveDatabase(
         databaseId: String,
     ) : RetrieveDatabaseModel {
+        val authorization = "Bearer ${getNotionApiKey()}"
         return safeApiCall {
             notionRemoteApi.retrieveDatabase(
-                authorization = "Bearer ${getNotionApiKey()}",
+                authorization = authorization,
                 databaseId = databaseId,
             )
         }.toModel()

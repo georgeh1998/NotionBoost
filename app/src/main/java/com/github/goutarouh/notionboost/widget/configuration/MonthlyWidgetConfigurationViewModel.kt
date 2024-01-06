@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.goutarouh.notionboost.repository.ApiException
+import com.github.goutarouh.notionboost.repository.DataStoreException
 import com.github.goutarouh.notionboost.repository.usecase.MonthlyWidgetInitialUseCase
 import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
 import com.github.goutarouh.notionboost.widget.glanceMonthlyWidget
@@ -56,6 +57,8 @@ class MonthlyWidgetConfigurationViewModel @Inject constructor(
                 )
                 _uiModel.update { it.copy(configurationResult = ConfigurationResult.Success) }
             } catch (e: ApiException) {
+                _uiModel.update { it.copy(configurationResult = ConfigurationResult.Failure(e)) }
+            } catch (e: DataStoreException) {
                 _uiModel.update { it.copy(configurationResult = ConfigurationResult.Failure(e)) }
             } catch (e: CancellationException) {
                 throw e

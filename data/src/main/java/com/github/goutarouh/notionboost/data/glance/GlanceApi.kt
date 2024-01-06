@@ -58,7 +58,6 @@ class GlanceApiImpl(
                     this[DataStoreKey.monthlyWidgetKey] = monthlyWidgetModelJson
                 }
             }
-            val appWidgetId = manager.getAppWidgetId(glanceId)
             afterStateUpdate(appWidgetId)
         }
     }
