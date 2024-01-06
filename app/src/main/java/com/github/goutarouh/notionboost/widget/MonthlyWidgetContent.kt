@@ -47,6 +47,7 @@ fun MonthlyWidgetContent(
                     modifier = GlanceModifier
                 )
             }
+            else -> {}
         }
     }
 }

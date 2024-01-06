@@ -1,8 +1,9 @@
 package com.github.goutarouh.notionboost.repository.usecase
 
+import android.util.Log
+import com.github.goutarouh.notionboost.repository.model.createMonthlyWidgetModel
 import com.github.goutarouh.notionboost.repository.repository.GlanceRepository
 import com.github.goutarouh.notionboost.repository.repository.NotionDatabaseRepository
-import com.github.goutarouh.notionboost.repository.model.createMonthlyWidgetModel
 import com.github.goutarouh.notionboost.repository.util.getFirstDayOfNextMonth
 import com.github.goutarouh.notionboost.repository.util.getLastDayOfPreviousMonth
 import java.time.LocalDateTime
