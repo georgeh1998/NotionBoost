@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,6 +43,7 @@ fun MonthlyWidgetListScreen(
             modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues),
+            contentAlignment = Alignment.Center
         ) {
             when {
                 uiModel.isLoading -> {}
@@ -51,19 +53,39 @@ fun MonthlyWidgetListScreen(
                     )
                 }
                 else -> {
-                    LazyColumn(
-                        modifier = modifier.fillMaxSize(),
+                    Column(
+                        modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        items(uiModel.widgets) {
-                            MonthlyWidgetItem(
-                                widget = it,
-                                modifier = Modifier,
-                            )
+                        LazyColumn(
+                            modifier = modifier.fillMaxSize(),
+                        ) {
+                            items(uiModel.widgets) {
+                                MonthlyWidgetItem(
+                                    monthlyWidgetModel = it,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                )
+                            }
                         }
                     }
                 }
             }
+            if (uiModel.isUpdating != null) {
+                Updating()
+            }
         }
+    }
+}
+
+@Composable
+private fun Updating(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        CircularProgressIndicator()
     }
 }
 
@@ -84,21 +106,6 @@ private fun MonthlyWidgetListEmpty(
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(vertical = 12.dp),
             textAlign = TextAlign.Center
-        )
-    }
-}
-
-@Composable
-fun MonthlyWidgetItem(
-    widget: MonthlyWidgetModel,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier.padding(16.dp)
-    ) {
-        Text(
-            text = widget.title,
-            style = MaterialTheme.typography.bodyLarge,
         )
     }
 }

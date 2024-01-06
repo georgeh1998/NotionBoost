@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.goutarouh.notionboost.repository.GlanceRepository
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.usecase.MonthlyWidgetInitialUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,12 +13,14 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MonthlyWidgetListViewModel @Inject constructor(
     notionDatabaseRepository: NotionDatabaseRepository,
-    glanceRepository: GlanceRepository,
+    private val glanceRepository: GlanceRepository,
+    private val monthlyWidgetInitialUseCase: MonthlyWidgetInitialUseCase,
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(MonthlyWidgetListUiModel(isLoading = true))
@@ -30,9 +33,11 @@ class MonthlyWidgetListViewModel @Inject constructor(
                 val monthlyWidgetModel = glanceRepository.getMonthlyWidgetModel(appWidgetId)
                     ?: return@mapNotNull null
                 MonthlyWidgetModel(
+                    appWidgetId = appWidgetId,
                     databaseId = monthlyWidgetModel.databaseId,
                     title = monthlyWidgetModel.title,
                     url = monthlyWidgetModel.url,
+                    updateWidget = ::updateWidget,
                 )
             }
         }
@@ -42,5 +47,16 @@ class MonthlyWidgetListViewModel @Inject constructor(
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
+
+    private fun updateWidget(monthlyWidgetModel: MonthlyWidgetModel) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isUpdating = monthlyWidgetModel) }
+            monthlyWidgetInitialUseCase.invoke(
+                databaseId = monthlyWidgetModel.databaseId,
+                appWidgetId = monthlyWidgetModel.appWidgetId
+            )
+            _uiState.update { it.copy(isUpdating = null) }
+        }
+    }
 
 }
