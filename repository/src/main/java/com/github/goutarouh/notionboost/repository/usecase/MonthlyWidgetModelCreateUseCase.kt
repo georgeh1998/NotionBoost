@@ -1,7 +1,7 @@
 package com.github.goutarouh.notionboost.repository.usecase
 
-import com.github.goutarouh.notionboost.repository.GlanceRepository
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.repository.repository.GlanceRepository
+import com.github.goutarouh.notionboost.repository.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.repository.model.createMonthlyWidgetModel
 import com.github.goutarouh.notionboost.repository.util.getFirstDayOfNextMonth
 import com.github.goutarouh.notionboost.repository.util.getLastDayOfPreviousMonth

@@ -7,7 +7,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.repository.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.workmanager.MonthlyWidgetUpdateWorker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.repository
+package com.github.goutarouh.notionboost.repository.repository
 
 import com.github.goutarouh.notionboost.data.glance.GlanceApi
 import com.github.goutarouh.notionboost.repository.model.MonthlyWidgetModel

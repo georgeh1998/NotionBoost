@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.repository
+package com.github.goutarouh.notionboost.repository.repository
 
 import com.github.goutarouh.notionboost.data.api.NotionRemoteApi
 import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel
@@ -6,6 +6,11 @@ import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiA
 import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel.And
 import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel.Date
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
+import com.github.goutarouh.notionboost.repository.QueryDatabaseModel
+import com.github.goutarouh.notionboost.repository.RetrieveDatabaseModel
+import com.github.goutarouh.notionboost.repository.getDataStoreCall
+import com.github.goutarouh.notionboost.repository.safeApiCall
+import com.github.goutarouh.notionboost.repository.toModel
 import java.time.LocalDateTime
 
 

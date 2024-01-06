@@ -1,8 +1,10 @@
-package com.github.goutarouh.notionboost.repository
+package com.github.goutarouh.notionboost.repository.di
 
 import com.github.goutarouh.notionboost.data.api.NotionRemoteApi
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import com.github.goutarouh.notionboost.data.glance.GlanceApi
+import com.github.goutarouh.notionboost.repository.repository.GlanceRepository
+import com.github.goutarouh.notionboost.repository.repository.NotionDatabaseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

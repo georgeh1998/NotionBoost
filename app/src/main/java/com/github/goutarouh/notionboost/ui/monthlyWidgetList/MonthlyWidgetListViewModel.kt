@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.goutarouh.notionboost.repository.GlanceRepository
-import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
+import com.github.goutarouh.notionboost.repository.repository.GlanceRepository
+import com.github.goutarouh.notionboost.repository.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.repository.usecase.MonthlyWidgetInitialUseCase
 import com.github.goutarouh.notionboost.widget.glanceMonthlyWidget
 import dagger.hilt.android.lifecycle.HiltViewModel
