@@ -1,5 +1,8 @@
 package com.github.goutarouh.notionboost.data.datastore
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
 class FakeDataStoreApi: DataStoreApi {
 
     private var setNotionApiKey: String = ""
@@ -18,8 +21,18 @@ class FakeDataStoreApi: DataStoreApi {
         return monthlyWidgetConfiguration
     }
 
+    override fun monthlyWidgetConfigurationFlow(): Flow<Map<Int, String>> {
+        return flow { emit(monthlyWidgetConfiguration) }
+    }
+
     override suspend fun saveMonthlyWidgetConfiguration(config: Map<Int, String>) {
         monthlyWidgetConfiguration.putAll(config)
+    }
+
+    override suspend fun removeMonthlyWidgetConfiguration(appWidgetIds: List<Int>) {
+        appWidgetIds.forEach {
+            monthlyWidgetConfiguration.remove(it)
+        }
     }
 
 }

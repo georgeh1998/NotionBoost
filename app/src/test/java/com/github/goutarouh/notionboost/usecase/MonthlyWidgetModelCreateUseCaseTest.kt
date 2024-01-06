@@ -1,7 +1,5 @@
 package com.github.goutarouh.notionboost.usecase
 
-import com.github.goutarouh.notionboost.data.createNotionRemoteApi
-import com.github.goutarouh.notionboost.data.datastore.createFakeDataStoreApi
 import com.github.goutarouh.notionboost.repository.GlanceRepository
 import com.github.goutarouh.notionboost.repository.NotionDatabaseRepository
 import com.github.goutarouh.notionboost.widget.FakeGlanceApiImpl
@@ -29,11 +27,13 @@ class MonthlyWidgetModelCreateUseCaseTest {
         // Arrange
         monthlyWidgetModelCreateUseCase = MonthlyWidgetModelCreateUseCase(
             notionDatabaseRepository = NotionDatabaseRepository(
-                notionRemoteApi = createNotionRemoteApi(
+                notionRemoteApi = com.github.goutarouh.notionboost.data.createNotionRemoteApi(
                     queryDatabaseApiModel = MonthlyWidgetModelCreateUseCaseTestData
                         .createDateBordered("title")
                 ),
-                dataStoreApi = createFakeDataStoreApi(mapOf(0 to "title")),
+                dataStoreApi = com.github.goutarouh.notionboost.data.datastore.createFakeDataStoreApi(
+                    mapOf(0 to "title")
+                ),
             ),
             glanceRepository = GlanceRepository(
                 glanceApi = fakeGlanceApi

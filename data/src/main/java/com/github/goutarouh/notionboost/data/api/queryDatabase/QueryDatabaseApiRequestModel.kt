@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.data
+package com.github.goutarouh.notionboost.data.api.queryDatabase
 
 import com.google.gson.annotations.SerializedName
 

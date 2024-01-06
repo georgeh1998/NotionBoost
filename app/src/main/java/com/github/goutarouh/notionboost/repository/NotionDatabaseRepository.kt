@@ -1,10 +1,10 @@
 package com.github.goutarouh.notionboost.repository
 
-import com.github.goutarouh.notionboost.data.NotionRemoteApi
-import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel
-import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Filter
-import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.And
-import com.github.goutarouh.notionboost.data.QueryDatabaseApiAndRequestModel.Date
+import com.github.goutarouh.notionboost.data.api.NotionRemoteApi
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel.Filter
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel.And
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel.Date
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import java.time.LocalDateTime
 

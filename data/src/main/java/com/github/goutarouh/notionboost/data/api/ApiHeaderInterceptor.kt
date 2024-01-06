@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.data
+package com.github.goutarouh.notionboost.data.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

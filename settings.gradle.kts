@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "NotionBoost"
 include(":app")
- 
+include(":data")

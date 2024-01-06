@@ -1,11 +1,11 @@
-package com.github.goutarouh.notionboost.data
+package com.github.goutarouh.notionboost.data.api.queryDatabase
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
 import com.google.gson.annotations.SerializedName
 import java.time.ZonedDateTime
 
-data class QueryDatabaseApiModel(
+data class QueryDatabaseApiResponseModel(
     val results: List<Result> = listOf(),
 ) {
 

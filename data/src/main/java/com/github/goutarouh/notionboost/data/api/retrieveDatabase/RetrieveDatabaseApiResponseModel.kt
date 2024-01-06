@@ -1,8 +1,8 @@
-package com.github.goutarouh.notionboost.data
+package com.github.goutarouh.notionboost.data.api.retrieveDatabase
 
 import com.google.gson.annotations.SerializedName
 
-data class RetrieveDatabaseApiRequestModel(
+data class RetrieveDatabaseApiResponseModel(
     val title: List<Title> = listOf(),
     val url: String = ""
 ) {

@@ -1,6 +1,9 @@
-package com.github.goutarouh.notionboost.data
+package com.github.goutarouh.notionboost.data.di
 
 import android.content.Context
+import com.github.goutarouh.notionboost.data.api.ApiHeaderInterceptor
+import com.github.goutarouh.notionboost.data.api.NotionRemoteApi
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiResponseModel
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApi
 import com.github.goutarouh.notionboost.data.datastore.DataStoreApiImpl
 import com.github.goutarouh.notionboost.data.datastore.settingDataStore
@@ -26,9 +29,9 @@ object DataModule {
     fun provideGson(): Gson {
         return GsonBuilder().apply {
             registerTypeAdapter(
-                QueryDatabaseApiModel.Result.Properties::class.java,
+                QueryDatabaseApiResponseModel.Result.Properties::class.java,
                 JsonDeserializer { json, _, _ ->
-                    QueryDatabaseApiModel.Result.Properties.createFromJson(json)
+                    QueryDatabaseApiResponseModel.Result.Properties.createFromJson(json)
                 }
             )
         }.create()
@@ -38,9 +41,11 @@ object DataModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            addInterceptor(ApiHeaderInterceptor(
+            addInterceptor(
+                ApiHeaderInterceptor(
                 notionVersion = "2022-06-28"
-            ))
+            )
+            )
         }.build()
     }
 

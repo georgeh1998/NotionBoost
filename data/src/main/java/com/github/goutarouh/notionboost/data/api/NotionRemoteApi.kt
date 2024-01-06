@@ -1,5 +1,8 @@
-package com.github.goutarouh.notionboost.data
+package com.github.goutarouh.notionboost.data.api
 
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiAndRequestModel
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiResponseModel
+import com.github.goutarouh.notionboost.data.api.retrieveDatabase.RetrieveDatabaseApiResponseModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,13 +16,13 @@ interface NotionRemoteApi {
     suspend fun retrieveDatabase(
         @Header("Authorization") authorization: String,
         @Path("databaseId") databaseId: String,
-    ) : RetrieveDatabaseApiRequestModel
+    ) : RetrieveDatabaseApiResponseModel
 
     @POST("databases/{databaseId}/query")
     suspend fun queryDatabase(
         @Header("Authorization") authorization: String,
         @Path("databaseId") databaseId: String,
         @Body queryDatabaseApiAndRequestModel: QueryDatabaseApiAndRequestModel
-    ): QueryDatabaseApiModel
+    ): QueryDatabaseApiResponseModel
 
 }

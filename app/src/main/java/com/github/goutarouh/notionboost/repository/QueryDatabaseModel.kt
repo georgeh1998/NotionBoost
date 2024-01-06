@@ -1,6 +1,6 @@
 package com.github.goutarouh.notionboost.repository
 
-import com.github.goutarouh.notionboost.data.QueryDatabaseApiModel
+import com.github.goutarouh.notionboost.data.api.queryDatabase.QueryDatabaseApiResponseModel
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -41,7 +41,7 @@ data class DailyInfo(
     val isDoneMap: Map<String, Boolean>,
 )
 
-fun QueryDatabaseApiModel.toModel(
+fun QueryDatabaseApiResponseModel.toModel(
     now: LocalDateTime,
     databaseId: String,
 ): QueryDatabaseModel {
