@@ -28,7 +28,7 @@ jobs:
 
       - uses: dawidd6/action-download-artifact@v2
         with:
-          commit: ${{ github.sha }}
+          branch: ${{ github.event.repository.default_branch }}
           name: screenshot
           workflow: RecordReadmeImages.yml
 
