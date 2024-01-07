@@ -25,8 +25,11 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.github.goutarouh.notionboost.widget.configuration.MonthlyWidgetConfigurationUiModel.ConfigurationResult
+
+const val MONTHLY_WIDGET_CONFIGURATION_SCREEN_TAG = "MonthlyWidgetConfigurationScreen"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +39,8 @@ fun MonthlyWidgetConfigurationScreen(
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState) }
+        snackbarHost = { SnackbarHost(hostState) },
+        modifier = modifier.testTag(MONTHLY_WIDGET_CONFIGURATION_SCREEN_TAG)
     ) { paddingValues ->
         Box(
             modifier = modifier

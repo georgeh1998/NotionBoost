@@ -1,18 +1,19 @@
 package com.github.goutarouh.notionboost.widget.configuration
 
+import android.appwidget.AppWidgetManager
 import java.lang.Exception
 
 data class MonthlyWidgetConfigurationUiModel(
-    val appWidgetId: Int,
+    val appWidgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID,
     val inputDatabaseId: String = "",
     val configurationResult: ConfigurationResult = ConfigurationResult.Initial,
 
-    val updateInputDatabaseId: (String) -> Unit,
+    val updateInputDatabaseId: (String) -> Unit = {},
     val createMonthlyWidget: (
         appWidgetId: Int,
         databaseId: String,
-    ) -> Unit,
-    val clearConfigurationResult: () -> Unit,
+    ) -> Unit = { _, _ -> },
+    val clearConfigurationResult: () -> Unit = {},
 ) {
 
     val saveButtonEnabled: Boolean

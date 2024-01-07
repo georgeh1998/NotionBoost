@@ -17,8 +17,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+
+const val MONTHLY_WIDGET_LIST_SCREEN_TAG = "MonthlyWidgetListScreen"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +30,7 @@ fun MonthlyWidgetListScreen(
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.testTag(MONTHLY_WIDGET_LIST_SCREEN_TAG),
         topBar = {
             TopAppBar(
                 title = {

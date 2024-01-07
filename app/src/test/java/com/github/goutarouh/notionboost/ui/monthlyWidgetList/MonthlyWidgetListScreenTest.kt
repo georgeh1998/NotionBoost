@@ -1,4 +1,4 @@
-package com.github.goutarouh.notionboost.ui.welcome
+package com.github.goutarouh.notionboost.ui.monthlyWidgetList
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -16,22 +16,24 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(AndroidJUnit4::class)
 @Config(application = HiltTestApplication::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-class WelcomeScreenTest {
+class MonthlyWidgetListScreenTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `Capture WelcomeScreen`() = runTest {
+    fun `Capture MonthlyWidgetListScreen`() = runTest {
 
         // Act
         composeTestRule.setContent {
-            WelcomeScreen(WelcomeUiModel())
+            MonthlyWidgetListScreen(MonthlyWidgetListUiModel())
         }
 
         // Assert
-        composeTestRule.onNodeWithTag(WELCOME_SCREEN_TAG)
+        composeTestRule.onNodeWithTag(MONTHLY_WIDGET_LIST_SCREEN_TAG)
             .captureRoboImage()
+
     }
+
 
 }
