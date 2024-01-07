@@ -17,7 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+
+const val WELCOME_SCREEN_TAG = "WelcomeScreen"
 
 @Composable
 fun WelcomeScreen(
@@ -28,7 +31,8 @@ fun WelcomeScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color.White)
+            .testTag(WELCOME_SCREEN_TAG),
         contentAlignment = Alignment.Center
     ) {
         WelcomeContent(
