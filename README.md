@@ -44,3 +44,10 @@ Long-press on the home screen to display available widgets for addition. Please 
 |<img src="./images/readme/MonthlyWidgetConfigurationScreen.png" alt="MonthlyWidgetConfigurationScreen" width=300 >| Please enter the DatabaseId of the database <br>you want to display in the widget in the TextBox.<br>After that, press 'Create Widget'. |
 
 ### 6. Check the widgets.
+
+You can check the widgets you added to the home screen from within the app. The widgets update information approximately once every 24 hours, but you can manually update each widget from within the app.
+The image below is an example of adding two widgets.
+
+||
+|:-:|
+|<img src="./images/readme/MonthlyWidgetListScreen.png" alt="MonthlyWidgetListScreen" width=300 >|
