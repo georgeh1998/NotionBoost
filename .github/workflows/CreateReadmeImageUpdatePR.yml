@@ -1,7 +1,7 @@
 name: CreateReadmeImageUpdatePR
 
 on:
-  workflow_run:
+  workflow_dispatch:
 
 env:
   JSON_FILE_PATH: sample.json
