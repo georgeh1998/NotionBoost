@@ -26,7 +26,12 @@ class MonthlyWidgetListScreenTest {
 
         // Act
         composeTestRule.setContent {
-            MonthlyWidgetListScreen(MonthlyWidgetListUiModel())
+            MonthlyWidgetListScreen(MonthlyWidgetListUiModel(
+                widgets = listOf(
+                    MonthlyWidgetListItemModel(title = "title1"),
+                    MonthlyWidgetListItemModel(title = "title2"),
+                )
+            ))
         }
 
         // Assert
