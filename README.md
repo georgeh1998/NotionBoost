@@ -31,6 +31,9 @@ For more details, please check [Notion Developers Guides](https://developers.not
 
 ### 4. Add a widget from the home screen.
 
+Simply add the NotionBoost widget to your home screen.
+Long-press on the home screen to display available widgets for addition. Please select the NotionBoost widget from the options.
+
 ### 5. Enter the database id.
 
 |||
