@@ -26,17 +26,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - uses: dawidd6/action-download-artifact@v2
+        with:
+          commit: ${{ github.sha }}
+          name: screenshot
+          workflow: RecordReadmeImages.yml
+
       - name: Create new branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git switch -c readme_${{ env.CURRENT_DATETIME }}
           git push -u origin readme_${{ env.CURRENT_DATETIME }}
-
-      - uses: dawidd6/action-download-artifact@v2
-        with:
-          name: screenshot
-          workflow: RecordReadmeImages.yml
 
       - name: Replace images
         run: |
