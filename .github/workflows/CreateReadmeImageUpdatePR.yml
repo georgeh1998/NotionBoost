@@ -28,9 +28,11 @@ jobs:
 
       - uses: dawidd6/action-download-artifact@v2
         with:
-          branch: ${{ github.event.repository.default_branch }}
           name: screenshot
           workflow: RecordReadmeImages.yml
+          workflow_conclusion: success
+          path: |
+            **/build/outputs/roborazzi
 
       - name: Create new branch
         env:
