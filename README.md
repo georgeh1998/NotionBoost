@@ -9,7 +9,10 @@ You can easily check your Notion information on the Android home screen.
 
 ## Usage
 
-### 1. Create an integration from ["My Integrations"](https://www.notion.so/my-integrations/internal/e269868283a74ac3b7c7f01d2c75105b) in Notion.
+### 1. Create an integration from ["My Integrations"](https://www.notion.so/my-integrations/) in Notion.
+
+Please create an integration from [this page](https://www.notion.so/my-integrations/).
+You can use any name for the integration. The default permissions granted to the integration include read and update and insert access to content, but NotionBoost only requires read access.
 
 ### 2. Register the created integration on your Notion page.
 
