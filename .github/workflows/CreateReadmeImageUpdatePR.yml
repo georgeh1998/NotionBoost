@@ -4,10 +4,6 @@ on:
   workflow_dispatch:
 
 env:
-  JSON_FILE_PATH: sample.json
-  PR_TITLE: プルリクエストタイトル
-  PR_LABEL: hoge,foo
-  PR_TEMPLATE: .github/PULL_REQUEST_TEMPLATE.md
   DEST_BRANCH: main
 
 jobs:
@@ -26,6 +22,9 @@ jobs:
         env:
           TZ: 'Asia/Tokyo'
         run: echo "CURRENT_DATETIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Create new branch
         env:
