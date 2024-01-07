@@ -9,9 +9,15 @@ You can easily check your Notion information on the Android home screen.
 
 ## Usage
 
-### 1. Create an integration from ["My Integrations"](https://www.notion.so/my-integrations/internal/e269868283a74ac3b7c7f01d2c75105b) in Notion.
+### 1. Create an integration from ["My Integrations"](https://www.notion.so/my-integrations/) in Notion.
+
+Please create an integration from [this page](https://www.notion.so/my-integrations/).
+You can use any name for the integration. The default permissions granted to the integration include read and update and insert access to content, but NotionBoost only requires read access.
 
 ### 2. Register the created integration on your Notion page.
+
+Please register the created Integration Secret on your Notion page. By selecting 'Add Connections' from the `...` in the top-right corner of the page, you will see the integration you created. 
+For more details, please check [Notion Developers Guides](https://developers.notion.com/docs/create-a-notion-integration#give-your-integration-page-permissions)
 
 ### 3. Enter the Integration Secret in the first screen.
 
@@ -25,7 +31,13 @@ You can easily check your Notion information on the Android home screen.
 
 ### 4. Add a widget from the home screen.
 
+Simply add the NotionBoost widget to your home screen.
+Long-press on the home screen to display available widgets for addition. Please select the NotionBoost widget from the options.
+
 ### 5. Enter the database id.
+
+> [!WARNING]
+> If the Integration Secret or Database ID is incorrect, the error reason will be displayed as a Snackbar at the bottom of the screen after pressing 'Create Widget'.
 
 |||
 |:-:|:-:|
