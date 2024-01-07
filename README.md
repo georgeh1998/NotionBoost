@@ -36,6 +36,9 @@ Long-press on the home screen to display available widgets for addition. Please 
 
 ### 5. Enter the database id.
 
+> [!WARNING]
+> If the Integration Secret or Database ID is incorrect, the error reason will be displayed as a Snackbar at the bottom of the screen after pressing 'Create Widget'.
+
 |||
 |:-:|:-:|
 |<img src="./images/readme/MonthlyWidgetConfigurationScreen.png" alt="MonthlyWidgetConfigurationScreen" width=300 >| Please enter the DatabaseId of the database <br>you want to display in the widget in the TextBox.<br>After that, press 'Create Widget'. |
