@@ -16,6 +16,9 @@ You can use any name for the integration. The default permissions granted to the
 
 ### 2. Register the created integration on your Notion page.
 
+Please register the created Integration Secret on your Notion page. By selecting 'Add Connections' from the `...` in the top-right corner of the page, you will see the integration you created. 
+For more details, please check [Notion Developers Guides](https://developers.notion.com/docs/create-a-notion-integration#give-your-integration-page-permissions)
+
 ### 3. Enter the Integration Secret in the first screen.
 
 > [!WARNING]
