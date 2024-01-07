@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 10
 
     permissions:
-      contents: read # for clone
+      contents: write # for clone
       actions: write # for upload-artifact
       pull-requests: write
 
