@@ -43,12 +43,12 @@ jobs:
         run: |
           cp build/output/roborazzi/* images/readme/
 
-      - name: Add and Commit
-        uses: EndBug/add-and-commit@v7
-        with:
-          branch: readme_${{ env.CURRENT_DATETIME }}
-          message: ${{ Update Readme Images at env.CURRENT_DATETIME }}
-          add: images/readme
+      - name: Update Readme Images
+        run: |
+          git config user.email "gouta.gorogoro@gmail.com"
+          git config user.name "goutarouh"
+          git add images/readme
+          git commit -m "Update Readme Images at $CURRENT_DATETIME"
 
       - name: Create pull request
         uses: repo-sync/pull-request@v2
