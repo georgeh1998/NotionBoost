@@ -47,7 +47,7 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           branch: readme_${{ env.CURRENT_DATETIME }}
-          message: ${{ Update Readme Images at ${{ env.CURRENT_DATETIME }} }}
+          message: ${{ Update Readme Images at env.CURRENT_DATETIME }}
           add: images/readme
 
       - name: Create pull request
@@ -55,5 +55,5 @@ jobs:
         with:
           source_branch: readme_${{ env.CURRENT_DATETIME }}
           destination_branch: ${{ env.DEST_BRANCH }}
-          pr_title: ${{ Update Readme Images at ${{ env.CURRENT_DATETIME }} }}
+          pr_title: ${{ Update Readme Images at env.CURRENT_DATETIME }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
