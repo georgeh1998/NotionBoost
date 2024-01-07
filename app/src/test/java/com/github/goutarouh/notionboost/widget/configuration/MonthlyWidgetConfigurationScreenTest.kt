@@ -6,6 +6,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.goutarouh.notionboost.ui.monthlyWidgetList.MONTHLY_WIDGET_LIST_SCREEN_TAG
+import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
+import com.github.takahirom.roborazzi.InternalRoborazziApi
+import com.github.takahirom.roborazzi.RoborazziContext
 import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltTestApplication
 import kotlinx.coroutines.test.runTest
@@ -24,6 +28,7 @@ class MonthlyWidgetConfigurationScreenTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    @OptIn(InternalRoborazziApi::class, ExperimentalRoborazziApi::class)
     @Test
     fun `Capture MonthlyWidgetConfigurationScreen`() = runTest {
 
@@ -37,8 +42,9 @@ class MonthlyWidgetConfigurationScreenTest {
         }
 
         // Assert
+        val filePath = RoborazziContext.outputDirectory + "/$MONTHLY_WIDGET_LIST_SCREEN_TAG.png"
         composeTestRule.onNodeWithTag(MONTHLY_WIDGET_CONFIGURATION_SCREEN_TAG)
-            .captureRoboImage()
+            .captureRoboImage(filePath)
     }
 
 }

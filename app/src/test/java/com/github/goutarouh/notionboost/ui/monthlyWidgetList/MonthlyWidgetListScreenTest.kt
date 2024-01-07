@@ -4,6 +4,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
+import com.github.takahirom.roborazzi.InternalRoborazziApi
+import com.github.takahirom.roborazzi.RoborazziContext
 import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltTestApplication
 import kotlinx.coroutines.test.runTest
@@ -21,6 +24,7 @@ class MonthlyWidgetListScreenTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    @OptIn(ExperimentalRoborazziApi::class, InternalRoborazziApi::class)
     @Test
     fun `Capture MonthlyWidgetListScreen`() = runTest {
 
@@ -35,8 +39,9 @@ class MonthlyWidgetListScreenTest {
         }
 
         // Assert
+        val filePath = RoborazziContext.outputDirectory + "/${MONTHLY_WIDGET_LIST_SCREEN_TAG}.png"
         composeTestRule.onNodeWithTag(MONTHLY_WIDGET_LIST_SCREEN_TAG)
-            .captureRoboImage()
+            .captureRoboImage(filePath)
 
     }
 
