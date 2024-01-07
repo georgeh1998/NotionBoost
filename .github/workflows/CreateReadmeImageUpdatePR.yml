@@ -55,5 +55,5 @@ jobs:
         with:
           source_branch: readme_${{ env.CURRENT_DATETIME }}
           destination_branch: ${{ env.DEST_BRANCH }}
-          pr_title: ${{ Update Readme Images at env.CURRENT_DATETIME }}
+          pr_title: Update Readme Images at ${{ env.CURRENT_DATETIME }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
