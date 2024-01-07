@@ -6,9 +6,11 @@ on:
       - main
     paths-ignore:
       - '**/README.md'
+      - '**/*.yml'
   pull_request:
     paths-ignore:
       - '**/README.md'
+      - '**/*.yml'
 
 permissions: {}
 
