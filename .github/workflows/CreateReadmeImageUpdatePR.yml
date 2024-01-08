@@ -26,6 +26,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Create new branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git switch -c readme_${{ env.CURRENT_DATETIME }}
+          git push -u origin readme_${{ env.CURRENT_DATETIME }}
+
       - uses: dawidd6/action-download-artifact@v2
         with:
           name: screenshot
@@ -34,15 +41,9 @@ jobs:
           path: |
             **/build/outputs/roborazzi
 
-      - name: Create new branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git switch -c readme_${{ env.CURRENT_DATETIME }}
-          git push -u origin readme_${{ env.CURRENT_DATETIME }}
-
       - name: Replace images
         run: |
+          app/build/outputs/roborazzi/
           ls app/build/outputs/roborazzi/
           ls images/readme/
           cp -r app/build/outputs/roborazzi/* images/readme/
