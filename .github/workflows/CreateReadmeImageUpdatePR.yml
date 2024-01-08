@@ -43,9 +43,7 @@ jobs:
 
       - name: Replace images
         run: |
-          ls app/build/outputs/roborazzi/
-          ls images/readme/
-          cp -r app/build/outputs/roborazzi/* images/readme/
+          cp -r **/build/outputs/roborazzi/* images/readme/
 
       - name: Update Readme Images
         run: |
