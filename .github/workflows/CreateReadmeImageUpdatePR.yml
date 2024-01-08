@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.email "gouta.gorogoro@gmail.com"
           git config user.name "goutarouh"
-          git add 
+          git add images/readme/
           git commit -m "Update Readme Images at $CURRENT_DATETIME"
 
       - name: Create pull request
