@@ -43,13 +43,15 @@ jobs:
 
       - name: Replace images
         run: |
-          cp app/build/output/roborazzi/* images/readme/
+          ls app/build/output/roborazzi/
+          ls images/readme/
+          cp -r app/build/output/roborazzi/* images/readme/
 
       - name: Update Readme Images
         run: |
           git config user.email "gouta.gorogoro@gmail.com"
           git config user.name "goutarouh"
-          git add images/readme
+          git add 
           git commit -m "Update Readme Images at $CURRENT_DATETIME"
 
       - name: Create pull request
