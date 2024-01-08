@@ -29,7 +29,7 @@ jobs:
       - uses: dawidd6/action-download-artifact@v2
         with:
           name: screenshot
-          workflow: RecodReadmeImages.yml
+          workflow: RecordReadmeImages.yml
           workflow_conclusion: success
           path: |
             **/build/outputs/roborazzi
@@ -43,7 +43,7 @@ jobs:
 
       - name: Replace images
         run: |
-          cp build/output/roborazzi/* images/readme/
+          cp app/build/output/roborazzi/* images/readme/
 
       - name: Update Readme Images
         run: |
