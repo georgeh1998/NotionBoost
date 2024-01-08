@@ -1,6 +1,7 @@
 name: CreateReadmeImage
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
