@@ -42,7 +42,7 @@ class MonthlyWidgetConfigurationScreenTest {
         }
 
         // Assert
-        val filePath = RoborazziContext.outputDirectory + "/$MONTHLY_WIDGET_LIST_SCREEN_TAG.png"
+        val filePath = RoborazziContext.outputDirectory + "/${MONTHLY_WIDGET_CONFIGURATION_SCREEN_TAG}.png"
         composeTestRule.onNodeWithTag(MONTHLY_WIDGET_CONFIGURATION_SCREEN_TAG)
             .captureRoboImage(filePath)
     }
