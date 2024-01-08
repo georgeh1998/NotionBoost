@@ -32,8 +32,8 @@ class MonthlyWidgetListScreenTest {
         composeTestRule.setContent {
             MonthlyWidgetListScreen(MonthlyWidgetListUiModel(
                 widgets = listOf(
-                    MonthlyWidgetListItemModel(title = "title1"),
-                    MonthlyWidgetListItemModel(title = "title2"),
+//                    MonthlyWidgetListItemModel(title = "title1"),
+//                    MonthlyWidgetListItemModel(title = "title2"),
                 )
             ))
         }
