@@ -26,7 +26,7 @@ For more details, please check [Notion Developers Guides](https://developers.not
 
 |||
 |:-:|:-:|
-|<img src="./images/readme/WelcomeScreen.png" alt="WelcomeScreen" width=300 >| Please enter your Integration Key in the TextBox.<br>After that, press 'Start using Notion Boost'. |
+|<img src="./images/readme/app/build/roborazzi/WelcomeScreen.png" alt="WelcomeScreen" width=300 >| Please enter your Integration Key in the TextBox.<br>After that, press 'Start using Notion Boost'. |
 
 
 ### 4. Add a widget from the home screen.
@@ -41,7 +41,7 @@ Long-press on the home screen to display available widgets for addition. Please 
 
 |||
 |:-:|:-:|
-|<img src="./images/readme/MonthlyWidgetConfigurationScreen.png" alt="MonthlyWidgetConfigurationScreen" width=300 >| Please enter the DatabaseId of the database <br>you want to display in the widget in the TextBox.<br>After that, press 'Create Widget'. |
+|<img src="./images/readme/app/build/roborazzi/MonthlyWidgetConfigurationScreen.png" alt="MonthlyWidgetConfigurationScreen" width=300 >| Please enter the DatabaseId of the database <br>you want to display in the widget in the TextBox.<br>After that, press 'Create Widget'. |
 
 ### 6. Check the widgets.
 
@@ -50,7 +50,7 @@ The image below is an example of adding two widgets.
 
 ||
 |:-:|
-|<img src="./images/readme/MonthlyWidgetListScreen.png" alt="MonthlyWidgetListScreen" width=300 >|
+|<img src="./images/readme/app/build/roborazzi/MonthlyWidgetListScreen.png" alt="MonthlyWidgetListScreen" width=300 >|
 
 
 

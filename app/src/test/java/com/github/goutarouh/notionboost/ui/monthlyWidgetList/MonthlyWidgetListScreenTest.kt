@@ -35,6 +35,7 @@ class MonthlyWidgetListScreenTest {
                     MonthlyWidgetListItemModel(title = "title1"),
                     MonthlyWidgetListItemModel(title = "title2"),
                     MonthlyWidgetListItemModel(title = "title3"),
+                    MonthlyWidgetListItemModel(title = "title4"),
                 )
             ))
         }
