@@ -4,8 +4,12 @@
 
 ## About
 
-NotionBoost 
 You can easily check your Notion information on the Android home screen.
+
+| Database with Created time & some Checkbox in Notion | Widget of NotionBoost |
+|:-:|:-:|
+| <img width="500" alt="Database with Created time & some Checkbox in Notion" src="https://github.com/goutarouh/NotionBoost/assets/42675317/ed01435e-5d59-40b6-94e8-b031d6244a94"> | <img width="300" alt="Widget" src="https://github.com/goutarouh/NotionBoost/assets/42675317/d1b8bf84-d099-474b-b853-d51fab13abed" > |
+
 
 ## Usage
 
