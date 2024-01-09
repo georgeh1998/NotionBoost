@@ -39,12 +39,18 @@ jobs:
           workflow: RecordReadmeImages.yml
           workflow_conclusion: success
           path: |
-            **/build/outputs/roborazzi
+            app/build/outputs/roborazzi
 
       - name: Replace images
         run: |
-          echo ==================================
-          ls **
-          echo ==================================
-          ls **/build/outputs/roborazzi
+          cp -r app/build/outputs/roborazzi/ images/readme/
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          add-paths: images/readme/
+          commit-message: Update Readme Images at ${{ env.CURRENT_DATETIME }}
+          title: Update Readme Images at ${{ env.CURRENT_DATETIME }}
+          branch: readme_${{ env.CURRENT_DATETIME }}
+          base: main
         
