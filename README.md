@@ -51,3 +51,29 @@ The image below is an example of adding two widgets.
 ||
 |:-:|
 |<img src="./images/readme/MonthlyWidgetListScreen.png" alt="MonthlyWidgetListScreen" width=300 >|
+
+
+
+# For Developers
+
+
+## Module structure
+
+| Module name | Description | Test Strategy |
+| :-: | :-: | :- |
+| app | The typical UI layer including Fragments(for navigation), Composable(for UI), ViewModel(for state management). | Composable functions are tested with Screen-Shot-Test. ViewModels are tested are Unit-Test. |
+| repository(usecase) | Exists solely to call the data layer, and as needed, usecases are created to encapsulate business logic | Conduct tests for the use case, validating inputs and outputs that make sense from a business perspective. Detailed implementation should not be tested. |
+| data | All implementations affected by external dependencies are placed within this layer. Interfaces are exposed to upper layers, and Hilt is used for dependency injection of the productional implementation classes. | Do not perform tests on the data layer itself. However, Create Fake objects implementing each interface for testing purposes. |
+| test | In the layers where unit testing is necessary, introduce dependencies on this module to enable the injection of test-specific fake objects. To achieve this, we create a TestModule within this module. |  |
+
+
+```mermaid
+flowchart TD
+  id1(:app) -- implementation --> id2(":repository(usecase)")
+  id1(:app) -- testImplementation --> id3(:data)
+  id1(:app) -- testImplementation --> id4(:test)
+	id2(":repository(usecase)") -- implementation --> id3(:data)
+  id2(":repository(usecase)") -- testImplementation --> id4(:test)
+	id4(:test) -- implementation --> id3(:data)
+```
+
