@@ -6,8 +6,8 @@
 
 ## About
 
-You can easily check your Notion information on the Android home screen.
-For now, NotionBoost supports a database like the images on the left side of the following table.
+You can easily check your Notion information on the Android home screen as Widget.
+For now, NotionBoost supports a database like the image on the left side of the following table.
 
 | Database with Created time & some Checkbox in Notion | Widget of NotionBoost |
 |:-:|:-:|
