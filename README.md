@@ -1,10 +1,13 @@
 # NotionBoost
 
 [![Android](https://github.com/goutarouh/NotionBoost/actions/workflows/Android.yml/badge.svg)](https://github.com/goutarouh/NotionBoost/actions/workflows/Android.yml)
+[![CreateReadmeImage](https://github.com/goutarouh/NotionBoost/actions/workflows/RecordReadmeImages.yml/badge.svg?branch=main)](https://github.com/goutarouh/NotionBoost/actions/workflows/RecordReadmeImages.yml)
+[![CreateReadmeImageUpdatePR](https://github.com/goutarouh/NotionBoost/actions/workflows/CreateReadmeImageUpdatePR.yml/badge.svg)](https://github.com/goutarouh/NotionBoost/actions/workflows/CreateReadmeImageUpdatePR.yml)
 
 ## About
 
 You can easily check your Notion information on the Android home screen.
+For now, NotionBoost supports a database like the images on the left side of the following table.
 
 | Database with Created time & some Checkbox in Notion | Widget of NotionBoost |
 |:-:|:-:|
