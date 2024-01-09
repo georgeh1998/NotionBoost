@@ -45,17 +45,11 @@ jobs:
         run: |
           cp -r **/build/outputs/roborazzi/* images/readme/
 
-      - name: Update Readme Images
-        run: |
-          git config user.email "gouta.gorogoro@gmail.com"
-          git config user.name "goutarouh"
-          git add images/readme/
-          git commit -m "Update Readme Images at $CURRENT_DATETIME"
-
-      - name: Create pull request
-        uses: repo-sync/pull-request@v2
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
         with:
-          source_branch: readme_${{ env.CURRENT_DATETIME }}
-          destination_branch: ${{ env.DEST_BRANCH }}
-          pr_title: Update Readme Images at ${{ env.CURRENT_DATETIME }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          path: images/readme/
+          commit-message: Update Readme Images at $CURRENT_DATETIME
+          title: Update Readme Images at $CURRENT_DATETIME
+          branch: readme_${{ env.CURRENT_DATETIME }}
+          base: main
